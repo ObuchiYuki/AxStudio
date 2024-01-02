@@ -7,6 +7,7 @@
 
 import EmeralyUI
 import SwiftEx
+import AppKit
 import AxDocument
 import AxComponents
 import AxCommand

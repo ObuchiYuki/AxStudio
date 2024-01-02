@@ -11,6 +11,7 @@ import AxDocument
 import DesignKit
 import AxCommand
 import SwiftEx
+import AppKit
 
 final class AxGroupCellController: NSViewController {
     private let cell = AxGroupCell()

@@ -7,6 +7,7 @@
 
 import AppKit
 import SwiftEx
+import AppKit
 
 private let kIconSize = CGSize(width: 21, height: 21)
 

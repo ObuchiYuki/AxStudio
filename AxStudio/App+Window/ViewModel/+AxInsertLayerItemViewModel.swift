@@ -8,15 +8,22 @@
 import AxComponents
 import DesignKit
 import SwiftEx
+import AppKit
 import AxDocument
 import AxCommand
+
+extension String {
+    func ____locarized() -> String {
+        NSLocalizedString(self, comment: "")
+    }
+}
 
 final class AxInsertLayerItemViewModel {
     let insertButton: ACPopupToolbarButton
     init(_ insertButton: ACPopupToolbarButton) { self.insertButton = insertButton }
     
     func loadDocument(_ document: AxDocument) {
-        insertButton.addItem("Rectangle.insert".locarized(), icon: R.Image.Insert.rectangle) {[unowned document] in
+        insertButton.addItem("Rectangle.insert".____locarized(), icon: R.Image.Insert.rectangle) {[unowned document] in
             document.execute(AxSetAddShapeCommand(shapeType: .rectangle))
         }
         insertButton.addItem("Ellipse", icon: R.Image.Insert.oval) {[unowned document] in
@@ -25,13 +32,13 @@ final class AxInsertLayerItemViewModel {
         
         insertButton.addSeparator()
         
-        insertButton.addItem("Screen.insert".locarized(), icon: R.Image.Insert.screen) {[unowned document] in
+        insertButton.addItem("Screen.insert".____locarized(), icon: R.Image.Insert.screen) {[unowned document] in
             document.execute(AxMakeScreenCommand())
         }
-        insertButton.addItem("Text.insert".locarized(), icon: R.Image.Insert.text) {[unowned document] in
+        insertButton.addItem("Text.insert".____locarized(), icon: R.Image.Insert.text) {[unowned document] in
             document.execute(AxSetAddShapeCommand(shapeType: .text))
         }
-        insertButton.addItem("Image.insert".locarized(), icon: R.Image.Insert.image) {[unowned document] in
+        insertButton.addItem("Image.insert".____locarized(), icon: R.Image.Insert.image) {[unowned document] in
             document.execute(AxSetAddShapeCommand(shapeType: .image))
         }
 //        insertButton.addItem("Video.insert".locarized(), icon: R.Image.Insert.video) {[unowned document] in

@@ -10,6 +10,7 @@ import DesignKit
 import AxDocument
 import AxCommand
 import SwiftEx
+import AppKit
 import Combine
 import AxModelCore
 
@@ -27,7 +28,7 @@ final class AxInitialScreenCellController: NSViewController {
             .sink{[unowned self] in cell.layerWell.message = "Screen - \($0.sizeClass.name)" }
             .store(in: &objectBag)
         self.document.rootNode.appFile.$initialScreen
-            .sink{[unowned self] in cell.layerWell.wellState = .identical($0?.value) }
+            .sink{[unowned self] in cell.layerWell.wellState = .identical($0?.get(document.session)) }
             .store(in: &objectBag)
         self.cell.layerWell.layerPublisher.compactMap{ $0 as? DKScreen }
             .sink(on: document) {[unowned self] in document.rootNode.appFile.initialScreen = AxModelRef($0) }

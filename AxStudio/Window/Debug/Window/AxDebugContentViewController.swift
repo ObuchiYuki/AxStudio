@@ -7,6 +7,7 @@
 
 import AppKit
 import SwiftEx
+import AppKit
  
 final class AxDebugContentViewController: NSSplitViewController {
     let sidebar = AxDebugSidebarViewController()

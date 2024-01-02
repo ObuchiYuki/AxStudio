@@ -12,6 +12,7 @@ import DesignKit
 import AxDocument
 import AxCommand
 import SwiftEx
+import AppKit
 
 class AxStyleBorderCellController: NSViewController {
 
@@ -40,7 +41,9 @@ class AxStyleBorderCellController: NSViewController {
             .sink{[unowned self] in execute(AxBorderIsEnabledCommand(isEnabled: $0)) }.store(in: &objectBag)
         
         cell.colorWell.colorPublisher
-            .sink{[unowned self] in document.execute(AxBorderColorCommand($0)) }.store(in: &objectBag)
+            .sink{[unowned self] in
+                document.session.broadcast(AxBorderColorCommand.fromPhase($0))
+            }.store(in: &objectBag)
         cell.colorWell.colorStatePublisher
             .sink{[unowned self] in document.execute(AxLinkToStateCommand($0, \DKStyleBorderLayerType.border.color)) }.store(in: &objectBag)
         cell.colorWell.colorConstantPublisher
@@ -48,16 +51,18 @@ class AxStyleBorderCellController: NSViewController {
         cell.colorWell.deattchConstantPublisher
             .sink{[unowned self] in document.execute(AxBecomeStaticCommand(\DKStyleBorderLayerType.border.color)) }.store(in: &objectBag)
         cell.colorTip.commandPublisher
-            .sink{[unowned self] in document.execute(AxDynamicLayerPropertyCommand($0, "Border Color", \DKStyleBorderLayerType.border.color)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.execute(AxDynamicLayerPropertyCommand($0, "Border Color", \DKStyleBorderLayerType.border.color)) }
+            .store(in: &objectBag)
         
         cell.hexField.valuePublisher
-            .sink{[unowned self] in document.execute(AxBorderColorCommand(.pulse(DKColor(rgb: $0, alpha: 1)))) }.store(in: &objectBag)
+            .sink{[unowned self] (red, green, blue) in document.session.broadcast(AxBorderColorCommand.once(with: DKColor(red: red, green: green, blue: blue, alpha: 1))) }
+            .store(in: &objectBag)
         cell.hexField.statePublisher
             .sink{[unowned self] in document.execute(AxLinkToStateCommand($0, \DKStyleBorderLayerType.border.color)) }.store(in: &objectBag)
         cell.hexField.constantPublisher
             .sink{[unowned self] in document.execute(AxLinkToConstantCommand($0, \DKStyleBorderLayerType.border.color)) }.store(in: &objectBag)
         cell.widthField.phasePublisher
-            .sink{[unowned self] in document.execute(AxBorderWidthCommand($0)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxBorderWidthCommand.fromPhase($0)) }.store(in: &objectBag)
         cell.widthField.statePublisher
             .sink{[unowned self] in document.execute(AxLinkToStateCommand($0, \DKStyleBorderLayerType.border.width)) }.store(in: &objectBag)
         cell.widthTip.commandPublisher

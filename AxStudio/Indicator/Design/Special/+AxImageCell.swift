@@ -11,6 +11,7 @@ import DesignKit
 import AxDocument
 import AxCommand
 import SwiftEx
+import AppKit
 import AxComponents
 
 final class AxImageCellController: NSViewController {
@@ -24,7 +25,7 @@ final class AxImageCellController: NSViewController {
         let imageValue = imageLayers.dynamicProperty(\.$image, document: document)
         let contentMode = imageLayers.switchToLatest{ $0.map{ $0.$contentMode }.combineLatest }.map{ $0.mixture(.aspectFill) }
         
-        imageValue.sink{[unowned self] in cell.imageWell.setDynamicState($0) }.store(in: &objectBag)
+        imageValue.sink{[unowned self] in cell.imageWell.setDynamicState($0, session: document.session) }.store(in: &objectBag)
         imageValue.sink{[unowned self] in cell.imageTip.setDynamicState($0) }.store(in: &objectBag)
             
         contentMode

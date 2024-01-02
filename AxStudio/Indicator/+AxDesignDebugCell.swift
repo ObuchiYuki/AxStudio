@@ -9,6 +9,7 @@ import AppKit
 import AxComponents
 import AxCommand
 import SwiftEx
+import AppKit
 import DesignKit
 import BluePrintKit
 import STDComponents

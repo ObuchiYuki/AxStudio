@@ -7,6 +7,7 @@
 
 import AxModelCore
 import SwiftEx
+import AppKit
 
 enum AxBuildinMediaError: Error {
     case unkownPath

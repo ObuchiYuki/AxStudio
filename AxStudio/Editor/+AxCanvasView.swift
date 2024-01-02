@@ -9,6 +9,7 @@
 import LapixUI
 import DesignKit
 import SwiftEx
+import AppKit
 import AxDocument
 import AppKit
 import AxCommand

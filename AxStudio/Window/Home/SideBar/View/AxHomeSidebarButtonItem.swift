@@ -8,6 +8,7 @@
 import AxComponents
 import AppKit
 import SwiftEx
+import AppKit
 import Combine
 
 final class AxHomeSidebarButtonItem: ACSidebarItem {

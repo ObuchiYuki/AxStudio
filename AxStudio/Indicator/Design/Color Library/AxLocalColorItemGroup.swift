@@ -10,12 +10,13 @@ import AxComponents
 import DesignKit
 import BluePrintKit
 import SwiftEx
+import AppKit
 import Combine
 import AxCommand
 
 extension AxDocument {
     public var documentColorLibrary: ACColorItemLibrary {
-        localCache("colorItemLibrary", make: ACColorItemLibrary() => {
+        session.localCache("colorItemLibrary", make: ACColorItemLibrary() => {
             $0.register(AxLocalColorItemGroup(self))
             $0.register(ACStandardColorItemGroup.shared)
         })
@@ -51,19 +52,17 @@ final public class AxLocalColorItemGroup: ACColorItemGroup {
     }
     
     public func onMoveItem(_ pasteboard: NSPasteboard, to index: Int) -> Bool {
-        guard let constant = pasteboard.nodeRefs(type: .bpConstant, session: document.session)?.first else { return false }
+        guard let constant = pasteboard.getNodeRefs(for: .bpConstant, session: document.session)?.first else { return false }
         document.execute(AxMoveColorConstantCommand(constant, index - 1))
         return true
     }
-    public func onAddColor(_ color: DKColor, name: String, model: ACColorPickerModel) {
-        AxMakeConstant.color(color, name: name, document: document)
-            .peek{ model.colorConstantPublisher.send($0) }
-            .catch(document.handleError)
+    public func onAddColor(_ color: DKColor, name: String, model: ACColorPickerModel) throws {
+        let constant = try AxMakeConstant.color(color, name: name, document: document)
+        model.colorConstantPublisher.send(constant)
     }
-    public func onAddGradient(_ gradient: DKGradient, name: String, model: ACColorPickerModel) {
-        AxMakeConstant.gradient(gradient, name: name, document: document)
-            .peek{ model.gradientConstantPublisher.send($0) }
-            .catch(document.handleError)
+    public func onAddGradient(_ gradient: DKGradient, name: String, model: ACColorPickerModel) throws {
+        let constant = try AxMakeConstant.gradient(gradient, name: name, document: document)
+        model.gradientConstantPublisher.send(constant)
     }
     
     let document: AxDocument

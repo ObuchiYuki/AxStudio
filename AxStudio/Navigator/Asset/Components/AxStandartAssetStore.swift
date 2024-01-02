@@ -9,6 +9,7 @@ import DesignKit
 import Combine
 import AxDocument
 import SwiftEx
+import AppKit
 import STDComponents
 import AxComponents
 import AxCommand

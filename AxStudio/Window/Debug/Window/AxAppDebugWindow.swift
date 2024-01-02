@@ -10,6 +10,7 @@ import AxComponents
 import AxModelCore
 import AxDocument
 import SwiftEx
+import AppKit
 
 final class AxDebugWindowController: NSWindowController {
     static func instantiate(document: AxDocument) -> AxDebugWindowController {

@@ -10,6 +10,7 @@ import AxComponents
 import DesignKit
 import BluePrintKit
 import SwiftEx
+import AppKit
 import Combine
 import AxCommand
 
@@ -19,6 +20,7 @@ final public class AxLocalGradientItem: ACColorItem {
     public let canRemove: Bool = true
     public let itemType: DKFillType = .gradient
     public var namep: AnyPublisher<String, Never> { constant.$name.eraseToAnyPublisher() }
+    public var colorp: AnyPublisher<DKColor, Never> { Empty().eraseToAnyPublisher() }
     public var gradientp: AnyPublisher<DKGradient, Never> { constant.$value.compactMap{ $0 as? BPGradient }.eraseToAnyPublisher() }
     
     let document: AxDocument
@@ -31,7 +33,7 @@ final public class AxLocalGradientItem: ACColorItem {
         model.gradientConstantPublisher.send(constant)
     }
     public func pasteboardWriter() -> NSPasteboardWriting? {
-        constant.pasteBoardRefStorage(forType: .bpConstant)
+        constant.pasteboardRefWriting(for: .bpConstant)
     }
     
     init(_ constant: BPConstant, document: AxDocument) {

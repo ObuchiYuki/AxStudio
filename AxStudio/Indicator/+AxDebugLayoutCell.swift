@@ -9,6 +9,7 @@ import AxComponents
 import DesignKit
 import AppKit
 import SwiftEx
+import AppKit
 import AxCommand
 
 final class AxDebugLayoutCellController: NSViewController {

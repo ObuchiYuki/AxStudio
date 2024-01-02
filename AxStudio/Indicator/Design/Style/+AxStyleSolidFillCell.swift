@@ -9,6 +9,7 @@ import AxDocument
 import AxCommand
 import DesignKit
 import SwiftEx
+import AppKit
 import AxComponents
 
 final class AxStyleSolidFillCellController: NSViewController {

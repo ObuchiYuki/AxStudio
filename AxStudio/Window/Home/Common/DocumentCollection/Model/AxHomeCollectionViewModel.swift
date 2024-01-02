@@ -7,6 +7,7 @@
 
 import Combine
 import SwiftEx
+import AppKit
 
 final class AxHomeDocumentCollectionViewModel {
     @ObservableProperty var itemData = [AxHomeDocumentData]()

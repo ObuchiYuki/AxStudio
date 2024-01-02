@@ -8,7 +8,9 @@
 import AppKit
 import Combine
 import SwiftEx
+import AppKit
 import AxDocument
+import Promise
 
 final class AxRecentCloudDocumentItemsLoader {
     

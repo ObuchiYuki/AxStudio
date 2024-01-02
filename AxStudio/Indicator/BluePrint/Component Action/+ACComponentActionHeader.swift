@@ -8,6 +8,7 @@
 import AxComponents
 import BluePrintKit
 import SwiftEx
+import AppKit
 import AxCommand
 
 final class ACComponentActionHeaderController: ACStackViewFoldHeaderController {

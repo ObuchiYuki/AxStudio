@@ -6,6 +6,7 @@
 //
 
 import SwiftEx
+import AppKit
 import TableUI
 
 final class AxTableEditorViewController: TBTableViewController {

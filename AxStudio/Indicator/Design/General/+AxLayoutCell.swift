@@ -8,6 +8,7 @@
 import AppKit
 import DesignKit
 import SwiftEx
+import AppKit
 import AxCommand
 import AxDocument
 import AxComponents

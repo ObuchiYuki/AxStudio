@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftEx
+import AppKit
 
 enum AxRecentDocumentFormatter {
     static func convertToDocumentData(_ content: AxRecentDocumentItem) -> AxHomeDocumentData {

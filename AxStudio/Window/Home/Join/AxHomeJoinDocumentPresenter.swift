@@ -9,6 +9,7 @@ import AppKit
 import Combine
 import AxDocument
 import SwiftEx
+import AppKit
 import AxComponents
 
 final class AxHomeJoinDocumentPresenter {

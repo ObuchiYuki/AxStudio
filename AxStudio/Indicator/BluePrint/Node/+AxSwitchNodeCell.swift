@@ -7,6 +7,7 @@
 
 import AxDocument
 import SwiftEx
+import AppKit
 import DesignKit
 import BluePrintKit
 import AxComponents

@@ -11,6 +11,7 @@ import DesignKit
 import Combine
 import STDComponents
 import SwiftEx
+import AppKit
 import AxComponents
 
 final class AxNavigatorViewController: NSSplitViewController {

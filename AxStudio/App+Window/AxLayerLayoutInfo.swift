@@ -8,6 +8,7 @@
 import AxDocument
 import AxComponents
 import SwiftEx
+import AppKit
 import LayoutEngine
 
 enum AxLayerLayoutInfo {

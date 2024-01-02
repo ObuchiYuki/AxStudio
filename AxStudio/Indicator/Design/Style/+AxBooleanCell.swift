@@ -9,6 +9,7 @@
 //import AxDocument
 //import AxCommand
 //import SwiftEx
+import AppKit
 //import AppKit
 //import AxComponents
 //import DesignKit

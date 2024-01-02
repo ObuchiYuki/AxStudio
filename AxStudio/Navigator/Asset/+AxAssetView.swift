@@ -7,6 +7,7 @@
 
 import AxComponents
 import SwiftEx
+import AppKit
 
 final class AxAssetViewController: NSViewController {
     private let headerController = AxAssetHeaderViewController()

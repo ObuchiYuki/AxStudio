@@ -10,6 +10,7 @@ import AppKit
 import DesignKit
 import AxDocument
 import SwiftEx
+import AppKit
 import AxComponents
 
 final class AxAppIndicatorViewController: ACStackViewController_ {

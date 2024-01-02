@@ -7,8 +7,10 @@
 
 import AxDocument
 import BluePrintKit
+import Combine
 import AxCommand
 import SwiftEx
+import AppKit
 import DesignKit
 import STDComponents
 
@@ -18,7 +20,8 @@ final class AxAppDebugViewModel {
     
     func loadDocument(_ document: AxDocument) {
         if DebugSettings.Load.showFragments {
-            document.session.fragmentHandler.sender.publisher().sink{ print($0) }.store(in: &objectBag)
+            #warning("現在はできない")
+//            document.session.fragmentHandler.sender.publisher().sink{ print($0) }.store(in: &objectBag)
         }
         if DebugSettings.Load.showExpression {
             DispatchQueue.main.async {

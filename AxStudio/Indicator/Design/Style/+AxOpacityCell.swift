@@ -10,6 +10,7 @@ import AppKit
 import AxComponents
 import AxDocument
 import SwiftEx
+import AppKit
 import AxCommand
 import DesignKit
 import Neontetra

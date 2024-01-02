@@ -8,6 +8,7 @@
 
 import AppKit
 import SwiftEx
+import AppKit
 import AxComponents
 
 final class AxHomeBodyTitleSection: ACCompositionalSection {

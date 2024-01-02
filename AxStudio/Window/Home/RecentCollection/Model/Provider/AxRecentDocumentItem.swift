@@ -5,6 +5,7 @@
 //  Created by yuki on 2021/09/18.
 //
 
+import AppKit
 import AxDocument
 
 final class AxRecentDocumentItem {

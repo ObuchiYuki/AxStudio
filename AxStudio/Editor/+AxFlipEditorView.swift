@@ -6,6 +6,7 @@
 //
 
 import SwiftEx
+import AppKit
 
 final class AxFlipEditorViewController: NSViewController {
     let editorSplitViewController = AxEditorSplitViewController()

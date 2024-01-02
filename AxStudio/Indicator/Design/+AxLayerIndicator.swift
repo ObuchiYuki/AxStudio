@@ -11,6 +11,7 @@ import AxComponents
 import BluePrintKit
 import STDComponents
 import SwiftEx
+import AppKit
 
 final class AxDesignIndicatorViewController: ACStackViewController_ {
     private let geometoryCell = AxGeometryCellController()

@@ -7,6 +7,7 @@
 
 import Combine
 import SwiftEx
+import AppKit
 import BluePrintKit
 import AxDocument
 import AxCommand

@@ -11,6 +11,7 @@ import AppKit
 import AxDocument
 import DesignKit
 import SwiftEx
+import AppKit
 import AxCommand
 import BluePrintKit
 
@@ -30,9 +31,9 @@ class AxCornerRadiusCellController: NSViewController {
         
         cornerRaius.sink{[unowned self] in self.cell.radiusField.setDynamicState($0) }.store(in: &objectBag)
         cornerRaius.sink{[unowned self] in self.cell.radiusTip.setDynamicState($0) }.store(in: &objectBag)
-
+        
         cell.radiusField.phasePublisher
-            .sink{[unowned self] in document.execute(AxCornerRadiusCommand($0)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxCornerRadiusCommand.fromPhase($0)) }.store(in: &objectBag)
         cell.radiusField.statePublisher
             .sink{[unowned self] in document.execute(AxLinkToStateCommand($0, \DKCornerRadiusLayerType.cornerRadius.radius)) }.store(in: &objectBag)
         cell.cornerTypeButton.itemPublisher

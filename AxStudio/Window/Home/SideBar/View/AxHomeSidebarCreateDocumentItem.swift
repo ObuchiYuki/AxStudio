@@ -8,6 +8,7 @@
 import AppKit
 import AxComponents
 import SwiftEx
+import AppKit
 
 final class AxHomeSidebarCreateDocumentItem: ACSidebarItem {
     let cellHeight: CGFloat = 36

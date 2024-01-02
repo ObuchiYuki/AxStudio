@@ -9,6 +9,7 @@
 import AppKit
 import Combine
 import SwiftEx
+import AppKit
 import AxComponents
 import AxDocument
 import KeychainAccess

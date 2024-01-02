@@ -9,6 +9,7 @@ import AppKit
 import EmeralyUI
 import BluePrintKit
 import SwiftEx
+import AppKit
 import Combine
 
 open class AxNodeViewController: NSViewController {

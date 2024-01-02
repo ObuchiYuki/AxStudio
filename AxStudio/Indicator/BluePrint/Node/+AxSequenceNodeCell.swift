@@ -8,6 +8,7 @@
 import BluePrintKit
 import AxComponents
 import SwiftEx
+import AppKit
 import AxModelCore
 
 final class AxSequenceNodeCellController: AxNodeViewController {

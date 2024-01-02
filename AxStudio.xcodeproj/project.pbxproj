@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B66D6F7D2B44432B000BC88E /* TableUI in Frameworks */ = {isa = PBXBuildFile; productRef = B66D6F7C2B44432B000BC88E /* TableUI */; };
+		B66D6F802B4443F9000BC88E /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = B66D6F7F2B4443F9000BC88E /* ZIPFoundation */; };
+		B66D6F832B44444A000BC88E /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = B66D6F822B44444A000BC88E /* KeychainAccess */; };
 		B6FE15052B43EA5A0048C5C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15042B43EA5A0048C5C4 /* AppDelegate.swift */; };
 		B6FE15FB2B43EB020048C5C4 /* _Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15132B43EB010048C5C4 /* _Document.swift */; };
 		B6FE15FC2B43EB020048C5C4 /* AxDocumentPreviewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15152B43EB010048C5C4 /* AxDocumentPreviewManager.swift */; };
@@ -365,8 +368,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B66D6F7D2B44432B000BC88E /* TableUI in Frameworks */,
 				B6FE16AB2B44022D0048C5C4 /* EmeralyUI in Frameworks */,
 				B6FE16A82B43EB550048C5C4 /* AxComponents in Frameworks */,
+				B66D6F802B4443F9000BC88E /* ZIPFoundation in Frameworks */,
+				B66D6F832B44444A000BC88E /* KeychainAccess in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1068,6 +1074,9 @@
 			packageProductDependencies = (
 				B6FE16A72B43EB550048C5C4 /* AxComponents */,
 				B6FE16AA2B44022D0048C5C4 /* EmeralyUI */,
+				B66D6F7C2B44432B000BC88E /* TableUI */,
+				B66D6F7F2B4443F9000BC88E /* ZIPFoundation */,
+				B66D6F822B44444A000BC88E /* KeychainAccess */,
 			);
 			productName = AxStudio;
 			productReference = B6FE15012B43EA5A0048C5C4 /* AxStudio.app */;
@@ -1100,6 +1109,9 @@
 			packageReferences = (
 				B6FE16A62B43EB550048C5C4 /* XCLocalSwiftPackageReference "../AxComponents" */,
 				B6FE16A92B44022D0048C5C4 /* XCLocalSwiftPackageReference "../EmeralyUI" */,
+				B66D6F7B2B44432B000BC88E /* XCLocalSwiftPackageReference "../TableUI" */,
+				B66D6F7E2B4443F9000BC88E /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
+				B66D6F812B44444A000BC88E /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 			);
 			productRefGroup = B6FE15022B43EA5A0048C5C4 /* Products */;
 			projectDirPath = "";
@@ -1510,6 +1522,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
+		B66D6F7B2B44432B000BC88E /* XCLocalSwiftPackageReference "../TableUI" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../TableUI;
+		};
 		B6FE16A62B43EB550048C5C4 /* XCLocalSwiftPackageReference "../AxComponents" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../AxComponents;
@@ -1520,7 +1536,40 @@
 		};
 /* End XCLocalSwiftPackageReference section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		B66D6F7E2B4443F9000BC88E /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/weichsel/ZIPFoundation.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.17;
+			};
+		};
+		B66D6F812B44444A000BC88E /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		B66D6F7C2B44432B000BC88E /* TableUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TableUI;
+		};
+		B66D6F7F2B4443F9000BC88E /* ZIPFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B66D6F7E2B4443F9000BC88E /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
+			productName = ZIPFoundation;
+		};
+		B66D6F822B44444A000BC88E /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B66D6F812B44444A000BC88E /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
 		B6FE16A72B43EB550048C5C4 /* AxComponents */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AxComponents;

@@ -8,6 +8,7 @@
 import AppKit
 import AxComponents
 import SwiftEx
+import AppKit
 import DesignKit
 import AxCommand
 import Combine

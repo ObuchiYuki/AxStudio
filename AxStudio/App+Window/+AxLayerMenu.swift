@@ -53,7 +53,7 @@ final public class AxLayerMenuGenerator {
                     menu.addItem("Create Instance") { self.makeInstance(master) }
                     menu.addItem("Create List") { self.document.execute(AxMakeListCommand(master)) }
                 }
-                if let instance = document.selectedLayers.first as? DKInstanceLayer, let master = instance.master.value {
+                if let instance = document.selectedLayers.first as? DKInstanceLayer, let master = instance.master.get(document.session) {
                     menu.addItem("Edit Master") { self.document.execute(AxEditMasterCommand(master)) }
                 }
             }
@@ -129,6 +129,7 @@ final public class AxLayerMenuGenerator {
 }
 
 import SwiftEx
+import AppKit
 
 enum AxComponentMaker {
     static func makeComponent(_ window: NSWindow) {

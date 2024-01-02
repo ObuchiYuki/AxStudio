@@ -7,6 +7,7 @@
 
 import AppKit
 import SwiftEx
+import AppKit
 
 final class AxHomeRecentCollectionController: AxHomeDocumentCollectionController {
     override var viewModel: AxHomeDocumentCollectionViewModel {

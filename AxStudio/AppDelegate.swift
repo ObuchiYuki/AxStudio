@@ -7,6 +7,7 @@
 
 import AppKit
 import SwiftEx
+import AppKit
 import DesignKit
 import AxModelCore
 import AxDocument
@@ -17,8 +18,8 @@ import AxCommand
 import LayoutEngine
 import Neontetra
 import BluePrintKit
-import LapixRender
-import FigmaEngine
+import Lapix
+import FigmaImport
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {

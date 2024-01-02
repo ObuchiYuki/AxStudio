@@ -6,12 +6,13 @@
 //
 
 import SwiftEx
+import AppKit
 import AxComponents
-import SwiftUIExporter
-import iOSSimulatorKit
 import AxDocument
 import DesignKit
-import ProjectKit
+//import ProjectKit
+//import SwiftUIExporter
+//import iOSSimulatorKit
 
 final class AxExportViewModel {
     let window: NSWindow
@@ -34,14 +35,14 @@ final class AxExportViewModel {
             panel.canChooseFiles = false
             panel.canChooseDirectories = true
             if panel.runModal() == .OK, let url = panel.url {
-                SwiftUIExporter.exportProject(document, projectName: projectName, usage: .preview)
-                    .tryMap{ project in
-                        try PKProjectExporter.exportProject(project, format: true, to: url)
-                    }
-                    .peek{ result in
-                        NSWorkspace.shared.open(result.projectURL)
-                    }
-                    .catch(document.handleError(_:))
+//                SwiftUIExporter.exportProject(document, projectName: projectName, usage: .preview)
+//                    .tryMap{ project in
+//                        try PKProjectExporter.exportProject(project, format: true, to: url)
+//                    }
+//                    .peek{ result in
+//                        NSWorkspace.shared.open(result.projectURL)
+//                    }
+//                    .catch(document.handleError(_:))
             }
         }
     }

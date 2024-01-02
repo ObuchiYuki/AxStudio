@@ -9,6 +9,7 @@
 import AppKit
 import AxComponents
 import SwiftEx
+import AppKit
 
 extension R {
     enum I {

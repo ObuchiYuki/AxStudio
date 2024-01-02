@@ -7,6 +7,7 @@
 
 import AppKit
 import SwiftEx
+import AppKit
 import Combine
 import AxDocument
 

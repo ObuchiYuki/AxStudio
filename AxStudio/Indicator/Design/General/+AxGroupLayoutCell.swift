@@ -8,6 +8,7 @@
 import AxDocument
 import DesignKit
 import SwiftEx
+import AppKit
 import AxComponents
 
 final class AxGroupLayoutCellController: NSViewController {

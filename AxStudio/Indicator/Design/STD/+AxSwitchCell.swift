@@ -6,6 +6,7 @@
 //
 
 import SwiftEx
+import AppKit
 import AxComponents
 import STDComponents
 import AxCommand

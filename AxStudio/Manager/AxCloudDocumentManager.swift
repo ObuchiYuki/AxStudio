@@ -10,6 +10,7 @@ import AppKit
 import AxComponents
 import AxDocument
 import SwiftEx
+import AppKit
 import LayoutEngine
 
 private let kOpenDocumentsKey = "openCloudDocuments"

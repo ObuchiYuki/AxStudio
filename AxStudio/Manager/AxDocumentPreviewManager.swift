@@ -10,6 +10,7 @@ import AppKit
 import LapixUI
 import ZIPFoundation
 import SwiftEx
+import AppKit
 
 final class AxDocumentPreviewManager {
     

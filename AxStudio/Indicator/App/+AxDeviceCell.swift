@@ -10,6 +10,7 @@ import AppKit
 import AxDocument
 import AxCommand
 import SwiftEx
+import AppKit
 import AxModelCore
 import DesignKit
 import AxComponents
