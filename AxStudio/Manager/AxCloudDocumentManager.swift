@@ -127,7 +127,7 @@ final class AxCloudDocumentManager {
     }
     
     private func showWindow(_ windowController: NSWindowController) {
-        guard let window = windowController.window else { return beepWarning() }
+        guard let window = windowController.window else { return __warn_ifDebug_beep_otherwise() }
         // そのうちTabbingやりたい
         window.makeKeyAndOrderFront(nil)
     }

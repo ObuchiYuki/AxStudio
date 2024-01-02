@@ -21,7 +21,7 @@ final class AxHomeSidebarPresenter {
     let reloadPublisher = PassthroughSubject<Void, Never>()
     
     private let cloudDocumentManager: AxCloudDocumentManager
-    private var objectBag = Bag()
+    private var objectBag = Set<AnyCancellable>()
     
     init(cloudDocumentManager: AxCloudDocumentManager) {
         self.cloudDocumentManager = cloudDocumentManager

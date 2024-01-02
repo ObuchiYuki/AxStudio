@@ -111,7 +111,7 @@ extension AxActionListCellController: NSTableViewDelegate, NSTableViewDataSource
     
     func tableViewSelectionDidChange(_ notification: Notification) {
         guard !updatingSelection else { return }
-        guard let action = actions.at(listView.selectedRow) else { return beepWarning("No row \(listView.selectedRow)") }
+        guard let action = actions.at(listView.selectedRow) else { return __warn_ifDebug_beep_otherwise("No row \(listView.selectedRow)") }
         
         document.execute(AxSelectActionCommand(action))
     }

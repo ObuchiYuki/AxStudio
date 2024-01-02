@@ -11,9 +11,9 @@ import AxDocument
 import Combine
 
 final class AxAccountFormModel {
-    @Observable var icon: NSImage
-    @Observable var name: String
-    @Observable var email: String
+    @ObservableProperty var icon: NSImage
+    @ObservableProperty var name: String
+    @ObservableProperty var email: String
     
     let logoutPublisher = PassthroughSubject<Void, Never>()
     

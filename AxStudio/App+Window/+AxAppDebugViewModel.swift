@@ -14,7 +14,7 @@ import STDComponents
 
 final class AxAppDebugViewModel {
     
-    private var objectBag = Bag()
+    private var objectBag = Set<AnyCancellable>()
     
     func loadDocument(_ document: AxDocument) {
         if DebugSettings.Load.showFragments {

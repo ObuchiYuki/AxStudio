@@ -55,7 +55,7 @@ final class AxSliderCellController: NSViewController {
         let sliders = document.selectedUnmasteredLayers.compactMap{ $0 as? STDSlider }
         let minValue = sliders.map{ $0.minValue }.mixture(0)
         let maxValue = sliders.map{ $0.maxValue }.mixture(0)
-        guard case let .identical((min, max)) = minValue.combine(maxValue) else { return beepWarning() }
+        guard case let .identical((min, max)) = minValue.combine(maxValue) else { return __warn_ifDebug_beep_otherwise() }
                 
         let nvalue = value.map{ $0 * (max - min) + min }
         

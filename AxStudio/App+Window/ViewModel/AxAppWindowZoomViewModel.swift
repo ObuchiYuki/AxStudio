@@ -29,8 +29,8 @@ final class AxAppWindowZoomViewModel {
     private let fitBluePrintItem = NSMenuItem(title: "Fit BluePrint")
     private let fitNodesItem = NSMenuItem(title: "Fit Nodes")
     
-    private var designBag = Bag()
-    private var bluePrintBag = Bag()
+    private var designBag = Set<AnyCancellable>()
+    private var bluePrintBag = Set<AnyCancellable>()
     
     init(_ zoomItem: ACToolbarZoomItem) { self.zoomItem = zoomItem }
     

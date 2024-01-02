@@ -28,14 +28,14 @@ final class AxButtonCellController: NSViewController {
         
         cell.editActionButton.actionPublisher
             .sink{[unowned self] in
-                guard let button = document.selectedLayers.first as? STDButton else { return beepWarning() }
+                guard let button = document.selectedLayers.first as? STDButton else { return __warn_ifDebug_beep_otherwise() }
                 document.execute(AxEditBluePrintCommand(button.action))
             }
             .store(in: &objectBag)
         
         cell.actionTip.commandPublisher
             .sink{[unowned self] in
-                guard let button = document.selectedLayers.first as? STDButton else { return beepWarning() }
+                guard let button = document.selectedLayers.first as? STDButton else { return __warn_ifDebug_beep_otherwise() }
                 document.execute(AxDynamicActionPropertyCommand($0, button, \STDButton.action))
             }
             .store(in: &objectBag)

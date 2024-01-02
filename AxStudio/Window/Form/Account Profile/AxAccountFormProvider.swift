@@ -20,7 +20,7 @@ final class AxAccountFormProvider: ACFormProvider {
     private let deleteAccountView = ACFormDestructiveActionView(actionText: "アカウントを削除", alertMessage: "アカウントと紐づいたクラウドドキュメントを全て削除します")
     
     private let model: AxAccountFormModel
-    private var objectBag = Bag()
+    private var objectBag = Set<AnyCancellable>()
     
     init(model: AxAccountFormModel) { self.model = model }
     

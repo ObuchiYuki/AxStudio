@@ -30,7 +30,7 @@ final class AxHomeWindowPresenter {
     let recentDocumentProvider: AxRecentDocumentProvider
 
     var authAPI: AxHttpAuthorizedAPIClient? { didSet { self.onUpdateAuthAPI(authAPI) } }
-    private var objectBag = Bag()
+    private var objectBag = Set<AnyCancellable>()
 
     init(
         api: AxHttpAPIClient, secureLibrary: AxSecureSigninInfoLibrary, reachability: Reachability,

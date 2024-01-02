@@ -16,7 +16,7 @@ final class AxSigninFormPanelModel {
     
     let authAPIPublisher = PassthroughSubject<AxHttpAuthorizedAPIClient, Never>()
     
-    @Observable var infomativeText: String = ""
+    @ObservableProperty var infomativeText: String = ""
     
     init(api: AxHttpAPIClient, secureLibrary: AxSecureSigninInfoLibrary, reachability: Reachability) {
         self.api = api

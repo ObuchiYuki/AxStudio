@@ -94,7 +94,7 @@ extension AxStateListCellController: NSTableViewDataSource {
 extension AxStateListCellController: NSTableViewDelegate {
     func tableViewSelectionDidChange(_ notification: Notification) {
         guard !self.updatingSelection else { return }
-        guard let state = self.states.at(listView.selectedRow) else { return beepWarning() }
+        guard let state = self.states.at(listView.selectedRow) else { return __warn_ifDebug_beep_otherwise() }
         document.execute(AxSelectStateCommand(state))
     }
 }

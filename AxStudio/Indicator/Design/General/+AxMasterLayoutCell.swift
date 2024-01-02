@@ -16,7 +16,7 @@ import LayoutEngine
 final class AxMasterLayoutCellController: NSViewController {
     
     private let cell = AxMasterLayoutCell()
-    @Observable private var unmaster = false
+    @ObservableProperty private var unmaster = false
     
     convenience init(unmaster: Bool) {
         self.init()

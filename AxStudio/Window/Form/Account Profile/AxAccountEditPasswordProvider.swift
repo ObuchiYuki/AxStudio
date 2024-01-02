@@ -20,7 +20,7 @@ final class AxAccountEditPasswordProvider: ACFormProvider {
     private let buttonsView = ACFormButtonsView()
     
     private let model: AxAccountFormModel
-    private var objectBag = Bag()
+    private var objectBag = Set<AnyCancellable>()
     
     init(model: AxAccountFormModel) { self.model = model }
     

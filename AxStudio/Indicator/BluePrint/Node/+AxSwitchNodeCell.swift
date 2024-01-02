@@ -30,7 +30,7 @@ final class AxSwitchNodeHeaderController: ACStackViewFoldHeaderController {
     }
     
     private func addState() {
-        guard let node = document.currentNodeContainer?.selectedNodes.first as? BPSwitchNode else { return beepWarning() }
+        guard let node = document.currentNodeContainer?.selectedNodes.first as? BPSwitchNode else { return __warn_ifDebug_beep_otherwise() }
         
         document.execute {[self] in
             guard let nextValue = makeNextValue(node.type, values: node.cases.map{ $0.value }) else {
@@ -65,7 +65,7 @@ final class AxSwitchNodeListCellController: AxNodeViewController {
     
     private var items = [BPSwitchNode.Case]() { didSet { updateItems(oldValue) } }
     private let listView = NSStackView()
-    private var itemsBag = Bag()
+    private var itemsBag = Set<AnyCancellable>()
     
     override func loadView() {
         self.listView.orientation = .vertical
@@ -73,7 +73,7 @@ final class AxSwitchNodeListCellController: AxNodeViewController {
     }
     
     private func updateItems(_ oldValue: [BPSwitchNode.Case]) {
-        guard let node = self.node as? BPSwitchNode else { return beepWarning() }
+        guard let node = self.node as? BPSwitchNode else { return __warn_ifDebug_beep_otherwise() }
         oldValue.forEach{ $0.itemCell.removeFromSuperview() }
         itemsBag.removeAll()
 
@@ -94,12 +94,12 @@ final class AxSwitchNodeListCellController: AxNodeViewController {
     }
     
     private func updateValue(_ item: BPSwitchNode.Case, value: BPValue, cell: AxSwitchCaseCell) {
-        guard let node = self.node as? BPSwitchNode else { return beepWarning() }
+        guard let node = self.node as? BPSwitchNode else { return __warn_ifDebug_beep_otherwise() }
         let currentValueSet = node.cases.filter{ $0 !== item }.map{ $0.value }
         
         switch node.type {
         case .string:
-            guard let value = value as? BPString else { return beepWarning() }
+            guard let value = value as? BPString else { return __warn_ifDebug_beep_otherwise() }
             
             if currentValueSet.compactMap({ ($0 as? BPString)?.value }).contains(value.value) {
                 document.warningPublisher.send(.init(title: "Duplicated case"))
@@ -108,7 +108,7 @@ final class AxSwitchNodeListCellController: AxNodeViewController {
                 item.value = value
             }
         case .int:
-            guard let value = value as? BPInt else { return beepWarning() }
+            guard let value = value as? BPInt else { return __warn_ifDebug_beep_otherwise() }
             
             if currentValueSet.compactMap({ ($0 as? BPInt)?.value }).contains(value.value) {
                 document.warningPublisher.send(.init(title: "Duplicated case"))
@@ -117,7 +117,7 @@ final class AxSwitchNodeListCellController: AxNodeViewController {
                 item.value = value
             }
         case .float:
-            guard let value = value as? BPFloat else { return beepWarning() }
+            guard let value = value as? BPFloat else { return __warn_ifDebug_beep_otherwise() }
             
             if currentValueSet.compactMap({ ($0 as? BPFloat)?.value }).contains(value.value) {
                 document.warningPublisher.send(.init(title: "Duplicated case"))
@@ -125,12 +125,12 @@ final class AxSwitchNodeListCellController: AxNodeViewController {
             } else {
                 item.value = value
             }
-        default: return beepWarning()
+        default: return __warn_ifDebug_beep_otherwise()
         }
     }
     
     private func removeParamator(_ item: BPSwitchNode.Case) {
-        guard let node = self.node as? BPSwitchNode else { return beepWarning() }
+        guard let node = self.node as? BPSwitchNode else { return __warn_ifDebug_beep_otherwise() }
         node.cases.removeFirst(where: { $0 === item })
     }
     

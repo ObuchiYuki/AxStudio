@@ -13,8 +13,8 @@ import AxDocument
 import AxModelCore
 
 class AxHomeDocumentData {
-    @Observable var title: String
-    @Observable var infoText: String
+    @ObservableProperty var title: String
+    @ObservableProperty var infoText: String
     let documentType: AxDocumentType
     let thumbnail: Promise<NSImage?, Never>?
         

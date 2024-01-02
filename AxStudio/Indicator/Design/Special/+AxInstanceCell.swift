@@ -218,13 +218,13 @@ final private class AxInstanceActionListCellController: NSViewController {
             .sink{[unowned self] in document.execute(AxToggleOverrideActionCommand($0, action, instance)) }.store(in: &cell.objectBag)
         cell.editButton.actionPublisher
             .sink{[unowned self] in
-                guard let action = oaction.takeValue()?.flatMap({ $0 })?.value else { return beepWarning() }
+                guard let action = oaction.takeValue()?.flatMap({ $0 })?.value else { return __warn_ifDebug_beep_otherwise() }
                 document.execute(AxEditBluePrintCommand(action))
             }
             .store(in: &cell.objectBag)
         cell.valueTip.commandPublisher
             .sink{[unowned self] in
-                guard let oaction = oaction.takeValue()?.flatMap({ $0 }) else { return beepWarning() }
+                guard let oaction = oaction.takeValue()?.flatMap({ $0 }) else { return __warn_ifDebug_beep_otherwise() }
                 document.execute(AxDynamicActionPropertyCommand($0, oaction, \DKOverrideAction.value))
             }
             .store(in: &cell.objectBag)

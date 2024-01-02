@@ -132,7 +132,7 @@ import SwiftEx
 
 enum AxComponentMaker {
     static func makeComponent(_ window: NSWindow) {
-        guard let document = window.document else { return beepWarning() }
+        guard let document = window.document else { return __warn_ifDebug_beep_otherwise() }
         guard document.selectedLayers.allSatisfy({ $0.canBecomeComponent }) else { return NSSound.beep() }
         
         let alert = NSAlert()

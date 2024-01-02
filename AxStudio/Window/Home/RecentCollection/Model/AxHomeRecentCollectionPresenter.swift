@@ -21,7 +21,7 @@ final class AxHomeRecentCollectionPresenter {
     private let cloudDocumentManager: AxCloudDocumentManager
     private let recentDocumentProvider: AxRecentDocumentProvider
     
-    private var objectBag = Bag()
+    private var objectBag = Set<AnyCancellable>()
 
     init(cloudDocumentManager: AxCloudDocumentManager, recentDocumentProvider: AxRecentDocumentProvider) {
         self.cloudDocumentManager = cloudDocumentManager

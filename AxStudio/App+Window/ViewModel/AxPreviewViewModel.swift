@@ -25,7 +25,7 @@ final class AxPreviewViewModel {
     private let window: NSWindow
     private var isPreviewExporting = false
     private let deviceListPromise = SIMSimulatorManager.standard.getDeviceList()
-    private var objectBag = Bag()
+    private var objectBag = Set<AnyCancellable>()
     private var needsRebuild = true
     private var document: AxDocument!
     

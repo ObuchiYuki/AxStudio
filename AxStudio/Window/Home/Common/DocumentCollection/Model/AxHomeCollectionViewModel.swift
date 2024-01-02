@@ -9,7 +9,7 @@ import Combine
 import SwiftEx
 
 final class AxHomeDocumentCollectionViewModel {
-    @Observable var itemData = [AxHomeDocumentData]()
+    @ObservableProperty var itemData = [AxHomeDocumentData]()
     
     let openItemPublisher = PassthroughSubject<AxHomeDocumentData, Never>()
     let copyLinkPublisher = PassthroughSubject<AxHomeDocumentData, Never>()

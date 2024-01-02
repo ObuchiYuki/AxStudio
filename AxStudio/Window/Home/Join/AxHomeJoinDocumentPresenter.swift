@@ -23,7 +23,7 @@ final class AxHomeJoinDocumentPresenter {
     private let reachability: Reachability
     private let recentDocumentProvider: AxRecentDocumentProvider
     
-    private var signinBag = Bag()
+    private var signinBag = Set<AnyCancellable>()
     
     init(api: AxHttpAPIClient, cloudDocumentManager: AxCloudDocumentManager, secureLibrary: AxSecureSigninInfoLibrary, recentDocumentProvider: AxRecentDocumentProvider, reachability: Reachability) {
         self.api = api

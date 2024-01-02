@@ -15,7 +15,7 @@ open class AxNodeViewController: NSViewController {
     var node: BPIONode?
     open func nodeDidUpdate(_ node: BPIONode, objectBag: inout Bag) {}
     
-    private var nodeBag = Bag()
+    private var nodeBag = Set<AnyCancellable>()
     
     private func commonInit() {
         self.getStatePublisher(for: .bluePrint).removeDuplicates(by: ===).compactMap{ $0 }

@@ -28,7 +28,7 @@ final public class AxLocalColorItemGroup: ACColorItemGroup {
     public let canDeattch: Bool = true
     public let name: String = "This Document"
     
-    @Observable private var items = [ACColorItem]()
+    @ObservableProperty private var items = [ACColorItem]()
     
     public func itemsp(for option: ACColorWell.Options) -> AnyPublisher<[ACColorItem], Never> {
         document.rootNode.constantStorage.$colors

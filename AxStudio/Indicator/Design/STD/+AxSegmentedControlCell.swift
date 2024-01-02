@@ -74,7 +74,7 @@ final private class AxSegmentedControlCell: ACGridView {
 final class AxSegmentedItemListCellController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
     private let listView = NSStackView()
     private var items = [STDSegmentalItem]() { didSet { self.updateItems(oldValue) } }
-    private var itemsBag = Bag()
+    private var itemsBag = Set<AnyCancellable>()
     
     override func loadView() {
         self.listView.orientation = .vertical

@@ -13,9 +13,9 @@ final class AxHomeAccountViewModel {
     var canLogout = false
     var canLogin = true
     
-    @Observable var icon: NSImage = R.Home.Sidebar.accountNoIcon
-    @Observable var title: String = "Name"
-    @Observable var email: String? = nil
+    @ObservableProperty var icon: NSImage = R.Home.Sidebar.accountNoIcon
+    @ObservableProperty var title: String = "Name"
+    @ObservableProperty var email: String? = nil
     
     let logoutPublisher = PassthroughSubject<Void, Never>()
     

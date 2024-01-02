@@ -26,7 +26,7 @@ final class AxExportViewModel {
     }
     
     func exportProject() {
-        guard let document = window.document else { return beepWarning() }
+        guard let document = window.document else { return __warn_ifDebug_beep_otherwise() }
         let projectName = self.projectName()
         
         self.showInstruction {

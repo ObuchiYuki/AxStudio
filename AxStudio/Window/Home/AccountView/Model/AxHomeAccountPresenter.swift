@@ -29,7 +29,7 @@ final class AxHomeAccountPresenter {
     private let secureLibrary: AxSecureSigninInfoLibrary
     private let reachability: Reachability
     private let signinFormModel: AxSigninFormPanelModel
-    private var objectBag = Bag()
+    private var objectBag = Set<AnyCancellable>()
     
     init(api: AxHttpAPIClient, secureLibrary: AxSecureSigninInfoLibrary, reachability: Reachability) {
         self.api = api

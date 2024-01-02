@@ -24,7 +24,7 @@ final class AxCreateAccontFormProvider: ACFormProvider {
     private let footerView = ACFormFooterView(infomativeText: "アカウントをお持ちですか？", actionText: "ログイン")
     
     private let validator = AxCreateAccountFormValidator()
-    private var objectBag = Bag()
+    private var objectBag = Set<AnyCancellable>()
     private let model: AxSigninFormPanelModel
     
     init(model: AxSigninFormPanelModel) { self.model = model }
@@ -94,10 +94,10 @@ final class AxCreateAccontFormProvider: ACFormProvider {
 
 final private class AxCreateAccountFormValidator {
     
-    @Observable var name: String = ""
-    @Observable var email: String = ""
-    @Observable var password: String = ""
-    @Observable var confirmPassword: String = ""
+    @ObservableProperty var name: String = ""
+    @ObservableProperty var email: String = ""
+    @ObservableProperty var password: String = ""
+    @ObservableProperty var confirmPassword: String = ""
     
     func nameErrorPublisher(for submit: AnyPublisher<String, Never>) -> AnyPublisher<String?, Never> {
         submit.map{ AxDataValidator.isValidName($0) ? nil : "お名前を入力してください" }.eraseToAnyPublisher()

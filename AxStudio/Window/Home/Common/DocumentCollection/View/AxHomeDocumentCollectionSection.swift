@@ -17,7 +17,7 @@ final class AxHomeDocumentCollectionSection: ACCompositionalSection {
     var numberOfItems: Int { viewModel.itemData.count }
     var reloadPublisher: AnyPublisher<Void, Never> { viewModel.$itemData.map{_ in () }.eraseToAnyPublisher() }
     let selectPublisher = PassthroughSubject<Int, Never>()
-    private var objectBag = Bag()
+    private var objectBag = Set<AnyCancellable>()
     
     init(viewModel: AxHomeDocumentCollectionViewModel) {
         self.viewModel = viewModel

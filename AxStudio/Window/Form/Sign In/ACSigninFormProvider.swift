@@ -23,7 +23,7 @@ final class ACSigninFormProvider: ACFormProvider {
     private let footerView = ACFormFooterView(infomativeText: "アカウントをお持ちではありませんか？", actionText: "新規登録")
     private let validator = AxSigninFormValidator()
     
-    private var objectBag = Bag()
+    private var objectBag = Set<AnyCancellable>()
     private let model: AxSigninFormPanelModel
     
     init(model: AxSigninFormPanelModel) { self.model = model }
@@ -88,8 +88,8 @@ final class ACSigninFormProvider: ACFormProvider {
 }
 
 final private class AxSigninFormValidator {
-    @Observable var email: String = ""
-    @Observable var password: String = ""
+    @ObservableProperty var email: String = ""
+    @ObservableProperty var password: String = ""
     
     func passwordErrorPublisher(for submit: AnyPublisher<String, Never>) -> AnyPublisher<String?, Never> {
         submit.filter{ !$0.isEmpty }

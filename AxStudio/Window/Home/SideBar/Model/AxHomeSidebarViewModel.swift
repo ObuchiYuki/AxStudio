@@ -12,7 +12,7 @@ import AxDocument
 
 final class AxHomeSidebarViewModel {
     
-    @Observable var canCreateCloudDocument = false
+    @ObservableProperty var canCreateCloudDocument = false
     
     let createCloudDocumentPublisher = PassthroughSubject<Void, Never>()
     let createLocalDocumentPublisher = PassthroughSubject<Void, Never>()

@@ -28,8 +28,8 @@ final class AxActionHeaderController: ACStackViewFoldHeaderController {
     }
     
     private func addState() {
-        guard let window = self.view.window else { return beepWarning() }
-        guard let viewModel = document.selectedLayers.first?.viewModelLayer?.viewModel else { return beepWarning() }
+        guard let window = self.view.window else { return __warn_ifDebug_beep_otherwise() }
+        guard let viewModel = document.selectedLayers.first?.viewModelLayer?.viewModel else { return __warn_ifDebug_beep_otherwise() }
         
         let defaultName = Identifier.make(with: .numberPostfix("Action"), notContainsIn: Set(viewModel.actions.map{ $0.name }))
         let alert = NSAlert.singleTextInput(window, defaultValue: defaultName, placeholder: "Action name") { name in

@@ -22,7 +22,7 @@ final class AxAccountEditFormProvider: ACFormProvider {
     
     private let model: AxAccountFormModel
     private let validator: AxAccountEditFormValidator
-    private var objectBag = Bag()
+    private var objectBag = Set<AnyCancellable>()
     
     init(model: AxAccountFormModel) {
         self.model = model
@@ -119,8 +119,8 @@ final class AxAccountEditFormProvider: ACFormProvider {
 }
 
 final private class AxAccountEditFormValidator {
-    @Observable var name: String
-    @Observable var email: String
+    @ObservableProperty var name: String
+    @ObservableProperty var email: String
     init(name: String, email: String) {
         self.name = name
         self.email = email

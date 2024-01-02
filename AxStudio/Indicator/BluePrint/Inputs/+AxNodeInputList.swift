@@ -35,7 +35,7 @@ final class AxNodeInputListCell: NSLoadStackView {
     var valuePublisher: AnyPublisher<(NEInputSocket, BPValue?), Never> { valueSubject.eraseToAnyPublisher() }
     
     private let valueSubject = PassthroughSubject<(NEInputSocket, BPValue?), Never>()
-    private var inputsBag = Bag()
+    private var inputsBag = Set<AnyCancellable>()
     
     private func updateInputs(_ oldValue: [NEInputSocket]) {
         self.subviews = []

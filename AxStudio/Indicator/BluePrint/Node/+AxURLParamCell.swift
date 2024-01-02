@@ -29,7 +29,7 @@ final class AxURLParamatorHeaderController: ACStackViewFoldHeaderController {
     }
     
     private func addState() {
-        guard let node = document.currentNodeContainer?.selectedNodes.first as? BPURLBuilderNodeType else { return beepWarning() }
+        guard let node = document.currentNodeContainer?.selectedNodes.first as? BPURLBuilderNodeType else { return __warn_ifDebug_beep_otherwise() }
         
         document.execute {[self] in
             let currentSet = Set(node.urlParamators.map{ $0.key })
@@ -58,7 +58,7 @@ final class AxRequestHeadersHeaderController: ACStackViewFoldHeaderController {
     }
     
     private func addState() {
-        guard let node = document.currentNodeContainer?.selectedNodes.first as? BPAdvancedNetworkNode else { return beepWarning() }
+        guard let node = document.currentNodeContainer?.selectedNodes.first as? BPAdvancedNetworkNode else { return __warn_ifDebug_beep_otherwise() }
         
         document.execute {[self] in
             let currentSet = Set(node.headers.map{ $0.key })
@@ -76,7 +76,7 @@ final class AxURLParamatorListCellController: AxNodeViewController {
     
     private var items = [BPURLParamator]() { didSet { updateItems(oldValue) } }
     private let listView = NSStackView()
-    private var itemsBag = Bag()
+    private var itemsBag = Set<AnyCancellable>()
     
     override func loadView() {
         self.listView.orientation = .vertical
@@ -101,7 +101,7 @@ final class AxURLParamatorListCellController: AxNodeViewController {
     }
     
     private func updateKey(_ item: BPURLParamator, name: String, cell: AxURLParamatorCell) {
-        guard let node = self.node as? BPURLBuilderNodeType else { return beepWarning() }
+        guard let node = self.node as? BPURLBuilderNodeType else { return __warn_ifDebug_beep_otherwise() }
         let currentSet = Set(node.urlParamators.filter{ $0 !== item }.map{ $0.key })
         
         if currentSet.contains(name) {
@@ -115,7 +115,7 @@ final class AxURLParamatorListCellController: AxNodeViewController {
     }
     
     private func removeParamator(_ item: BPURLParamator) {
-        guard let node = self.node as? BPURLBuilderNodeType else { return beepWarning() }
+        guard let node = self.node as? BPURLBuilderNodeType else { return __warn_ifDebug_beep_otherwise() }
         node.urlParamators.removeFirst(where: { $0 === item })
     }
     
@@ -154,7 +154,7 @@ final class AxRequestHeaderListCellController: AxNodeViewController {
     
     private var items = [BPRequestHeader]() { didSet { updateItems(oldValue) } }
     private let listView = NSStackView()
-    private var itemsBag = Bag()
+    private var itemsBag = Set<AnyCancellable>()
     
     override func loadView() {
         self.listView.orientation = .vertical
@@ -179,7 +179,7 @@ final class AxRequestHeaderListCellController: AxNodeViewController {
     }
     
     private func updateKey(_ item: BPRequestHeader, name: String, cell: AxRequestHeaderCell) {
-        guard let node = self.node as? BPAdvancedNetworkNode else { return beepWarning() }
+        guard let node = self.node as? BPAdvancedNetworkNode else { return __warn_ifDebug_beep_otherwise() }
         let currentSet = Set(node.headers.filter{ $0 !== item }.map{ $0.key })
         
         if currentSet.contains(name) {
@@ -193,7 +193,7 @@ final class AxRequestHeaderListCellController: AxNodeViewController {
     }
     
     private func removeParamator(_ item: BPRequestHeader) {
-        guard let node = self.node as? BPAdvancedNetworkNode else { return beepWarning() }
+        guard let node = self.node as? BPAdvancedNetworkNode else { return __warn_ifDebug_beep_otherwise() }
         node.headers.removeFirst(where: { $0 === item })
     }
     

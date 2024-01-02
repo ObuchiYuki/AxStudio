@@ -26,8 +26,8 @@ final class ACComponentActionHeaderController: ACStackViewFoldHeaderController {
     }
     
     private func addState() {
-        guard let window = self.view.window else { return beepWarning() }
-        guard let master = document.selectedLayers.first?.componentLayer else { return beepWarning() }
+        guard let window = self.view.window else { return __warn_ifDebug_beep_otherwise() }
+        guard let master = document.selectedLayers.first?.componentLayer else { return __warn_ifDebug_beep_otherwise() }
         
         let defaultName = Identifier.make(with: .numberPostfix("Action"), notContainsIn: Set(master.componentActions.map{ $0.name }))
         let alert = NSAlert.singleTextInput(window, defaultValue: defaultName, placeholder: "Action name") { name in

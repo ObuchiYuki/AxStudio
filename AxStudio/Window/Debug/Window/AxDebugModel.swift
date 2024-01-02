@@ -20,7 +20,7 @@ final class AxDebugModel {
     
     let document: AxDocument
     
-    @Observable var contentMode: ContentMode = .websocket
+    @ObservableProperty var contentMode: ContentMode = .websocket
     
     let logPublisher = PassthroughSubject<NSAttributedString, Never>()
     let resetLogPublisher = PassthroughSubject<Void, Never>()
