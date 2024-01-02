@@ -180,6 +180,7 @@
 		B6FE16A42B43EB020048C5C4 /* AppMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6FE15F82B43EB010048C5C4 /* AppMain.storyboard */; };
 		B6FE16A52B43EB020048C5C4 /* DebugSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15FA2B43EB020048C5C4 /* DebugSettings.swift */; };
 		B6FE16A82B43EB550048C5C4 /* AxComponents in Frameworks */ = {isa = PBXBuildFile; productRef = B6FE16A72B43EB550048C5C4 /* AxComponents */; };
+		B6FE16AB2B44022D0048C5C4 /* EmeralyUI in Frameworks */ = {isa = PBXBuildFile; productRef = B6FE16AA2B44022D0048C5C4 /* EmeralyUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -364,6 +365,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6FE16AB2B44022D0048C5C4 /* EmeralyUI in Frameworks */,
 				B6FE16A82B43EB550048C5C4 /* AxComponents in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1065,6 +1067,7 @@
 			name = AxStudio;
 			packageProductDependencies = (
 				B6FE16A72B43EB550048C5C4 /* AxComponents */,
+				B6FE16AA2B44022D0048C5C4 /* EmeralyUI */,
 			);
 			productName = AxStudio;
 			productReference = B6FE15012B43EA5A0048C5C4 /* AxStudio.app */;
@@ -1096,6 +1099,7 @@
 			mainGroup = B6FE14F82B43EA5A0048C5C4;
 			packageReferences = (
 				B6FE16A62B43EB550048C5C4 /* XCLocalSwiftPackageReference "../AxComponents" */,
+				B6FE16A92B44022D0048C5C4 /* XCLocalSwiftPackageReference "../EmeralyUI" */,
 			);
 			productRefGroup = B6FE15022B43EA5A0048C5C4 /* Products */;
 			projectDirPath = "";
@@ -1510,12 +1514,20 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../AxComponents;
 		};
+		B6FE16A92B44022D0048C5C4 /* XCLocalSwiftPackageReference "../EmeralyUI" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../EmeralyUI;
+		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		B6FE16A72B43EB550048C5C4 /* AxComponents */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AxComponents;
+		};
+		B6FE16AA2B44022D0048C5C4 /* EmeralyUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = EmeralyUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
