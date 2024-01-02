@@ -2,29 +2,104 @@
 //  AppDelegate.swift
 //  AxStudio
 //
-//  Created by yuki on 2024/01/02.
+//  Created by yuki on 2021/09/10.
 //
 
-import Cocoa
+import AppKit
+import SwiftEx
+import DesignKit
+import AxModelCore
+import AxDocument
+import AxComponents
+import KeychainAccess
+import Combine
+import AxCommand
+import LayoutEngine
+import Neontetra
+import BluePrintKit
+import LapixRender
+import FigmaEngine
 
-@main
+@NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-
     
+    @IBOutlet weak var groupItem: NSCustomKeyMenuItem!
+    
+    override init() {
+        AxDocumentController.activate()
+        AxLocalDocument.activate()
+        AxDocumentPreviewManager.activate()
 
+        FGBootstrap.load
+        LPBootStrap.load
+        AxCommandBootstrap.load
+        BPColorAssetTable.load
+        DKFontAssetTable.load
+        ACFontLoader.load
+        
+        AxModelMediaFileHandler.registerProxy(AxBuildinMediaFileProxy.default)
 
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Insert code here to initialize your application
+        
+        AxDocument.onInitialized = { document in
+            AxGeometoryNodeManager.initialize(document)
+            AxFontManager.initialize(document)
+            NEBootstrap.initialize(document)
+            LELayoutObserver.initialize(document)
+            AxCommandSync.initialize(document)
+        }
+        
+        // 必要に応じて入れ替え
+        AxHomeWindowController.currentPresenter = DebugSettings.initialHomeWindowPresenter
     }
-
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
+    
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        self.groupItem.customKeyEquivalent = "g"
+        self.groupItem.customkeyEquivalentModifierMask = .command
     }
-
-    func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {
-        return true
+    
+    func application(_ application: NSApplication, open urls: [URL]) {
+        if let url = urls.first, url.scheme == "axstudio" {
+            self.openURLScheme(url: url)
+        } else {
+            let assetURLs = urls.filter({ $0.pathExtension == "axasset" })
+            let fileURLs = urls.filter({ $0.pathExtension == "axstudio" })
+            
+            guard !assetURLs.isEmpty || !fileURLs.isEmpty else {
+                return ACToast(message: "AxStudio can't handle URLs", color: .systemYellow).show()
+            }
+            
+            self.openAssetFiles(assetURLs)
+        }
     }
-
-
+    
+    private func openAssetFiles(_ urls: [URL]) {
+        guard !urls.isEmpty else { return }
+        print(urls)
+    }
+    
+    private func openURLScheme(url: URL) {
+        guard let token = url.queryParamators["token"].flatMap({ $0 }) else { return }
+        
+        for homeWindowController in AxHomeWindowController.allInstantiatedControllers() {
+            homeWindowController.presenter.autoSigninPromise
+                .sink{
+                    guard let window = homeWindowController.window else { return }
+                    homeWindowController.presenter.joinDocumentPresneter.joinDocument(token, window: window)
+                }
+        }
+    }
 }
-
+ 
+final public class NSCustomKeyMenuItem: NSMenuItem {
+    public var customKeyEquivalent: String?
+    public var customkeyEquivalentModifierMask: NSEvent.ModifierFlags?
+    
+    public override var keyEquivalent: String {
+        get { self.customKeyEquivalent ?? super.keyEquivalent }
+        set { super.keyEquivalent = newValue }
+    }
+    public override var keyEquivalentModifierMask: NSEvent.ModifierFlags {
+        get { self.customkeyEquivalentModifierMask ?? super.keyEquivalentModifierMask }
+        set { super.keyEquivalentModifierMask = newValue }
+    }
+}

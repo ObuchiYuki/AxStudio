@@ -1,0 +1,191 @@
+
+// MARK: - Toolbar -
+"Rectangle" = "Rectangle";
+"Oval" = "Oval";
+"Text" = "Text";
+"Vector" = "Vector";
+"Screen" = "Screen";
+"Component" = "Component";
+"Mask" = "Mask";
+"Boolean" = "Boolean";
+"Preview" = "Preview";
+"Export"  = "Export" ;
+"Device" = "Device";
+
+// MARK: - Indicator -
+// headers
+"Layout" = "Layout";
+"Corner Radius" = "Corner Radius";
+"Text" = "Text";
+"State" = "State";
+"Style" = "Style";
+"Instance State" = "Instance State";
+
+// defaults
+"Multiple Nodes" = "Multiple Nodes";
+"Nothing Selected" = "Nothing Selected";
+
+// screen
+"Background Color" = "Background Color";
+"Adjust content on resize" = "Adjust content on resize";
+"Use fixed devide size" = "Use fixed devide size";
+"Add AppBar" = "Add AppBar";
+"Delete AppBar" = "Delete AppBar";
+
+// coodinate
+"cood.X" = "X";
+"cood.Y" = "Y";
+"cood.Angle" = "Angle";
+"cood.W" = "W";
+"cood.H" = "H";
+
+// corner radius
+"corner.Radius" = "Radius";
+"corner.Circular" = "Circular";
+"corner.Continuous" = "Continuous";
+"corner.Smooth" = "Smooth";
+
+
+// layout
+"Auto" = "Auto";
+"Manual" = "Manual";
+"Edge Pin" = "Edge Pin";
+"Center Pin" = "Center Pin";
+"Fix Size" = "Fix Size";
+
+// text
+"text.Text" = "Text";
+"text.Size" = "Size";
+"text.Alignment" = "Alignment";
+"text.Spacing" = "Spacing";
+"text.Charactor" = "Charactor";
+"text.Line" = "Line";
+"text.Truncation" = "Truncation";
+
+// style
+"Opacity" = "Opacity";
+"Fill" = "Fill";
+"Border" = "Border";
+"Width" = "Width";
+"Dash" = "Dash";
+"Gap" = "Gap";
+"Shadow" = "Shadow";
+"shadow.x" = "X";
+"shadow.y" = "Y";
+"shadow.z" = "Z";
+
+// Initial Screen
+"Initial Screen" = "Initial Screen";
+
+// Method
+"Method" = "Method";
+"Inputs" = "Inputs";
+"Result" = "Result";
+"Edit Method" = "Edit Method";
+
+// Method
+"Input Sockets" = "Input Sockets";
+"Node Paramators" = "Node Paramators";
+"Alert Node" = "Alert Node";
+"Transiton" = "Transiton";
+"Switch Text" = "Switch Text";
+
+// State
+"Type" = "Type";
+"Initial Value" = "Initial Value";
+
+// STD
+"Switch is ON" = "Switch is ON";
+"Custom Tint" = "Custom Tint";
+"Edit Blue Print" = "Edit Blue Print";
+"Element.list" = "Element";
+"Height.list" = "Height";
+"Count.list" = "Count";
+"Title.button" = "Title";
+"Value.slider" = "Value";
+"Selected Index" = "Selected Index";
+"Text" = "Text";
+"Placeholder" = "Placeholder";
+"Is Bordered" = "Is Bordered";
+"back.camera" = "Back";
+"front.camera" = "Front";
+"Position.camera" = "Position";
+"Type.textinput" = "Type";
+
+// Text input
+"none.input" = "Default";
+"name.input" = "Name";
+"number.input" = "Number";
+"address.input" = "Address";
+"telephone.input" = "Telephone";
+"email.input" = "Email";
+"creditCard.input" = "Credit Card";
+"username.input" = "Username";
+"password.input" = "Password";
+"newPassword.input" = "New Password";
+
+
+// MARK: - Navigation -
+// header
+"Design" = "Design";
+"Blue Print" = "Blue Print";
+"Assets" = "Assets";
+
+// asset
+"Colors" = "Colors";
+"Fonts" = "Fonts";
+"Components" = "Components";
+
+// Component
+"Delete Component" = "Delete Component";
+"Edit Master" = "Edit Master";
+"remove_master.title" = "Are you sure you want to delete this Component?";
+"remove_master.message" = "This will convert this Component's instances into groups and unlink them from the Component.";
+
+// BluePrint
+"Layers" = "Layers";
+"States" = "States";
+"Events" = "Events";
+"Other Screens" = "Other Screens";
+
+// MARK: - Templete -
+
+"Camera.title" = "Camera";
+"Camera.description" = "Take photos and save the image to photo library.";
+
+"App Store.title" = "App Store";
+"App Store.description" = "Access to AppStore and list and show apps.";
+
+"TODO.title" = "TODO";
+"TODO.description" = "Save and manage your TODO's.";
+
+"Weather.title" = "Weather";
+"Weather.description" = "Fetch current weather and display it.";
+
+"Add.title" = "Add";
+"Add.description" = "Add two text input numbers and display it.";
+
+"Text.title" = "Text";
+"Text.description" = "Formats and displays text input.";
+
+"Transition.title" = "Transition";
+"Transition.description" = "Transitions from screen to screen with various animations.";
+
+// MARK: - Insert -
+"Rectangle.insert" = "Rectangle";
+"Oval.insert" = "Oval";
+
+"Screen.insert" = "Screen";
+"Text.insert" = "Text";
+"Image.insert" = "Image";
+"Video.insert" = "Video";
+
+"Button.insert" = "Button";
+"Icon.insert" = "Icon";
+"Icon Button.insert" = "Icon Button";
+"Slider.insert" = "Slider";
+"Switch.insert" = "Switch";
+"Text Input.insert" = "Text Input";
+"Segmented Control.insert" = "Segmented Control";
+"Map.insert" = "Map";
+"Camera.insert" = "Camera";
