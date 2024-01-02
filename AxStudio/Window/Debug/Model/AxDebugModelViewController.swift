@@ -32,9 +32,10 @@ final class AxDebugModelJSONViewController: NSViewController {
     private var textView: NSTextView { scrollView.documentView as! NSTextView }
     
     override func chainObjectDidLoad() {
-        let jsonData = debugModel.document.rootNode.jsonData(options: [.prettyPrinted, .sortedKeys])
-        let json = String(data: jsonData, encoding: .utf8)
-        self.textView.string = json ?? "<error>"
+        #warning("JSONは生成できない")
+//        let jsonData = debugModel.document.rootNode.jsonData(options: [.prettyPrinted, .sortedKeys])
+//        let json = String(data: jsonData, encoding: .utf8)
+//        self.textView.string = json ?? "<error>"
     }
     
     override func loadView() {

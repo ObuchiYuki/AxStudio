@@ -59,12 +59,12 @@ final class AxAccountEditFormProvider: ACFormProvider {
                 
         self.emailInputForm.textPublisher
             .sink{[unowned self] in self.validator.email = $0 }.store(in: &objectBag)
-        self.validator.emailErrorPublisher(for: self.emailInputForm.submitPublisher)
+        self.validator.emailErrorPublisher(for: self.emailInputForm.submitPublisher.eraseToAnyPublisher())
             .sink{[unowned self] in self.emailInputForm.errorText = $0 }.store(in: &objectBag)
         
         self.nameInputForm.textPublisher
             .sink{[unowned self] in self.validator.name = $0 }.store(in: &objectBag)
-        self.validator.nameErrorPublisher(for: self.nameInputForm.submitPublisher)
+        self.validator.nameErrorPublisher(for: self.nameInputForm.submitPublisher.eraseToAnyPublisher())
             .sink{[unowned self] in self.nameInputForm.errorText = $0 }.store(in: &objectBag)
         
         submitButton.actionPublisher

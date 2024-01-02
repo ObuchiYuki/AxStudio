@@ -96,7 +96,7 @@ extension AxActionListCellController: NSTableViewDelegate, NSTableViewDataSource
     }
     
     func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
-        guard dropOperation != .on, let action = info.draggingPasteboard.nodeRefs(type: .bpAction, session: document.session)?.first else { return false }
+        guard dropOperation != .on, let action = info.draggingPasteboard.getNodeRefs(for: .bpAction, session: document.session)?.first else { return false }
         document.execute(AxMoveActionCommand(action, row))
         return true
     }
@@ -107,7 +107,7 @@ extension AxActionListCellController: NSTableViewDelegate, NSTableViewDataSource
     }
     func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
         guard let action = actions.at(row) else { return nil }
-        return action.pasteBoardRefStorage(forType: .bpAction)
+        return action.pasteboardRefWriting(for: .bpAction)
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {

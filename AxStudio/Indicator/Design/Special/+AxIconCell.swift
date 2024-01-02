@@ -35,7 +35,7 @@ final class AxIconCellController: NSViewController {
         cell.iconTip.commandPublisher
             .sink{[unowned self] in document.execute(AxDynamicLayerPropertyCommand($0, "icon", \DKIconLayer.icon)) }.store(in: &objectBag)
         cell.colorWell.colorPublisher
-            .sink{[unowned self] in document.execute(AxUpdateIconColorCommand($0)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxUpdateIconColorCommand.fromPhase($0)) }.store(in: &objectBag)
         cell.colorWell.colorStatePublisher
             .sink{[unowned self] in document.execute(AxLinkToStateCommand($0, \DKIconLayer.color)) }.store(in: &objectBag)
         cell.colorWell.colorConstantPublisher

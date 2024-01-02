@@ -64,14 +64,14 @@ final private class AxWorkbenchHeaderView: NSLoadView {
         self.layer?.backgroundColor = NSColor.windowBackgroundColor.cgColor
     }
     
-    private let separator1 = NSColorView()
-    private let separator2 = NSColorView()
+    private let separator1 = NSRectangleView()
+    private let separator2 = NSRectangleView()
     
     override func onAwake() {
         self.wantsLayer = true
         
         self.addSubview(separator1)
-        self.separator1.backgroundColor = NSColor.textColor.withAlphaComponent(0.1)
+        self.separator1.fillColor = NSColor.textColor.withAlphaComponent(0.1)
         self.separator1.snp.makeConstraints{ make in
             make.top.equalToSuperview()
             make.left.right.equalToSuperview()
@@ -79,7 +79,7 @@ final private class AxWorkbenchHeaderView: NSLoadView {
         }
         
         self.addSubview(separator2)
-        self.separator2.backgroundColor = NSColor.textColor.withAlphaComponent(0.1)
+        self.separator2.fillColor = NSColor.textColor.withAlphaComponent(0.1)
         self.separator2.snp.makeConstraints{ make in
             make.bottom.equalToSuperview()
             make.left.right.equalToSuperview()

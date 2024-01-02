@@ -18,7 +18,7 @@ final class AxNodeInputListController: AxNodeViewController {
     
     override func loadView() { self.view = cell }
     
-    override func nodeDidUpdate(_ node: BPIONode, objectBag: inout Bag) {
+    override func nodeDidUpdate(_ node: BPIONode, objectBag: inout Set<AnyCancellable>) {
         node.inputSocketsp()
             .sink{[unowned self] in cell.sockets = $0 }.store(in: &objectBag)
         

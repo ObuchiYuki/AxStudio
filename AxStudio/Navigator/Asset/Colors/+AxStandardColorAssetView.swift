@@ -19,14 +19,14 @@ struct AxStandardColorAsset: AxColorAssetItem {
     
     var assetType: AxColorAssetType { .color }
     
-    var namep: AnyPublisher<String, Never> { .just(name) }
-    var colorp: AnyPublisher<BPColor, Never> { .just(color) }
+    var namep: AnyPublisher<String, Never> { Just(name).eraseToAnyPublisher() }
+    var colorp: AnyPublisher<BPColor, Never> { Just(color).eraseToAnyPublisher() }
     
     private let color: BPColor
     private let name: String
     
     func pasteboardWriter() -> NSPasteboardWriting? {
-        color.pasteboardWriter(forType: .bpColor)
+        color.pasteboardWriting(for: .bpColor)
     }
     
     init(color: BPColor, name: String) {
@@ -42,14 +42,14 @@ struct AxStandardGradientAsset: AxColorAssetItem {
     
     var assetType: AxColorAssetType { .gradient }
     
-    var namep: AnyPublisher<String, Never> { .just(name) }
-    var gradientp: AnyPublisher<DKGradient, Never> { .just(gradient) }
+    var namep: AnyPublisher<String, Never> { Just(name).eraseToAnyPublisher() }
+    var gradientp: AnyPublisher<DKGradient, Never> { Just(gradient).eraseToAnyPublisher() }
     
     private let name: String
     private let gradient: DKGradient
     
     func pasteboardWriter() -> NSPasteboardWriting? {
-        gradient.pasteboardWriter(forType: .bpGradient)
+        gradient.pasteboardWriting(for: .bpGradient)
     }
     
     init(gradient: DKGradient, name: String) {

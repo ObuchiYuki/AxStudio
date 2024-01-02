@@ -95,7 +95,7 @@ final class AxBluePrintTypeView: NSLoadStackView {
 
 
 protocol Bindable: AnyObject {
-    var objectBag: Set<AnyCancellable> { get set }
+    var objectBag: NSObject.ObjectBag { get set }
 }
 extension NSObject: Bindable {}
 

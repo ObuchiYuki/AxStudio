@@ -55,7 +55,7 @@ final class AxStyleShadowCellController: NSViewController {
         self.cell.checkBox.checkPublisher
             .sink {[unowned self] in execute(AxShadowIsEnabledCommand($0)) }.store(in: &objectBag)
         self.cell.colorWell.colorPublisher
-            .sink {[unowned self] in document.execute(AxShadowColorCommand($0)) }.store(in: &objectBag)
+            .sink {[unowned self] in document.session.broadcast(AxShadowColorCommand.fromPhase($0)) }.store(in: &objectBag)
         self.cell.colorWell.colorConstantPublisher
             .sink{[unowned self] in document.execute(AxLinkToConstantCommand($0, \DKStyleShadowLayerType.shadow.color)) }.store(in: &objectBag)
         self.cell.colorWell.colorStatePublisher
@@ -66,28 +66,31 @@ final class AxStyleShadowCellController: NSViewController {
         self.cell.colorTip.commandPublisher
             .sink {[unowned self] in document.execute(AxDynamicLayerPropertyCommand($0, "shadow color", \DKStyleShadowLayerType.shadow.color)) }.store(in: &objectBag)
         self.cell.hexField.valuePublisher
-            .sink {[unowned self] in document.execute(AxShadowColorCommand(.pulse(DKColor(rgb: $0, alpha: 1)))) }.store(in: &objectBag)
+            .sink {[unowned self] in
+                let color = DKColor(red: $0.red, green: $0.green, blue: $0.blue, alpha: 1)
+                document.session.broadcast(AxShadowColorCommand.once(with: color))
+            }.store(in: &objectBag)
         self.cell.hexField.constantPublisher
             .sink{[unowned self] in document.execute(AxLinkToConstantCommand($0, \DKStyleShadowLayerType.shadow.color)) }.store(in: &objectBag)
         self.cell.hexField.statePublisher
             .sink{[unowned self] in document.execute(AxLinkToStateCommand($0, \DKStyleShadowLayerType.shadow.color)) }.store(in: &objectBag)
         
         self.cell.offsetXField.phasePublisher
-            .sink {[unowned self] in document.execute(AxShadowOffsetCommand(offsetX: $0)) }.store(in: &objectBag)
+            .sink {[unowned self] in document.session.broadcast(AxShadowOffsetCommand.fromPhase(.x, $0)) }.store(in: &objectBag)
         self.cell.offsetXField.statePublisher
             .sink {[unowned self] in document.execute(AxLinkToStateCommand($0, \DKStyleShadowLayerType.shadow.offsetX)) }.store(in: &objectBag)
         self.cell.offsetXTip.commandPublisher
             .sink {[unowned self] in document.execute(AxDynamicLayerPropertyCommand($0, "Shadow X Offset", \DKStyleShadowLayerType.shadow.offsetX)) }.store(in: &objectBag)
         
         self.cell.offsetYField.phasePublisher
-            .sink {[unowned self] in document.execute(AxShadowOffsetCommand(offsetY: $0)) }.store(in: &objectBag)
+            .sink {[unowned self] in document.session.broadcast(AxShadowOffsetCommand.fromPhase(.y, $0)) }.store(in: &objectBag)
         self.cell.offsetYField.statePublisher
             .sink {[unowned self] in document.execute(AxLinkToStateCommand($0, \DKStyleShadowLayerType.shadow.offsetY)) }.store(in: &objectBag)
         self.cell.offsetYTip.commandPublisher
             .sink {[unowned self] in document.execute(AxDynamicLayerPropertyCommand($0, "Shadow Y Offset", \DKStyleShadowLayerType.shadow.offsetY)) }.store(in: &objectBag)
         
         self.cell.radiusField.phasePublisher
-            .sink {[unowned self] in document.execute(AxShadowRadiusCommand($0)) }.store(in: &objectBag)
+            .sink {[unowned self] in document.session.broadcast(AxShadowRadiusCommand.fromPhase($0)) }.store(in: &objectBag)
         self.cell.radiusField.statePublisher
             .sink {[unowned self] in document.execute(AxLinkToStateCommand($0, \DKStyleShadowLayerType.shadow.radius)) }.store(in: &objectBag)
         self.cell.radiusTip.commandPublisher

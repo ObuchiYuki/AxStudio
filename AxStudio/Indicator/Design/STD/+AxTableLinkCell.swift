@@ -72,8 +72,8 @@ final private class AxTableLinkListCellController: NSViewController {
     }
     
     override func chainObjectDidLoad() {
-        let linkLayer = document.$selectedLayers.compactMap{ $0.first as? DKTableLinkLayer }
-        let cellLayer = linkLayer.switchToLatest{ $0.cellLayerp.compactMap{ $0.value } }
+        let linkLayer = document.$selectedLayers.compactMap{ $0.first as? (any DKTableLinkLayer) }
+        let cellLayer = linkLayer.switchToLatest{[unowned self] in $0.cellLayerp.compactMap{ $0.get(self.document.session) } }
         let states = cellLayer.switchToLatest{ $0.$componentStates }
         let links = linkLayer.switchToLatest{ $0.linkMap.linkMapp }
         

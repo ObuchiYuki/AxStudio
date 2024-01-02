@@ -67,7 +67,7 @@ final class AxSizeCellController: NSViewController {
             .sink{[unowned self] in document.execute(AxConstraintSizeTypeCommand($0, .all)) }.store(in: &objectBag)
         
         cell.widthPicker.lengthField.phasePublisher
-            .sink{[unowned self] in document.execute(AxConstraintsWidthValueCommand($0)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxConstraintsWidthValueCommand.fromPhase($0)) }.store(in: &objectBag)
         cell.widthPicker.lengthField.statePublisher
             .sink{[unowned self] in document.execute(AxLinkToStateCommand($0, unmaster: false, \DKLayer.constraints.widthValue)) }.store(in: &objectBag)
         cell.widthPicker.sizeClassPicker.sizeClassPublisher
@@ -76,7 +76,7 @@ final class AxSizeCellController: NSViewController {
             .sink{[unowned self] in document.execute(AxDynamicLayerPropertyCommand($0, "Width", unmaster: false, \DKLayer.constraints.widthValue)) }.store(in: &objectBag)
         
         cell.heightPicker.lengthField.phasePublisher
-            .sink{[unowned self] in document.execute(AxConstraintsHeightValueCommand($0)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxConstraintsHeightValueCommand.fromPhase($0)) }.store(in: &objectBag)
         cell.heightPicker.lengthField.statePublisher
             .sink{[unowned self] in document.execute(AxLinkToStateCommand($0, unmaster: false, \DKLayer.constraints.heightValue)) }.store(in: &objectBag)
         cell.heightPicker.sizeClassPicker.sizeClassPublisher

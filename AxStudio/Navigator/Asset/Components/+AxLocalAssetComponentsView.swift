@@ -29,7 +29,7 @@ final class AxLocalAssetComponentsViewController: ACComponentViewController {
         
         let menu = NSMenu()
         if assets.count == 1, let asset = assets.first {
-            guard let master = asset.master.value else { return nil }
+            guard let master = asset.master.get(document.session) else { return nil }
             menu.addItem("Remove Component") { self.removeComponent([asset]) }
             menu.addItem("Edit Master") { self.document.execute(AxEditMasterCommand(master)) }
         } else {

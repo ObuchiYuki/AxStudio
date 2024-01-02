@@ -21,6 +21,7 @@ final public class AxLocalColorItem: ACColorItem {
     public let itemType: DKFillType = .color
     public var namep: AnyPublisher<String, Never> { constant.$name.eraseToAnyPublisher() }
     public var colorp: AnyPublisher<DKColor, Never> { constant.$value.compactMap{ $0 as? BPColor }.eraseToAnyPublisher() }
+    public var gradientp: AnyPublisher<DKGradient, Never> { Empty().eraseToAnyPublisher() }
     
     public func onRemoveItem() {
         document.execute(AxRemoveColorConstantsCommand([constant]))
@@ -29,7 +30,7 @@ final public class AxLocalColorItem: ACColorItem {
         model.colorConstantPublisher.send(constant)
     }
     public func pasteboardWriter() -> NSPasteboardWriting? {
-        constant.pasteBoardRefStorage(forType: .bpConstant)
+        constant.pasteboardRefWriting(for: .bpConstant)
     }
     
     let constant: BPConstant

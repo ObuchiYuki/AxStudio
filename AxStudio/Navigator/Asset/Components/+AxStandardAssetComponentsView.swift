@@ -26,5 +26,5 @@ extension AxStandardAssetStore: ACComponentGroup {
     var name: String { "Standard" }
     
     var assetItems: [ACComponentAssetItem] { self.layerAssets }
-    var assetItemsp: AnyPublisher<[ACComponentAssetItem], Never> { .just(self.layerAssets) }
+    var assetItemsp: AnyPublisher<[ACComponentAssetItem], Never> { Just(self.layerAssets).eraseToAnyPublisher() }
 }

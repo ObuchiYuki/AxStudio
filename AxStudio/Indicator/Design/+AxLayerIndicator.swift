@@ -11,6 +11,7 @@ import AxComponents
 import BluePrintKit
 import STDComponents
 import SwiftEx
+import DebugEx
 import AppKit
 
 final class AxDesignIndicatorViewController: ACStackViewController_ {
@@ -20,7 +21,7 @@ final class AxDesignIndicatorViewController: ACStackViewController_ {
     private let sizeCell = AxSizeCellController()
     private let positionCell = AxPositionCellController()
         
-    private let masterLayoutHeaderCell = ACStackViewFoldHeaderController(title: IS_DEBUG ? "Layout (Master)" : "Layout")
+    private let masterLayoutHeaderCell = ACStackViewFoldHeaderController(title: DebugEx.__IS_DEBUG ? "Layout (Master)" : "Layout")
     private let masterLayoutCell = AxMasterLayoutCellController()
     
     private let screenHeaderCell = ACStackViewFoldHeaderController(title: "Screen")
@@ -59,7 +60,7 @@ final class AxDesignIndicatorViewController: ACStackViewController_ {
     
     private let segmentHeaderCell = AxSegmentedControlHeaderCellController(title: "Segmented Control")
     private let segmentCell = AxSegmentedControlCellController()
-    private let segmentListHeaderCell = ACStackViewHeaderCellController_(title: "Items".locarized(), style: .small)
+    private let segmentListHeaderCell = ACStackViewHeaderCellController_(title: "Items".____locarized(), style: .small)
     private let segmentListCell = AxSegmentedItemListCellController()
     
     private let tableHeaderCell = ACStackViewFoldHeaderController(title: "Table")
@@ -72,22 +73,22 @@ final class AxDesignIndicatorViewController: ACStackViewController_ {
     private let textAssetCell = AxFontAssetCellController()
     private let textCell = AxTextCellController()
     
-    private let imageHeaderCell = ACStackViewFoldHeaderController(title: "Image".locarized())
+    private let imageHeaderCell = ACStackViewFoldHeaderController(title: "Image".____locarized())
     private let imageCell = AxImageCellController()
     
-    private let instanceHeaderCell = ACStackViewFoldHeaderController(title: "Instance".locarized())
+    private let instanceHeaderCell = ACStackViewFoldHeaderController(title: "Instance".____locarized())
     private let instanceCell = AxInstanceCellController()
     
-    private let styleHeaderCell = ACStackViewFoldHeaderController(title: "Style".locarized(), defaultState: true)
+    private let styleHeaderCell = ACStackViewFoldHeaderController(title: "Style".____locarized(), defaultState: true)
     private let opacityCell = AxOpacityCellController()
     
-    private let fillHeaderCell = ACStackViewHeaderCellController_(title: "Fill".locarized(), style: .small)
+    private let fillHeaderCell = ACStackViewHeaderCellController_(title: "Fill".____locarized(), style: .small)
     private let fillCell = AxStyleFillCellController()
     
-    private let borderHeaderCell = ACStackViewHeaderCellController_(title: "Border".locarized(), style: .small)
+    private let borderHeaderCell = ACStackViewHeaderCellController_(title: "Border".____locarized(), style: .small)
     private let borderCell = AxStyleBorderCellController()
     
-    private let shadowHeaderCell = ACStackViewHeaderCellController_(title: "Shadow".locarized(), style: .small)
+    private let shadowHeaderCell = ACStackViewHeaderCellController_(title: "Shadow".____locarized(), style: .small)
     private let shadowCell = AxStyleShadowCellController()
     
     private let solidFillHeaderCell = ACStackViewHeaderCellController_(title: "Tint", style: .small)
@@ -115,7 +116,7 @@ final class AxDesignIndicatorViewController: ACStackViewController_ {
         let actions = document.$selectedLayers.map{ $0.singleOrNil()?.viewModelLayer?.viewModel.$actions }.involveSwitchToLatest()
         let cactions = document.$selectedLayers.map{ $0.singleOrNil()?.componentLayer?.$componentActions }.involveSwitchToLatest()
         
-        let reload = document.$selectedLayers.touch(parentChange, document.$selectedState, document.$selectedAction).touch(states, actions, cactions)
+        let reload = document.$selectedLayers.touch(parentChange.combineLatest(document.$selectedState, document.$selectedAction, states, actions, cactions))
             .grouping(by: document.executeSession)
         
         reload
@@ -129,7 +130,7 @@ final class AxDesignIndicatorViewController: ACStackViewController_ {
         return layers.unmasterNonEmptyAllSatisfy{ $0.userCanUpdateLayout }
     }
     private func shouldShowPositionIndicator(_ layers: [DKLayer]) -> Bool {
-        layers.allSatisfy{ $0.parent?.value is DKGroup } && layers.unmasterNonEmptyAllSatisfy{ $0.userCanUpdateLayout }
+        layers.allSatisfy{ $0.parent?.get($0.session) is DKGroup } && layers.unmasterNonEmptyAllSatisfy{ $0.userCanUpdateLayout }
     }
     private func shouldShowSizeIndicator(_ layers: [DKLayer]) -> Bool {
         true

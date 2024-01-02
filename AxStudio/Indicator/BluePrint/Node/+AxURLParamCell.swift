@@ -35,10 +35,8 @@ final class AxURLParamatorHeaderController: ACStackViewFoldHeaderController {
         document.execute {[self] in
             let currentSet = Set(node.urlParamators.map{ $0.key })
             let paramKey = Identifier.make(with: .numberPostfix("key", separtor: ""), notContainsIn: currentSet)
-            
-            BPURLParamator(node, key: paramKey).makeOnDocument(document)
-                .peek{ node.urlParamators.append($0) }
-                .catch(document.handleError)
+            let param = try BPURLParamator.make(node: node, key: paramKey, on: document.session)
+            node.urlParamators.append(param)
         }
     }
 }
@@ -65,9 +63,8 @@ final class AxRequestHeadersHeaderController: ACStackViewFoldHeaderController {
             let currentSet = Set(node.headers.map{ $0.key })
             let paramKey = Identifier.make(with: .numberPostfix("key", separtor: ""), notContainsIn: currentSet)
             
-            BPRequestHeader(node, key: paramKey).makeOnDocument(document)
-                .peek{ node.headers.append($0) }
-                .catch(document.handleError)
+            let header = try BPRequestHeader.make(node: node, key: paramKey, on: document.session)
+            node.headers.append(header)
         }
     }
 }
@@ -94,7 +91,7 @@ final class AxURLParamatorListCellController: AxNodeViewController {
             item.$key
                 .sink{ cell.keyField.fieldState = .identical($0) }.store(in: &itemsBag)
             cell.keyField.endPublisher
-                .sink{[unowned self] v in self.document.execute { updateKey(item, name: v, cell: cell) } }.store(in: &itemsBag)
+                .sink{[unowned self] v in self.document.execute { self.updateKey(item, name: v, cell: cell) } }.store(in: &itemsBag)
             cell.removeButton.actionPublisher
                 .sink{[unowned self] in self.document.execute { self.removeParamator(item) } }.store(in: &itemsBag)
             self.listView.addArrangedSubview(cell)
@@ -120,7 +117,7 @@ final class AxURLParamatorListCellController: AxNodeViewController {
         node.urlParamators.removeFirst(where: { $0 === item })
     }
     
-    override func nodeDidUpdate(_ node: BPIONode, objectBag: inout Bag) {
+    override func nodeDidUpdate(_ node: BPIONode, objectBag: inout Set<AnyCancellable>) {
         guard let node = node as? BPURLBuilderNodeType else { return }
         node.urlParamatorsp
             .sink{[unowned self] in self.items = $0 }.store(in: &objectBag)
@@ -172,7 +169,7 @@ final class AxRequestHeaderListCellController: AxNodeViewController {
             item.$key
                 .sink{ cell.keyField.fieldState = .identical($0) }.store(in: &itemsBag)
             cell.keyField.endPublisher
-                .sink{[unowned self] v in self.document.execute { updateKey(item, name: v, cell: cell) } }.store(in: &itemsBag)
+                .sink{[unowned self] v in self.document.execute { self.updateKey(item, name: v, cell: cell) } }.store(in: &itemsBag)
             cell.removeButton.actionPublisher
                 .sink{[unowned self] in self.document.execute { self.removeParamator(item) } }.store(in: &itemsBag)
             self.listView.addArrangedSubview(cell)
@@ -198,7 +195,7 @@ final class AxRequestHeaderListCellController: AxNodeViewController {
         node.headers.removeFirst(where: { $0 === item })
     }
     
-    override func nodeDidUpdate(_ node: BPIONode, objectBag: inout Bag) {
+    override func nodeDidUpdate(_ node: BPIONode, objectBag: inout Set<AnyCancellable>) {
         guard let node = node as? BPAdvancedNetworkNode else { return }
         node.$headers
             .sink{[unowned self] in self.items = $0 }.store(in: &objectBag)

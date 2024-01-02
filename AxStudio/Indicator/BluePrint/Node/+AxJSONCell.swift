@@ -10,13 +10,14 @@ import SwiftEx
 import AppKit
 import AxComponents
 import Neontetra
+import Combine
 
 final class AxGenericNodeCellController: AxNodeViewController {
     private let cell = AxGenericNodeCell()
     
     override func loadView() { self.view = cell }
     
-    override func nodeDidUpdate(_ node: BPIONode, objectBag: inout Bag) {
+    override func nodeDidUpdate(_ node: BPIONode, objectBag: inout Set<AnyCancellable>) {
         guard let node = node as? BPGenericsNodeType else { return }
         
         cell.typeWell.library = ACCustomSetTypeLibrary(type(of: node).typeCandidates)
@@ -50,7 +51,7 @@ final class AxJSONCellController: AxNodeViewController {
     
     override func loadView() {self.view = cell }
     
-    override func nodeDidUpdate(_ node: BPIONode, objectBag: inout Bag) {
+    override func nodeDidUpdate(_ node: BPIONode, objectBag: inout Set<AnyCancellable>) {
         guard let node = node as? BPJSONPathNode else { return }
         
         node.$path

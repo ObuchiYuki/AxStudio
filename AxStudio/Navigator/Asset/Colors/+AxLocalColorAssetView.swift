@@ -62,14 +62,14 @@ struct AxConstantColorAsset: AxColorAssetItem {
     fileprivate let document: AxDocument
     
     func pasteboardWriter() -> NSPasteboardWriting? {
-        constant.pasteBoardRefStorage(forType: .bpConstant)
+        constant.pasteboardRefWriting(for: .bpConstant)
     }
     
     func onUpdateName(_ name: String) {
         document.execute { constant.name = name }
     }
     func onUpdateColor(_ color: Phase<BPColor>) {
-        document.execute(AxUpdateColorConstantCommand(color, constant))
+        document.session.broadcast(AxUpdateColorConstantCommand.fromPhase(constant, color))
     }
     
     init(constant: BPConstant, document: AxDocument, canRename: Bool, canRemove: Bool) {
@@ -97,7 +97,7 @@ struct AxConstantGradientAsset: AxColorAssetItem {
     fileprivate let document: AxDocument
     
     func pasteboardWriter() -> NSPasteboardWriting? {
-        constant.pasteBoardRefStorage(forType: .bpConstant)
+        constant.pasteboardRefWriting(for: .bpConstant)
     }
     
     func onUpdateName(_ name: String) {

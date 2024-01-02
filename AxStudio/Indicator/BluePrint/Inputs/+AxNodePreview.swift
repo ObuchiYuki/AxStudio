@@ -19,7 +19,7 @@ final class AxNodePreviewCellController: AxNodeViewController {
     private let cell = AxNodePreviewCell()
     override func loadView() { self.view = cell }
     
-    override func nodeDidUpdate(_ node: BPIONode, objectBag: inout Bag) {
+    override func nodeDidUpdate(_ node: BPIONode, objectBag: inout Set<AnyCancellable>) {
         cell.previewView.node = node
     }
 }

@@ -25,7 +25,7 @@ final class AxStackSpacerCellController: NSViewController {
         
         
         cell.spacingField.phasePublisher
-            .sink{[unowned self] in document.execute(AxSpacerSpacingComand($0)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxSpacerSpacingComand.fromPhase($0)) }.store(in: &objectBag)
         cell.spacingTip.commandPublisher
             .sink{[unowned self] in document.execute(AxDynamicLayerPropertyCommand($0, "Spacing", \DKStackSpacer.minSpacing)) }.store(in: &objectBag)
     }

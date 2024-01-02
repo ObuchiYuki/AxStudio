@@ -34,7 +34,7 @@ final class AxStyleSolidFillCellController: NSViewController {
             .sink {[unowned self] in execute(AxToggleSolidFillIsEnabledCommand($0)) }.store(in: &objectBag)
         
         self.cell.colorWell.colorPublisher
-            .sink {[unowned self] in document.execute(AxSolidFillColorCommand($0)) }.store(in: &objectBag)
+            .sink {[unowned self] in document.session.broadcast(AxSolidFillColorCommand.fromPhase($0)) }.store(in: &objectBag)
         self.cell.colorWell.colorConstantPublisher
             .sink{[unowned self] in document.execute(AxLinkToConstantCommand($0, \DKStyleSolidFillLayerType.solidFill.color)) }.store(in: &objectBag)
         self.cell.colorWell.colorStatePublisher
@@ -43,7 +43,10 @@ final class AxStyleSolidFillCellController: NSViewController {
             .sink{[unowned self] in document.execute(AxBecomeStaticCommand(\DKStyleSolidFillLayerType.solidFill.color)) }.store(in: &objectBag)
         
         self.cell.hexField.valuePublisher
-            .sink {[unowned self] in document.execute(AxSolidFillColorCommand(.pulse(DKColor(rgb: $0, alpha: 1)))) }.store(in: &objectBag)
+            .sink {[unowned self] in
+                let color = DKColor(red: $0.red, green: $0.green, blue: $0.blue, alpha: 1)
+                document.session.broadcast(AxSolidFillColorCommand.once(with: color))
+            }.store(in: &objectBag)
         self.cell.hexField.constantPublisher
             .sink{[unowned self] in document.execute(AxLinkToConstantCommand($0, \DKStyleSolidFillLayerType.solidFill.color)) }.store(in: &objectBag)
         self.cell.hexField.statePublisher

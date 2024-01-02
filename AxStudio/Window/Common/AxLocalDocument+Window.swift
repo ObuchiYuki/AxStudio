@@ -19,8 +19,10 @@ extension AxLocalDocument {
     private static func makeWindowControllers(_ document: AxLocalDocument) {
         let windowController = AxAppWindowController.instantiate()
         document.addWindowController(windowController)
-        let session = AxModelSession.publish(client: document, errorHandler: AxToastErrorHandler(), undoManager: document.undoManager)
-        AxDocument.connect(session: session)
+        
+        let session = AxModelSession.publish(client: document, errorHandle: AxToastErrorHandle())
+        
+        AxDocument.connect(to: session)
             .peek{ document in
                 windowController.chainObject = document
                 document.clientType = .local(AxDocument.LocalClientInfo())

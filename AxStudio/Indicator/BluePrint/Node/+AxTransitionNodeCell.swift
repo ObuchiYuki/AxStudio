@@ -10,13 +10,14 @@ import SwiftEx
 import AppKit
 import AxComponents
 import Neontetra
+import Combine
 
 final class AxTransitionNodeController: AxNodeViewController {
     private let cell = AxTransitionNode()
     
     override func loadView() { self.view = cell }
     
-    override func nodeDidUpdate(_ node: BPIONode, objectBag: inout Bag) {
+    override func nodeDidUpdate(_ node: BPIONode, objectBag: inout Set<AnyCancellable>) {
         guard let node = node as? BPTransitionNode else { return }
         
         node.$transitionType

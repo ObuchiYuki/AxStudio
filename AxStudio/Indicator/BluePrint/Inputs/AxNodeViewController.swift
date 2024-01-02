@@ -14,7 +14,7 @@ import Combine
 
 open class AxNodeViewController: NSViewController {
     var node: BPIONode?
-    open func nodeDidUpdate(_ node: BPIONode, objectBag: inout Bag) {}
+    open func nodeDidUpdate(_ node: BPIONode, objectBag: inout Set<AnyCancellable>) {}
     
     private var nodeBag = Set<AnyCancellable>()
     

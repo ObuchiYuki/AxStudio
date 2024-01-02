@@ -20,12 +20,13 @@ final class AxTextInputCellController: NSViewController {
     override func loadView() { self.view = cell }
     
     override func chainObjectDidLoad() {
+        let session = document.session
         let textInputs = document.selectedUnmasteredLayersp.compactMap{ $0.compactAllSatisfy{ $0 as? STDTextInput } }
         
         let textValue = textInputs.dynamicProperty(\.$text, document: document).removeDuplicates()
         let textColorValue = textInputs.dynamicProperty(\.$textColor, document: document)
         let placeholder = textInputs.switchToLatest{ $0.map{ $0.$placeholder }.combineLatest }.map{ $0.mixture }.removeDuplicates()
-        let font = textInputs.switchToLatest{ $0.map{ $0.fontProvider.fontp }.combineLatest }
+        let font = textInputs.switchToLatest{ $0.map{ $0.fontProvider.fontp(session) }.combineLatest }
         let alignment = textInputs.switchToLatest{ $0.map{ $0.$alignment }.combineLatest }.map{ $0.mixture(.left) }.removeDuplicates()
         let contentType = textInputs.switchToLatest{ $0.map{ $0.$contentType }.combineLatest }.map{ $0.mixture(.none) }.removeDuplicates()
         let isBordered = textInputs.switchToLatest{ $0.map{ $0.$isBordered }.combineLatest }.map{ $0.mixture }.removeDuplicates()
@@ -65,12 +66,12 @@ final class AxTextInputCellController: NSViewController {
         self.cell.fontWell.familyPublisher
             .sink{[unowned self] in document.execute(AxTextInputFontFamilyCommand($0)) }.store(in: &objectBag)
         self.cell.fontSizeSelector.phasePublisher
-            .sink{[unowned self] in document.execute(AxTextInputTextSizeCommand($0)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxTextInputTextSizeCommand.fromPhase($0)) }.store(in: &objectBag)
         self.cell.fontWeightPicker.weightPublisher
             .sink{[unowned self] in document.execute(AxTextInputFontWeightCommand($0)) }.store(in: &objectBag)
         
         self.cell.textColorWell.colorPublisher
-            .sink{[unowned self] in document.execute(AxTextInputTextColorCommand($0)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxTextInputTextColorCommand.fromPhase($0)) }.store(in: &objectBag)
         self.cell.textColorWell.colorConstantPublisher
             .sink{[unowned self] in document.execute(AxLinkToConstantCommand($0, \STDTextInput.textColor)) }.store(in: &objectBag)
         self.cell.textColorWell.colorStatePublisher
@@ -144,16 +145,16 @@ final private class AxTextInputCell: ACGridView {
 extension STDTextInput.ContentType: ACTextItem {
     public var title: String {
         switch self {
-        case .none: return "none.input".locarized()
-        case .name: return "name.input".locarized()
-        case .number: return "number.input".locarized()
-        case .address: return "address.input".locarized()
-        case .telephone: return "telephone.input".locarized()
-        case .email: return "email.input".locarized()
-        case .creditCard: return "creditCard.input".locarized()
-        case .username: return "username.input".locarized()
-        case .password: return "password.input".locarized()
-        case .newPassword: return "newPassword.input".locarized()
+        case .none: return "none.input".____locarized()
+        case .name: return "name.input".____locarized()
+        case .number: return "number.input".____locarized()
+        case .address: return "address.input".____locarized()
+        case .telephone: return "telephone.input".____locarized()
+        case .email: return "email.input".____locarized()
+        case .creditCard: return "creditCard.input".____locarized()
+        case .username: return "username.input".____locarized()
+        case .password: return "password.input".____locarized()
+        case .newPassword: return "newPassword.input".____locarized()
         }
     }
 }

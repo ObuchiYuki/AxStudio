@@ -11,6 +11,7 @@ import LapixUI
 import ZIPFoundation
 import SwiftEx
 import AppKit
+import Promise
 
 final class AxDocumentPreviewManager {
     
@@ -39,7 +40,7 @@ final class AxDocumentPreviewManager {
             let documentID = object.documentID
             
             self.saveCloudPreview(image, for: documentID)
-            self.cloudPreviewMemo[documentID] = Promise(output: image)
+            self.cloudPreviewMemo[documentID] = Promise.resolve(image)
         }
     }
     
@@ -50,7 +51,7 @@ final class AxDocumentPreviewManager {
             
             localDocument.setPreviewImage(image)
             if let url = localDocument.fileURL {
-                self.localPreviewMemo[url] = Promise(output: image)
+                self.localPreviewMemo[url] = Promise.resolve(image)
             }
         }
     }
@@ -64,7 +65,7 @@ final class AxDocumentPreviewManager {
     }
     
     private func loadCloudPreview(for documentID: String) -> Promise<NSImage?, Never>? {
-        Promise.async(on: .global()){ resolve, _ in
+        Promise.dispatch(on: .global()) { resolve, _ in
             let previewURL = self.cloudPreviewFileURL(documentID)
             resolve(NSImage(contentsOf: previewURL))
         }
@@ -80,11 +81,11 @@ final class AxDocumentPreviewManager {
     
     private func fetchLocalPreview(for url: URL) -> Promise<NSImage?, Never>? {
         if url.pathExtension != "axstudio" { return nil }
-        guard let archive = Archive(url: url, accessMode: .read) else { return nil }
+        guard let archive = try? Archive(url: url, accessMode: .read, pathEncoding: nil) else { return nil }
         guard let previewFile = archive["preview.png"] else { return nil }
         
-        return Promise.async(on: .global()){ resolve, _ in
-            let tmpURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().base64StringWithoutSymbol)
+        return Promise.dispatch(on: .global()){ resolve, _ in
+            let tmpURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().base64String)
             _ = try? archive.extract(previewFile, to: tmpURL)
             let image = NSImage(contentsOf: tmpURL)
             resolve(image)

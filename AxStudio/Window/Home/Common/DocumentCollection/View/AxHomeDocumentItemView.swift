@@ -11,7 +11,7 @@ import SwiftEx
 import AppKit
 import Combine
 
-final class AxHomeDocumentItemView: NSColorView {
+final class AxHomeDocumentItemView: NSRectangleView {
     var itemModel: AxHomeCollectionItemModel? { didSet { self.onItemModelLoaded() } }
     var isSelected: Bool = false { didSet { updateSelection() } }
          
@@ -22,8 +22,7 @@ final class AxHomeDocumentItemView: NSColorView {
     private let menuButton = AxHomeDocumentMenuButton()
     
     private let titleStackView = NSStackView()
-    private let footerView = NSColorView()
-    
+    private let footerView = NSRectangleView()
     
     private func updateSelection() {
         if self.isSelected {
@@ -111,7 +110,7 @@ final class AxHomeDocumentItemView: NSColorView {
         
         self.wantsLayer = true
         self.layer?.cornerRadius = 4
-        self.backgroundColor = R.Color.editorBackgroundColor
+        self.fillColor = R.Color.editorBackgroundColor
         self.updateSelection()
         
         self.titleStackView.orientation = .vertical
@@ -135,7 +134,7 @@ final class AxHomeDocumentItemView: NSColorView {
         self.infoLabel.lineBreakMode = .byTruncatingTail
         self.infoLabel.textColor = .secondaryLabelColor
         
-        self.footerView.backgroundColor = .textBackgroundColor
+        self.footerView.fillColor = .textBackgroundColor
         self.footerView.addSubview(documentTypeIconView)
         self.footerView.addSubview(titleStackView)
         self.footerView.addSubview(menuButton)

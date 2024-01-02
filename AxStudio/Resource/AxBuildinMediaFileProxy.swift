@@ -13,7 +13,7 @@ enum AxBuildinMediaError: Error {
     case unkownPath
 }
 
-final class AxBuildinMediaFileProxy: AxModelMediaFileProxy {
+final class AxBuildinMediaFileProxy: AxModelFileProxy {
     static let scheme: String = "buildin"
     
     private var resourceMap = [String: Data]()
@@ -21,9 +21,9 @@ final class AxBuildinMediaFileProxy: AxModelMediaFileProxy {
     func dataPromise(for path: String) -> Promise<Data, Error> {
         guard let data = resourceMap[path] else {
             assertionFailure("Unkown path \(path)")
-            return Promise(failure: AxBuildinMediaError.unkownPath)
+            return Promise.reject(AxBuildinMediaError.unkownPath)
         }
-        return Promise(output: data)
+        return Promise.resolve(data)
     }
     
     func register(_ image: NSImage, for path: String) {

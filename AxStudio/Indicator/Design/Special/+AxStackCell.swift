@@ -61,17 +61,17 @@ final class AxStackCellController: NSViewController {
         self.cell.oriantationPicker.itemPublisher
             .sink{[unowned self] in document.execute(AxStackLayerOrientationCommand($0)) }.store(in: &objectBag)
         self.cell.paddingField.phasePublisher
-            .sink{[unowned self] in document.execute(AxStackLayerPaddingCommand($0, .all)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxStackLayerPaddingCommand.fromPhase(.all, $0)) }.store(in: &objectBag)
         self.cell.layoutPicker.minXField.phasePublisher
-            .sink{[unowned self] in document.execute(AxStackLayerPaddingCommand($0, .minX)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxStackLayerPaddingCommand.fromPhase(.minX, $0)) }.store(in: &objectBag)
         self.cell.layoutPicker.maxXField.phasePublisher
-            .sink{[unowned self] in document.execute(AxStackLayerPaddingCommand($0, .maxX)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxStackLayerPaddingCommand.fromPhase(.maxX, $0)) }.store(in: &objectBag)
         self.cell.layoutPicker.minYField.phasePublisher
-            .sink{[unowned self] in document.execute(AxStackLayerPaddingCommand($0, .minY)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxStackLayerPaddingCommand.fromPhase(.minY, $0)) }.store(in: &objectBag)
         self.cell.layoutPicker.maxYField.phasePublisher
-            .sink{[unowned self] in document.execute(AxStackLayerPaddingCommand($0, .maxY)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxStackLayerPaddingCommand.fromPhase(.maxY, $0)) }.store(in: &objectBag)
         self.cell.spaceField.phasePublisher
-            .sink{[unowned self] in document.execute(AxStackLayerSpaceCommand($0)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxStackLayerSpaceCommand.fromPhase($0)) }.store(in: &objectBag)
         self.cell.maskCheck.checkPublisher
             .sink{[unowned self] in document.execute(AxStackLayerToggleMaskCommand($0)) }.store(in: &objectBag)
         self.cell.addSpscerButton.actionPublisher

@@ -52,15 +52,16 @@ final class AxDebugPasteboardJSONViewController: NSViewController {
     private var textView: NSTextView { scrollView.documentView as! NSTextView }
     
     func reload() {
-        guard let plist = NSPasteboard.general.nodeObjects(type: .dkLayer) else {
-            return textView.string = "<empty>"
-        }
-        
-        guard let json = try? JSONSerialization.data(withJSONObject: plist, options: [.prettyPrinted]),
-              let jsonString = String(data: json, encoding: .utf8)
-        else { return textView.string = "<error>" }
-            
-        self.textView.string = jsonString
+        #warning("JSON形式でのメッセージは現在生成できない")
+//        guard let plist = NSPasteboard.general.getNodes(for: .dkLayer) else {
+//            return textView.string = "<empty>"
+//        }
+//        
+//        guard let json = try? JSONSerialization.data(withJSONObject: plist, options: [.prettyPrinted]),
+//              let jsonString = String(data: json, encoding: .utf8)
+//        else { return textView.string = "<error>" }
+//            
+//        self.textView.string = jsonString
     }
     
     override func chainObjectDidLoad() {

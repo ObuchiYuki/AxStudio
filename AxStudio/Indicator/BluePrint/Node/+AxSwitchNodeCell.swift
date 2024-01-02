@@ -38,8 +38,9 @@ final class AxSwitchNodeHeaderController: ACStackViewFoldHeaderController {
                 return document.warningPublisher.send(.init(title: "Cannot create new value"))
             }
             
-            BPSwitchNode.Case(AxModelRef(node), value: nextValue).makeOnDocument(document)
-                .peek{ node.cases.append($0) }.catch(document.handleError)
+            let caseNode = try BPSwitchNode.Case.make(node: node, value: nextValue, on: document.session)
+            
+            node.cases.append(caseNode)
         }
     }
     
@@ -135,7 +136,7 @@ final class AxSwitchNodeListCellController: AxNodeViewController {
         node.cases.removeFirst(where: { $0 === item })
     }
     
-    override func nodeDidUpdate(_ node: BPIONode, objectBag: inout Bag) {
+    override func nodeDidUpdate(_ node: BPIONode, objectBag: inout Set<AnyCancellable>) {
         guard let node = node as? BPSwitchNode else { return }
         node.$cases
             .sink{[unowned self] in self.items = $0 }.store(in: &objectBag)

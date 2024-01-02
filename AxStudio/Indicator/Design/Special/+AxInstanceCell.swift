@@ -27,8 +27,8 @@ final class AxInstanceCellController: NSViewController {
     override func chainObjectDidLoad() {
         let instance = document.selectedUnmasteredLayersp.filter({ $0.count == 1 }).compactMap{ $0.first as? DKInstanceLayer }
         
-        let actions = instance.switchToLatest{
-            $0.$master.compactMap{ $0.value }.switchToLatest{ $0.$componentActions }
+        let actions = instance.switchToLatest{[unowned self] in
+            $0.$master.compactMap{ $0.get(self.document.session) }.switchToLatest{ $0.$componentActions }
         }
         
         actions.sink{[unowned self] in separator.isHidden = $0.isEmpty }.store(in: &objectBag)
@@ -61,14 +61,16 @@ final private class AxInstanceMenuCellController: NSViewController {
     override func chainObjectDidLoad() {
         let instance = document.selectedUnmasteredLayersp.filter({ $0.count == 1 }).compactMap{ $0.first as? DKInstanceLayer }
         
-        instance.switchToLatest{ $0.$master }.map{ $0.value?.asset?.value }
+        instance.switchToLatest{ $0.$master }.map{[unowned self] in $0.get(document.session)?.asset?.get(document.session) }
             .sink{[unowned self] in cell.componentWell.componentAsset = $0 }.store(in: &objectBag)
         
         cell.componentWell.assetPublisher
             .sink{[unowned self] in document.execute(AxReplaceMasterCommand($0)) }.store(in: &objectBag)
         cell.editMasterButton.actionPublisher
             .sink{[unowned self] in
-                guard let instance = document.selectedLayers.first as? DKInstanceLayer, let master = instance.master.value else { return }
+                guard let instance = document.selectedLayers.first as? DKInstanceLayer,
+                      let master = instance.master.get(document.session)
+                else { return }
                 document.execute(AxEditMasterCommand(master))
             }
             .store(in: &objectBag)
@@ -102,8 +104,8 @@ final private class AxInstanceListCellController: NSViewController {
     override func chainObjectDidLoad() {
         let instance = document.selectedUnmasteredLayersp.filter({ $0.count == 1 }).compactMap{ $0.first as? DKInstanceLayer }
         
-        let states = instance.switchToLatest{
-            $0.$master.compactMap{ $0.value }.switchToLatest{ $0.$componentStates }
+        let states = instance.switchToLatest{[unowned self] in
+            $0.$master.compactMap{ $0.get(self.document.session) }.switchToLatest{ $0.$componentStates }
         }
             
         states
@@ -114,7 +116,7 @@ final private class AxInstanceListCellController: NSViewController {
                 self.stackView.subviews.forEach{ $0.removeFromSuperview() }
                 
                 for state in states {
-                    guard let override = document.layoutContext.child(for: instance).override as? NEInstanceOverride else { continue }
+                    guard let override = document.session.layoutContext.child(for: instance).override as? NEInstanceOverride else { continue }
                     let cell = self.cellView(for: state, instance: instance, override: override)
                     self.stackView.addArrangedSubview(cell)
                 }
@@ -184,8 +186,8 @@ final private class AxInstanceActionListCellController: NSViewController {
     override func chainObjectDidLoad() {
         let instance = document.selectedUnmasteredLayersp.filter({ $0.count == 1 }).compactMap{ $0.first as? DKInstanceLayer }
         
-        let actions = instance.switchToLatest{
-            $0.$master.compactMap{ $0.value }.switchToLatest{ $0.$componentActions }
+        let actions = instance.switchToLatest{[unowned self] in
+            $0.$master.compactMap{ $0.get(self.document.session) }.switchToLatest{ $0.$componentActions }
         }
             
         actions
@@ -196,7 +198,7 @@ final private class AxInstanceActionListCellController: NSViewController {
                 self.stackView.subviews.forEach{ $0.removeFromSuperview() }
                 let overrideActionsp = instance.overrideActionsp
                 for action in actions {
-                    let cell = self.cellView(for: action, instance: instance, override: overrideActionsp)
+                    let cell = self.cellView(for: action, instance: instance, override: overrideActionsp.eraseToAnyPublisher())
                     self.stackView.addArrangedSubview(cell)
                 }
             }

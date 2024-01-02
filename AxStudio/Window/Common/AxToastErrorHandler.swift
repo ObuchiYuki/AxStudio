@@ -5,10 +5,11 @@
 //  Created by yuki on 2021/09/19.
 //
 
+import Foundation
 import AxModelCore
 import AxComponents
 
-final class AxToastErrorHandler: AxModelErrorHandler {
+final class AxToastErrorHandle: AxModelErrorHandle {
     func handleError(_ error: Error) {
         DispatchQueue.main.async {
             #if DEBUG

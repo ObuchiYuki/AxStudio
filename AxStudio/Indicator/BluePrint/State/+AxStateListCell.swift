@@ -66,14 +66,14 @@ extension AxStateListCellController: NSTableViewDataSource {
     
     func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
         guard let state = self.states.at(row) else { return nil }
-        return state.pasteBoardRefStorage(forType: .bpState)
+        return state.pasteboardRefWriting(for: .bpState)
     }
     func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow: Int, proposedDropOperation operation: NSTableView.DropOperation) -> NSDragOperation {
         if operation != .on, info.draggingPasteboard.canReadType(.bpState) { return .generic }
         return .none
     }
     func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation operation: NSTableView.DropOperation) -> Bool {
-        guard operation != .on, let state = info.draggingPasteboard.nodeRefs(type: .bpState, session: document.session)?.first else { return false }
+        guard operation != .on, let state = info.draggingPasteboard.getNodeRefs(for: .bpState, session: document.session)?.first else { return false }
         document.execute(AxMoveStateCommand(state: state, index: row))
         return true
     }

@@ -50,7 +50,7 @@ final class AxNodeIndicatorViewController: ACStackViewController_ {
     override func chainObjectDidLoad() {
         let parentChange = document.$selectedLayers.switchToLatest{ $0.map{ $0.$parent }.combineLatest }
         let states = document.$selectedLayers.map{ $0.singleOrNil()?.statesp }.involveSwitchToLatest()
-        let reload = document.$selectedLayers.touch(parentChange, document.$selectedState).touch(states)
+        let reload = document.$selectedLayers.touch(parentChange.combineLatest(document.$selectedState)).touch(states)
             .grouping(by: document.executeSession)
         reload
             .sink{[unowned self] in self.layerSelector.reloadData(with: $0) }.store(in: &objectBag)

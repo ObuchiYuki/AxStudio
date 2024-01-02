@@ -10,6 +10,7 @@ import AppKit
 import Combine
 import SwiftEx
 import AppKit
+import Promise
 import AxComponents
 import AxDocument
 import KeychainAccess
@@ -21,7 +22,7 @@ final class AxHomeWindowPresenter {
     let accountViewPresneter: AxHomeAccountPresenter
     let joinDocumentPresneter: AxHomeJoinDocumentPresenter
     
-    private(set) var autoSigninPromise = Promise<Void, Never>(output: ())
+    private(set) var autoSigninPromise = Promise<Void, Never>.resolve()
     
     let requireInternetConnection: Bool
     let api: AxHttpAPIClient
@@ -97,7 +98,7 @@ final class AxHomeWindowPresenter {
                 ACToast.show(message: "サインインに失敗しました"); self.authAPI = nil
             }
             .sink{
-                self.autoSigninPromise.fullfill(())
+                self.autoSigninPromise.resolve()
             }
     }
 

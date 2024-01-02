@@ -37,10 +37,10 @@ final class AxAppWindowController: NSWindowController {
     
     override func keyDown(with event: NSEvent) {
         switch event.hotKey.key {
-        case .upArrow: axDocument.execute(AxArrowCommand(key: .up, shift: event.modifierFlags.contains(.shift), phase: .pulse(())))
-        case .downArrow: axDocument.execute(AxArrowCommand(key: .down, shift: event.modifierFlags.contains(.shift), phase: .pulse(())))
-        case .rightArrow: axDocument.execute(AxArrowCommand(key: .right, shift: event.modifierFlags.contains(.shift), phase: .pulse(())))
-        case .leftArrow: axDocument.execute(AxArrowCommand(key: .left, shift: event.modifierFlags.contains(.shift), phase: .pulse(())))
+        case .upArrow:  axDocument.execute(AxArrowCommand(key: .up, shift: event.modifierFlags.contains(.shift)))
+        case .downArrow: axDocument.execute(AxArrowCommand(key: .down, shift: event.modifierFlags.contains(.shift)))
+        case .rightArrow: axDocument.execute(AxArrowCommand(key: .right, shift: event.modifierFlags.contains(.shift)))
+        case .leftArrow: axDocument.execute(AxArrowCommand(key: .left, shift: event.modifierFlags.contains(.shift)))
         default:
             super.keyDown(with: event)
         }
@@ -73,7 +73,8 @@ final class AxAppWindowController: NSWindowController {
             .receive(on: DispatchQueue.main)
             .sink{ self.showProgress($0) }.store(in: &objectBag)
         
-        self.axDocument.session.undoManager.undoManager = self.window?.undoManager
+        #error("🚨🚨🚨🚨UNDOManagerを何とかする方法がある。🚨🚨🚨")
+//        self.axDocument.session.undoManager.undoManager = self.window?.undoManager
         
         self.zoomViewModel.loadDocument(axDocument)
         self.previewViewModel.loadDocument(axDocument)
@@ -127,7 +128,7 @@ extension AxAppWindowController {
 }
 
 extension AxAppWindowController: NSWindowDelegate {
-    func windowWillClose(_ notification: Notification) { axDocument.close() }
+    func windowWillClose(_ notification: Notification) { axDocument.disconnect() }
 }
 
 

@@ -9,6 +9,7 @@
 import AppKit
 import SwiftEx
 import AppKit
+import Promise
 import AxComponents
 import AxDocument
 
@@ -73,7 +74,7 @@ final class AxHomeSidebarViewControler: ACSidebarViewController {
             AxHomeWindowController.make(presenter: .make(api: .production, serviceKey: "com.axstudio.p\(__.c)", requireInternetConnection: self.presenter.requireInternetConnection)).showWindow(nil)
         }
         
-        func removeAllDocuments() {
+        func removeAllDocuments() async throws {
             let alert = NSAlert()
             alert.messageText = "全Documentを削除します。"
             alert.addButton(withTitle: "Cancel")
@@ -81,23 +82,21 @@ final class AxHomeSidebarViewControler: ACSidebarViewController {
             let res = alert.runModal()
             guard res == .alertSecondButtonReturn, let authAPI = presenter.authAPI else { return }
         
-            asyncHandler{ _await in
-                let documents = try _await | authAPI.recentDocuments()
-                for document in documents {
-                    try _await | authAPI.deleteDocument(documentID: document.id)
-                    
-                    DispatchQueue.main.async {
-                        ACToast.show(message: "Document Deleted \(document.id)")
-                        NSSound.dragToTrash?.play()
-                        self.presenter.recentDocumentProvider.cloudDocumentItemLoader.setNeedsReload()
-                    }
+            let documents = try await authAPI.recentDocuments().value
+            for document in documents {
+                try await authAPI.deleteDocument(documentID: document.id).value
+                
+                DispatchQueue.main.async {
+                    ACToast.show(message: "Document Deleted \(document.id)")
+                    NSSound.dragToTrash?.play()
+                    self.presenter.recentDocumentProvider.cloudDocumentItemLoader.setNeedsReload()
                 }
             }
         }
         
         self.restartLocalhostButtonItem.actionPublisher.sink{ openLocalhost() }.store(in: &objectBag)
         self.restartAwsButtonItem.actionPublisher.sink{ openAWS() }.store(in: &objectBag)
-        self.removeAllDocumentsButtonItem.actionPublisher.sink{ removeAllDocuments() }.store(in: &objectBag)
+        self.removeAllDocumentsButtonItem.actionPublisher.sink{ Promise{ try await removeAllDocuments() }.catchOnToast() }.store(in: &objectBag)
         self.openURLButtonItem.actionPublisher
             .sink{
                 guard let string = NSPasteboard.general.string(forType: .string), var components = URLComponents(string: string) else { return NSSound.beep() }

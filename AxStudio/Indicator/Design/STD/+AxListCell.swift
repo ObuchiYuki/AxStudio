@@ -21,11 +21,12 @@ final class AxListCellController: NSViewController {
     override func loadView() { self.view = cell }
     
     override func chainObjectDidLoad() {
+        let session = document.session
         let list = document.$selectedLayers.filter{ $0.count == 1 }.compactMap{ $0.first as? STDList }
         let spacing = list.switchToLatest{ $0.$spacing }
         let alignment = list.switchToLatest{ $0.$alignment }
         let padding = list.switchToLatest{ $0.$padding }
-        let cellLayer = list.switchToLatest{ $0.$cellLayer.compactMap{ $0.value } }.compactMap{ $0.asset?.value }
+        let cellLayer = list.switchToLatest{ $0.$cellLayer.compactMap{ $0.get(session) } }.compactMap{ $0.asset?.get(session) }
         
         padding.map{ $0 == nil  }
             .sink{[unowned self] in
@@ -58,7 +59,7 @@ final class AxListCellController: NSViewController {
         
         cell.editMasterButton.actionPublisher
             .sink{[unowned self] in
-                if let master = document.selectedLayers.firstSome(where: { $0 as? STDList })?.cellLayer.value {
+                if let master = document.selectedLayers.firstSome(where: { $0 as? STDList })?.cellLayer.get(session) {
                     document.execute(AxEditMasterCommand(master))
                 }
             }
@@ -69,21 +70,21 @@ final class AxListCellController: NSViewController {
         cell.alignmentPicker.itemPublisher
             .sink{[unowned self] in document.execute(AxListAlignmentCommand($0)) }.store(in: &objectBag)
         cell.spacingField.phasePublisher
-            .sink{[unowned self] in document.execute(AxListSpacingCommand($0)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxListSpacingCommand.fromPhase($0)) }.store(in: &objectBag)
         cell.autoPaddingItem
             .setAction {[unowned self] in document.execute(AxListPaddingTypeCommand(.auto)) }
         cell.manualPaddingItem
             .setAction {[unowned self] in document.execute(AxListPaddingTypeCommand(.manual)) }
         cell.paddingField.phasePublisher
-            .sink{[unowned self] in document.execute(AxListPaddingCommand($0, .all)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxListPaddingCommand.fromPhase(.all, $0)) }.store(in: &objectBag)
         cell.minXField.phasePublisher
-            .sink{[unowned self] in document.execute(AxListPaddingCommand($0, .minX)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxListPaddingCommand.fromPhase(.minX, $0)) }.store(in: &objectBag)
         cell.maxXField.phasePublisher
-            .sink{[unowned self] in document.execute(AxListPaddingCommand($0, .maxX)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxListPaddingCommand.fromPhase(.maxX, $0)) }.store(in: &objectBag)
         cell.minYField.phasePublisher
-            .sink{[unowned self] in document.execute(AxListPaddingCommand($0, .minY)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxListPaddingCommand.fromPhase(.minY, $0)) }.store(in: &objectBag)
         cell.maxYField.phasePublisher
-            .sink{[unowned self] in document.execute(AxListPaddingCommand($0, .maxY)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxListPaddingCommand.fromPhase(.maxY, $0)) }.store(in: &objectBag)
     }
 }
 

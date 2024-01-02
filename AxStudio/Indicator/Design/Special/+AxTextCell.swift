@@ -22,7 +22,7 @@ final class AxTextCellController: NSViewController {
     override func chainObjectDidLoad() {
         let textLayers = document.selectedUnmasteredLayersp.compactMap{ $0.compactAllSatisfy{ $0 as? DKTextLayer } }
         let textValue = textLayers.dynamicProperty(\.$string, document: document)
-        let font = textLayers.switchToLatest{ $0.map{ $0.fontProvider.fontp }.combineLatest }
+        let font = textLayers.switchToLatest{[unowned self] in $0.map{ $0.fontProvider.fontp(self.document.session) }.combineLatest }
         let fills = textLayers.map{ $0.map{ $0.style.fill } }
         let fillColor = fills.dynamicProperty(\DKStyleSolidFill.$color, document: document)
         let alignment = textLayers.switchToLatest{ $0.map{ $0.$alignment }.combineLatest }.map{ $0.mixture(.left) }
@@ -55,11 +55,11 @@ final class AxTextCellController: NSViewController {
         cell.fontWell.familyPublisher
             .sink{[unowned self] in document.execute(AxFontFamilyCommand(family: $0)) }.store(in: &objectBag)
         cell.fontSizeField.phasePublisher
-            .sink{[unowned self] in document.execute(AxFontSizeCommand($0)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxFontSizeCommand.fromPhase($0)) }.store(in: &objectBag)
         cell.fontWeightPicker.weightPublisher
             .sink{[unowned self] in document.execute(AxFontWeightCommand($0)) }.store(in: &objectBag)
         cell.colorWell.colorPublisher
-            .sink{[unowned self] in document.execute(AxTextFillColorCommand($0)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxTextFillColorCommand.fromPhase($0)) }.store(in: &objectBag)
         cell.colorWell.colorConstantPublisher
             .sink{[unowned self] in document.execute(AxLinkToConstantCommand($0, \DKTextLayer.style.fill.color)) }.store(in: &objectBag)
         cell.colorWell.deattchConstantPublisher
@@ -67,7 +67,7 @@ final class AxTextCellController: NSViewController {
         cell.colorTip.commandPublisher
             .sink{[unowned self] in document.execute(AxDynamicLayerPropertyCommand($0, "text color", \DKTextLayer.style.fill.color)) } .store(in: &objectBag)
         cell.textField.endPublisher
-            .sink{[unowned self] in document.execute(AxTextCommand(.pulse($0))) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxTextCommand.once(nil, with: $0)) }.store(in: &objectBag)
         cell.textTip.commandPublisher
             .sink{[unowned self] in document.execute(AxDynamicLayerPropertyCommand($0, "text", \DKTextLayer.string)) } .store(in: &objectBag)
         cell.alignmentSelector.itemPublisher
@@ -78,9 +78,9 @@ final class AxTextCellController: NSViewController {
             .sink{[unowned self] in document.execute(AxFontProviderBecomeAssetCommand($0)) }.store(in: &objectBag)
         
         cell.charSpacing.phasePublisher
-            .sink{[unowned self] in document.execute(AxTextCharSpacingCommand($0)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxTextCharSpacingCommand.fromPhase($0)) }.store(in: &objectBag)
         cell.lineSpacing.phasePublisher
-            .sink{[unowned self] in document.execute(AxTextLineSpacingCommand($0)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxTextLineSpacingCommand.fromPhase($0)) }.store(in: &objectBag)
     }
 }
 

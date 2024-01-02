@@ -14,7 +14,7 @@ import LayoutEngine
 enum AxLayerLayoutInfo {
     static func showInfo(_ document: AxDocument, view: NSView) {
         guard let location = view.window?.mouseLocationOutsideOfEventStream, let layer = document.selectedLayers.first else { return }
-        let context = document.layoutContext
+        let context = document.session.layoutContext
         
         print("------------------------------ Layout Info ------------------------------")
         

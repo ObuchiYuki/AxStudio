@@ -42,7 +42,7 @@ final class AxPositionCellController: NSViewController {
         cell.xPositionTip.commandPublisher
             .sink{[unowned self] in document.execute(AxDynamicLayerPropertyCommand($0, "Position", \DKLayer.constraints.xPinValue)) }.store(in: &objectBag)
         cell.xPositionPicker.lengthField.phasePublisher
-            .sink{[unowned self] in document.execute(AxXPinValueCommand($0)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxXPinValueCommand.fromPhase($0)) }.store(in: &objectBag)
         cell.xPositionPicker.lengthField.statePublisher
             .sink{[unowned self] in document.execute(AxLinkToStateCommand($0, unmaster: false, \DKLayer.constraints.xPinValue)) }.store(in: &objectBag)
         cell.xPositionPicker.positionClassPicker.positionClassPublisher
@@ -53,7 +53,7 @@ final class AxPositionCellController: NSViewController {
         cell.yPositionTip.commandPublisher
             .sink{[unowned self] in document.execute(AxDynamicLayerPropertyCommand($0, "Position", \DKLayer.constraints.yPinValue)) }.store(in: &objectBag)
         cell.yPositionPicker.lengthField.phasePublisher
-            .sink{[unowned self] in document.execute(AxYPinValueCommand($0)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxYPinValueCommand.fromPhase($0)) }.store(in: &objectBag)
         cell.yPositionPicker.lengthField.statePublisher
             .sink{[unowned self] in document.execute(AxLinkToStateCommand($0, unmaster: false, \DKLayer.constraints.yPinValue)) }.store(in: &objectBag)
     }

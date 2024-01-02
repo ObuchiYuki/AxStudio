@@ -38,8 +38,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DKFontAssetTable.load
         ACFontLoader.load
         
-        AxModelMediaFileHandler.registerProxy(AxBuildinMediaFileProxy.default)
-
+        AxModelFileManager.registerProxy(AxBuildinMediaFileProxy.default)
         
         AxDocument.onInitialized = { document in
             AxGeometoryNodeManager.initialize(document)

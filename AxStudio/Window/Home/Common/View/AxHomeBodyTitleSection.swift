@@ -37,7 +37,7 @@ final private class AxHomeBodyTitleView: NSLoadView {
     }
     
     private let titleLabel = NSTextField(labelWithString: "")
-    private let separator = NSColorView()
+    private let separator = NSRectangleView()
     
     public override func onAwake() {
         self.snp.makeConstraints{ make in
@@ -50,7 +50,7 @@ final private class AxHomeBodyTitleView: NSLoadView {
         }
         
         self.addSubview(separator)
-        separator.backgroundColor = .quaternaryLabelColor
+        separator.fillColor = .quaternaryLabelColor
         self.separator.snp.makeConstraints{ make in
             make.right.left.bottom.equalToSuperview()
             make.height.equalTo(1)
