@@ -15,6 +15,7 @@ import AxModelCore
 
 class AxHomeDocument {
     @ObservableProperty var title: String
+    
     @ObservableProperty var infoText: String
     
     enum DocumentType { case local, cloud }

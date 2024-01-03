@@ -64,13 +64,20 @@ final class AxHomeSidebarViewControler: ACSidebarViewController {
     }
         
     override func chainObjectDidLoad() {
-        self.$canCreateCloudDocument
+        self.homeViewModel.$isConnected.combineLatest(self.homeViewModel.$authAPI)
+            .map{ conncted, auth in conncted && auth != nil }
             .sink{[unowned self] in self.cloudDocumentItem.cell.button.isEnabled = $0 }.store(in: &objectBag)
         
         self.cloudDocumentItem.cell.button.actionPublisher
             .sink{[unowned self] in self.createCloudDocument() }.store(in: &objectBag)
         self.localDocumentItem.cell.button.actionPublisher
             .sink{[unowned self] in self.createLocalDocument() }.store(in: &objectBag)
+        self.sandboxDocumentItem.cell.button.actionPublisher
+            .sink{[unowned self] in self.createSandboxDocument() }.store(in: &objectBag)
+    }
+    
+    private func createSandboxDocument() {
+        
     }
     
     private func createCloudDocument() {

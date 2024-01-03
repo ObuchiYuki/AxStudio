@@ -18,11 +18,12 @@ import KeychainAccess
 final class AxHomeViewModel {
 
     let recentCollectionViewModel: AxHomeRecentCollectionViewModel
-    let sidebarViewModel: AxHomeSidebarViewModel
     let accountViewModel: AxHomeAccountViewModel
     let joinManager: AxHomeJoinManager
     
     @ObservableProperty var isConnected = false
+    
+    @ObservableProperty var authAPI: AxHttpAuthorizedAPIClient? { didSet { self.onUpdateAuthAPI(authAPI) } }
     
     private(set) var autoSigninPromise = Promise<Void, Never>.resolve()
     
@@ -32,8 +33,6 @@ final class AxHomeViewModel {
     let reachability: Reachability
     let cloudDocumentManager: AxCloudDocumentManager
     let recentDocumentProvider: AxRecentDocumentManager
-
-    var authAPI: AxHttpAuthorizedAPIClient? { didSet { self.onUpdateAuthAPI(authAPI) } }
     
     private var objectBag = Set<AnyCancellable>()
 
@@ -55,9 +54,6 @@ final class AxHomeViewModel {
         self.recentCollectionViewModel = AxHomeRecentCollectionViewModel(
             cloudDocumentManager: cloudDocumentManager, recentDocumentProvider: recentDocumentProvider
         )
-        self.sidebarViewModel = AxHomeSidebarViewModel(
-            cloudDocumentManager: cloudDocumentManager
-        )
         self.accountViewModel = AxHomeAccountViewModel(
             api: api, secureLibrary: secureLibrary, reachability: reachability
         )
@@ -77,9 +73,6 @@ final class AxHomeViewModel {
             .sink{ self.authAPI = nil }.store(in: &objectBag)
         self.accountViewModel.profilePublisher
             .sink{ self.cloudDocumentManager.profile = $0 }.store(in: &objectBag)
-        
-        self.sidebarViewModel.reloadPublisher
-            .sink{ self.recentDocumentProvider.cloudDocumentItemLoader.setNeedsReload() }.store(in: &objectBag)
         self.joinManager.authAPIPublisher
             .sink{ self.authAPI = $0 }.store(in: &objectBag)
     }
@@ -122,7 +115,6 @@ final class AxHomeViewModel {
         self.recentDocumentProvider.setAuthAPI(authAPI)
         
         self.recentCollectionViewModel.authAPI = self.authAPI
-        self.sidebarViewModel.authAPI = authAPI
         self.accountViewModel.authAPI = authAPI
         self.joinManager.authAPI = authAPI
     }
