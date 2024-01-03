@@ -26,6 +26,10 @@ final class AxHomeSandboxDocument: AxHomeDocument {
     
     override func documentDefaultThumbnail() -> NSImage? { R.Home.Body.localDocumentDefaultThumbnail }
     
+    override func open() { self.manager.openDocument(self) }
+    
+    override func delete() { self.manager.deleteDocument(self) }
+    
     override func provideContextMenu(to menu: NSMenu, _ activateRename: @escaping () -> ()) {
         menu.addItem("Open", action: { self.manager.openDocument(self) })
         menu.addItem("Delete", action: { self.manager.deleteDocument(self) })
@@ -145,6 +149,6 @@ final class AxSandboxDocumentManager {
         let metaURL = url.appendingPathComponent(AxHomeSandboxDocument.metaFilename)
         let meta = try JSONDecoder().decode(AxHomeSandboxDocument.Metadata.self, from: Data(contentsOf: metaURL))
         
-        return AxHomeSandboxDocument(documentURL: url, metadata: meta)
+        return AxHomeSandboxDocument(documentURL: url, metadata: meta, manager: self)
     }
 }

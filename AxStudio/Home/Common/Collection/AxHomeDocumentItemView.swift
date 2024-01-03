@@ -12,7 +12,7 @@ import AppKit
 import Combine
 
 final class AxHomeDocumentItemView: NSRectangleView {
-    var itemModel: AxHomeCollectionItemModel? { didSet { self.onItemModelLoaded() } }
+    var homeDocument: AxHomeDocument? { didSet { self.onItemModelLoaded() } }
     
     var isSelected: Bool = false { didSet { updateSelection() } }
          
@@ -36,48 +36,48 @@ final class AxHomeDocumentItemView: NSRectangleView {
     }
     
     private func onItemModelLoaded() {
-        guard let itemModel = self.itemModel else { return }
+        guard let homeDocument = self.homeDocument else { return }
         
-        itemModel.document.$title
+        homeDocument.$title
             .sink{[unowned self] in self.titleLabel.stringValue = $0 }.store(in: &objectBag)
         
-        self.infoLabel.stringValue = itemModel.document.infoText
-        self.documentTypeIconView.image = itemModel.document.documentTypeIcon()
+        self.infoLabel.stringValue = homeDocument.infoText
+        self.documentTypeIconView.image = homeDocument.documentTypeIcon()
         
-        if let thumbnail = itemModel.document.thumbnail {
+        if let thumbnail = homeDocument.thumbnail {
             thumbnail.sink{ if let image = $0 { self.thumnailImageView.image = image } }
         } else {
-            self.thumnailImageView.image = itemModel.document.documentDefaultThumbnail()
+            self.thumnailImageView.image = homeDocument.documentDefaultThumbnail()
         }
             
         self.menuButton.mouseDownPublisher
             .sink{[unowned self] in self.showMenu() }.store(in: &objectBag)
         
         self.titleLabel.endEditingStringPublisher
-            .sink{ itemModel.renameDocument(to: $0) }.store(in: &objectBag)
+            .sink{ homeDocument.rename(to: $0) }.store(in: &objectBag)
         
-        self.titleLabel.isEnabled = itemModel.canRename
-        self.titleLabel.isEditable = itemModel.canRename
+        self.titleLabel.isEnabled = homeDocument.canRename
+        self.titleLabel.isEditable = homeDocument.canRename
     }
     
     private func showMenu() {
-        guard let itemModel = self.itemModel else { return }
+        guard let homeDocument = self.homeDocument else { return }
         
         let menu = NSMenu()
         
-        itemModel.document.provideContextMenu(to: menu, self.renameDocument)
+        homeDocument.provideContextMenu(to: menu, self.renameDocument)
         
         menu.popUp(positioning: menu.items.first, at: .zero, in: menuButton)
     }
     
-    private func deleteDocument(itemModel: AxHomeCollectionItemModel) {
+    private func deleteDocument(_ homeDocument: AxHomeDocument) {
         let alert = NSAlert()
         alert.messageText = "Documentを削除しても良いですか?"
         alert.addButton(withTitle: "OK")
         alert.addButton(withTitle: "Cancel")
         let res = alert.runModal()
         if res == .alertFirstButtonReturn {
-            itemModel.deleteDocument()
+            homeDocument.delete()
         }
     }
     

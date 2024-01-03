@@ -18,9 +18,9 @@ final class AxHomeSidebarViewControler: ACSidebarViewController {
     @ObservableProperty private var canCreateCloudDocument = false
     
     // Document
-    private let localDocumentItem = AxHomeSidebarCreateDocumentItem(documentType: .local)
-    private let cloudDocumentItem = AxHomeSidebarCreateDocumentItem(documentType: .cloud)
-    private let sandboxDocumentItem = AxHomeSidebarCreateDocumentItem(documentType: .sandbox)
+    private let localDocumentItem = AxHomeSidebarCreateDocumentItem(title: "Local Document", icon: R.Home.Sidebar.localDocument, color: R.Color.localDocumentColor)
+    private let cloudDocumentItem = AxHomeSidebarCreateDocumentItem(title: "Cloud Document", icon: R.Home.Sidebar.cloudDocument, color: R.Color.cloudDocumentColor)
+    private let sandboxDocumentItem = AxHomeSidebarCreateDocumentItem(title: "Sandbox Document", icon: R.Home.Sidebar.localDocument, color: .systemOrange)
     
     // Debug
     private let restartLocalhostButtonItem = AxHomeSidebarButtonItem(title: "Localhostを追加")

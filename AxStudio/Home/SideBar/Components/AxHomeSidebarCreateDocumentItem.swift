@@ -14,24 +14,7 @@ final class AxHomeSidebarCreateDocumentItem: ACSidebarItem {
     let cellHeight: CGFloat = 36
     let isSelectable: Bool = false
     let cell = AxHomeCreateDocumentCell()
-    
-    init(documentType: AxHomeDocument.DocumentType) {
-        switch documentType {
-        case .local:
-            self.cell.button.backgroundColor = R.Color.localDocumentColor
-            self.cell.button.title = "ローカルドキュメント"
-            self.cell.button.icon = R.Home.Sidebar.localDocument
-        case .cloud:
-            self.cell.button.backgroundColor = R.Color.cloudDocumentColor
-            self.cell.button.title = "クラウドドキュメント"
-            self.cell.button.icon = R.Home.Sidebar.cloudDocument
-        case .sandbox:
-            self.cell.button.backgroundColor = .orange
-            self.cell.button.title = "Sandboxドキュメント"
-            self.cell.button.icon = R.Home.Sidebar.localDocument
-        }
-    }
-    
+        
     init(title: String, icon: NSImage, color: NSColor) {
         self.cell.button.backgroundColor = color
         self.cell.button.title = title

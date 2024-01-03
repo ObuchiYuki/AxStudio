@@ -26,7 +26,13 @@ class AxHomeDocument {
     
     func documentDefaultThumbnail() -> NSImage? { fatalError("Not implemented") }
     
+    func open() { fatalError("Not implemented") }
+    
+    func delete() { fatalError("Not implemented") }
+    
     func provideContextMenu(to menu: NSMenu, _ activateRename: @escaping () -> ()) {}
+    
+    var canRename: Bool { false }
     
     func rename(to name: String) { fatalError("Not implemented") }
         

@@ -21,6 +21,10 @@ final class AxHomeCloudDocument: AxHomeDocument {
     
     override func documentDefaultThumbnail() -> NSImage? { R.Home.Body.cloudDocumentDefaultThumbnail }
     
+    override func open() { self.manager.openDocument(self) }
+    
+    override func delete() { self.manager.deleteDocument(self) }
+    
     override func rename(to name: String) {
         self.manager.renameDocument(self, to: name)
     }
@@ -149,7 +153,7 @@ final class AxCloudDocumentManager {
                 $0.map{ res in
                     let modificationDate = dateFormatter.date(from: res.lastOpenAt ?? res.updatedAt) ?? Date()
                     let thumbnail = AxDocumentPreviewManager.shared.cloudPreview(for: res.id)
-                    return AxHomeCloudDocument(title: res.name, modificationDate: modificationDate, thumbnail: thumbnail, documentID: res.id)
+                    return AxHomeCloudDocument(title: res.name, modificationDate: modificationDate, thumbnail: thumbnail, documentID: res.id, manager: self)
                 }
             }
             .replaceError(with: [])

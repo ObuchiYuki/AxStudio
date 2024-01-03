@@ -22,6 +22,7 @@ final class AxHomeRecentCollectionController: AxHomeDocumentCollectionController
         let viewModel = homeViewModel.recentCollectionViewModel
         
         let document = viewModel.homeDocuments[row]
+        document.
         viewModel.openDocument(document)
     }
 }

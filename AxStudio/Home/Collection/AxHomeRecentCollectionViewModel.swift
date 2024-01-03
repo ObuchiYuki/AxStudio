@@ -48,51 +48,6 @@ final class AxHomeRecentCollectionViewModel: AxHomeDocumentCollectionViewModel {
     func itemModel(_ row: Int) -> AxHomeCollectionItemModel {
         AxHomeCollectionItemModel(document: self.homeDocuments[row], viewModel: self)
     }
-    
-    /// ここら辺はどこかで別の場所に
-    func openDocument(_ document: AxHomeDocument) {
-        switch document {
-        case let document as AxHomeLocalDocument: self.localDocumentManager.openDocument(document)
-        case let document as AxHomeCloudDocument: self.cloudDocumentManager.openDocument(document)
-        case let document as AxHomeSandboxDocument: self.sandboxDocumentManager.openDocument(document)
-        default: assertionFailure()
-        }
-    }
-    
-    func deleteDocument(_ document: AxHomeDocument) {
-        switch document {
-        case let document as AxHomeLocalDocument: self.localDocumentManager.deleteDocument(document)
-        case let document as AxHomeCloudDocument: self.cloudDocumentManager.deleteCloudDocument(document)
-        case let document as AxHomeSandboxDocument: self.sandboxDocumentManager.deleteDocument(document)
-        default: assertionFailure()
-        }
-    }
-    
-    func copyLink(_ document: AxHomeDocument) {
-        switch document {
-        case let document as AxHomeLocalDocument: NSSound.beep()
-        case let document as AxHomeCloudDocument: self.cloudDocumentManager.copyLink(document)
-        default: assertionFailure()
-        }
-    }
-    
-    func renameDocument(_ document: AxHomeDocument, to name: String) {
-        switch document {
-        case let document as AxHomeLocalDocument: NSSound.beep()
-        case let document as AxHomeCloudDocument: self.cloudDocumentManager.renameDocument(document, to: name)
-        case let document as AxHomeSandboxDocument: self.sandboxDocumentManager.renameDocument(document, to: name)
-        default: assertionFailure()
-        }
-    }
-    
-    func openInFinder(_ document: AxHomeDocument) {
-        switch document {
-        case let document as AxHomeLocalDocument: self.localDocumentManager.openInFinder(document)
-        case let document as AxHomeCloudDocument: NSSound.beep()
-        case let document as AxHomeSandboxDocument: self.sandboxDocumentManager.openInFinder(document)
-        default: assertionFailure()
-        }
-    }
 }
 
 extension NSSound {
