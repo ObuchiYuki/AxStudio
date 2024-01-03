@@ -49,7 +49,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         // 必要に応じて入れ替え
-        AxHomeWindowController.currentPresenter = DebugSettings.initialHomeWindowPresenter
+        AxHomeWindowController.currentViewModel = DebugSettings.initialHomeViewModel
     }
     
     func applicationDidFinishLaunching(_ notification: Notification) {
@@ -81,10 +81,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         guard let token = url.queryParamators["token"].flatMap({ $0 }) else { return }
         
         for homeWindowController in AxHomeWindowController.allInstantiatedControllers() {
-            homeWindowController.presenter.autoSigninPromise
+            guard let viewModel = homeWindowController.chainObject as? AxHomeViewModel else {
+                NSSound.beep()
+                continue
+            }
+            
+            viewModel.autoSigninPromise
                 .sink{
                     guard let window = homeWindowController.window else { return }
-                    homeWindowController.presenter.joinDocumentPresneter.joinDocument(token, window: window)
+                    viewModel.joinManager.joinDocument(token, window: window)
                 }
         }
     }

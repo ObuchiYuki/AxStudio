@@ -9,10 +9,12 @@ import Combine
 import Foundation
 import SwiftEx
 import AppKit
-import AppKit
-
 
 protocol AxHomeDocumentCollectionViewModel {
+    var homeDocuments: [AxHomeDocument] { get }
+    
+    var homeDocumentsPublisher: AnyPublisher<[AxHomeDocument], Never> { get }
+    
     func openDocument(_ document: AxHomeDocument)
     
     func copyLink(_ document: AxHomeDocument)
@@ -22,6 +24,8 @@ protocol AxHomeDocumentCollectionViewModel {
     func renameDocument(_ document: AxHomeDocument, to name: String)
     
     func openInFinder(_ document: AxHomeDocument)
+    
+    func itemModel(_ index: Int) -> AxHomeCollectionItemModel
 }
 
 final class AxHomeCollectionItemModel {

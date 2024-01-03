@@ -17,7 +17,7 @@ class AxHomeDocumentCollectionController: ACCompositionalCollectionViewControlle
     
     private(set) lazy var titleSection = AxHomeBodyTitleSection()
     private(set) lazy var documentsSection = AxHomeDocumentCollectionSection(
-        viewModel: self.chainObject as! AxHomeDocumentCollectionViewModel
+        viewModel: (self.chainObject as! AxHomeViewModel).recentCollectionViewModel
     )
         
     override func chainObjectDidLoad() {

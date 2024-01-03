@@ -17,6 +17,10 @@ import AudioToolbox
 final class AxHomeRecentCollectionViewModel: AxHomeDocumentCollectionViewModel {
     @ObservableProperty var homeDocuments = [AxHomeDocument]()
     
+    var homeDocumentsPublisher: AnyPublisher<[AxHomeDocument], Never> {
+        self.$homeDocuments.eraseToAnyPublisher()
+    }
+    
     var authAPI: AxHttpAuthorizedAPIClient?
     
     private let cloudDocumentManager: AxCloudDocumentManager
@@ -33,7 +37,7 @@ final class AxHomeRecentCollectionViewModel: AxHomeDocumentCollectionViewModel {
             .sink{ self.homeDocuments = $0 }.store(in: &objectBag)
     }
     
-    func itemModel(for row: Int) -> AxHomeCollectionItemModel {
+    func itemModel(_ row: Int) -> AxHomeCollectionItemModel {
         AxHomeCollectionItemModel(document: self.homeDocuments[row], viewModel: self)
     }
     
@@ -101,7 +105,7 @@ final class AxHomeRecentCollectionViewModel: AxHomeDocumentCollectionViewModel {
     }
     
     
-    private func renameDocument(_ document: AxHomeDocument, to name: String) {
+    func renameDocument(_ document: AxHomeDocument, to name: String) {
         guard let authAPI = self.authAPI, let data = document as? AxHomeCloudDocument else { return }
 
         authAPI.updateDocument(documentID: data.documentID, name: name)
@@ -110,7 +114,8 @@ final class AxHomeRecentCollectionViewModel: AxHomeDocumentCollectionViewModel {
             }
             .catchOnToast()
     }
-    private func openInFinder(_ document: AxHomeDocument) {
+    
+    func openInFinder(_ document: AxHomeDocument) {
         guard let data = document as? AxHomeLocalDocument else { return }
         NSWorkspace.shared.selectFile(data.url.path, inFileViewerRootedAtPath: data.url.path)
     }

@@ -56,7 +56,7 @@ final class AxHomeJoinManager {
                     self.onLogin($0, token: token, window: window)
                 }
                 .store(in: &signinBag)
-            ACFormPanel(initialProvider: ACSigninFormProvider(model: model)).showSheet(on: window)
+            ACFormPanel(initialProvider: AxSigninFormProvider(model: model)).showSheet(on: window)
         }
     }
     

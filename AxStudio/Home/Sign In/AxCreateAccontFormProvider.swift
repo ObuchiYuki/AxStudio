@@ -76,7 +76,7 @@ final class AxCreateAccontFormProvider: ACFormProvider {
             .sink{[unowned self] in self.createAccount(panel: panel) }.store(in: &objectBag)
         
         self.footerView.actionPublisher
-            .sink{[unowned self] in panel.replaceProvider(ACSigninFormProvider(model: self.model)) }.store(in: &objectBag)
+            .sink{[unowned self] in panel.replaceProvider(AxSigninFormProvider(model: self.model)) }.store(in: &objectBag)
     }
     
     private func createAccount(panel: ACFormPanel) {

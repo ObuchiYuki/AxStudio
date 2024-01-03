@@ -20,37 +20,30 @@ final class AxHomeWindowController: NSWindowController {
     private var homeContentViewController: AxHomeContentViewController {
         contentViewController as! AxHomeContentViewController
     }
+    
+    static var currentViewModel: AxHomeViewModel?
         
     override func windowDidLoad() {
-        guard let viewModel = viewModel else { assertionFailure("ViewModel is nil. Use AxHomeWindowController.init(viewModel:)"); return }
-        self.homeContentViewController.chainObject = viewModel
+        self.homeContentViewController.chainObject = Self.currentViewModel
         window?.setContentSize([1260, 780])
         window?.minSize = [800, 400]
-        #if DEBUG
-        AxHomeWindowController.__setInstantiatedController(self)
-        #endif
-    }
-    
-    convenience init(viewModel: AxHomeViewModel) {
-        self.init()
-        self.viewModel = viewModel
-    }
+        AxHomeWindowController.setInstantiatedController(self)
+    }    
 }
 
-#if DEBUG
+// Joinに必要
 extension AxHomeWindowController {
-    static func __allInstantiatedControllers() -> [AxHomeWindowController] {
-        self.__allControllers
+    static func allInstantiatedControllers() -> [AxHomeWindowController] {
+        self.allControllers
     }
-    static func __showAllInstantiatedControllers() {
-        for controller in self.__allControllers {
+    static func showAllInstantiatedControllers() {
+        for controller in self.allControllers {
             controller.showWindow(nil)
         }
     }
-    static func __setInstantiatedController(_ wc: AxHomeWindowController) {
-        self.__allControllers.append(wc)
+    static func setInstantiatedController(_ wc: AxHomeWindowController) {
+        self.allControllers.append(wc)
     }
     
-    private static var __allControllers = [AxHomeWindowController]()
+    private static var allControllers = [AxHomeWindowController]()
 }
-#endif

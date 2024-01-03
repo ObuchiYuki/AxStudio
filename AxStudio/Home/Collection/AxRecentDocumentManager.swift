@@ -27,7 +27,7 @@ final class AxRecentDocumentManager {
         
         let documentItems = localDocumentItems.combineLatest(cloudDocumentItems)
             .map{ ($0 + $1).sorted(by: { $0.modificationDate > $1.modificationDate }) }
-            .map{ $0.map{ AxRecentDocumentFormatter.convertToDocumentData($0) } }
+            .map{ $0.map{ $0.convertToHomeDocument() } }
             .eraseToAnyPublisher()
         
         return documentItems

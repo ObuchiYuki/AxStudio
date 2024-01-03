@@ -69,16 +69,16 @@ final class AxHomeViewModel {
     }
     
     private func makeBindings() {
-        self.accountViewPresneter.authAPIPublisher
+        self.accountViewModel.authAPIPublisher
             .sink{ self.authAPI = $0 }.store(in: &objectBag)
-        self.accountViewPresneter.logoutPublisher
+        self.accountViewModel.logoutPublisher
             .sink{ self.authAPI = nil }.store(in: &objectBag)
-        self.accountViewPresneter.profilePublisher
+        self.accountViewModel.profilePublisher
             .sink{ self.cloudDocumentManager.profile = $0 }.store(in: &objectBag)
         
         self.sidebarViewModel.reloadPublisher
             .sink{ self.recentDocumentProvider.cloudDocumentItemLoader.setNeedsReload() }.store(in: &objectBag)
-        self.joinDocumentPresneter.authAPIPublisher
+        self.joinManager.authAPIPublisher
             .sink{ self.authAPI = $0 }.store(in: &objectBag)
     }
 
@@ -87,8 +87,8 @@ final class AxHomeViewModel {
             .sink{[self] in
                 let isConnected = $0.connection != .unavailable || !requireInternetConnection
                 self.sidebarViewModel.isConnected = isConnected
-                self.accountViewPresneter.isConnected = isConnected
-                self.joinDocumentPresneter.isConnected = isConnected
+                self.accountViewModel.isConnected = isConnected
+                self.joinManager.isConnected = isConnected
             }
             .store(in: &objectBag)
         
@@ -119,31 +119,36 @@ final class AxHomeViewModel {
         self.cloudDocumentManager.setAuthAPI(authAPI)
         self.recentDocumentProvider.setAuthAPI(authAPI)
         
-        self.recentCollectionPresenter.authAPI = self.authAPI
+        self.recentCollectionViewModel.authAPI = self.authAPI
         self.sidebarViewModel.authAPI = authAPI
-        self.accountViewPresneter.authAPI = authAPI
-        self.joinDocumentPresneter.authAPI = authAPI
+        self.accountViewModel.authAPI = authAPI
+        self.joinManager.authAPI = authAPI
     }
 }
 
 extension AxHomeViewModel {
-    static func make(api: AxHttpAPIClient, serviceKey: String, requireInternetConnection: Bool) -> AxHomeWindowPresenter {
+    static func make(api: AxHttpAPIClient, serviceKey: String, requireInternetConnection: Bool) -> AxHomeViewModel {
         let keychain = Keychain(service: serviceKey)
         let secureLibrary = AxSecureSigninInfoLibrary(keychain: keychain)
         let reachability = try! Reachability()
         let cloudDocumentManager = AxCloudDocumentManager(userDefaults: .standard)
         let recentDocumentProvider = AxRecentDocumentManager()
         
-        return AxHomeWindowPresenter(
-            api: api, secureLibrary: secureLibrary, reachability: reachability, cloudDocumentManager: cloudDocumentManager, recentDocumentProvider: recentDocumentProvider, requireInternetConnection: requireInternetConnection
+        return AxHomeViewModel(
+            api: api, 
+            secureLibrary: secureLibrary,
+            reachability: reachability,
+            cloudDocumentManager: cloudDocumentManager, 
+            recentDocumentProvider: recentDocumentProvider,
+            requireInternetConnection: requireInternetConnection
         )
     }
 
-    static func makeLocalhost(_ config: AxHttpClientDebugConfig? = nil) -> AxHomeWindowPresenter {
+    static func makeLocalhost(_ config: AxHttpClientDebugConfig? = nil) -> AxHomeViewModel {
         self.make(api: .localhost(config), serviceKey: "com.axstudio.localhost", requireInternetConnection: false)
     }
 
-    static func makeProduction() -> AxHomeWindowPresenter {
+    static func makeProduction() -> AxHomeViewModel {
         self.make(api: .production, serviceKey: "com.axstudio.secure", requireInternetConnection: true)
     }
     

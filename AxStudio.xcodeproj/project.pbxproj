@@ -609,12 +609,11 @@
 		B6FE156C2B43EB010048C5C4 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				B6FE15AA2B43EB010048C5C4 /* Home.storyboard */,
 				B6FE158E2B43EB010048C5C4 /* AxHomeViewModel.swift */,
 				B6FE15772B43EB010048C5C4 /* AxHomeJoinManager.swift */,
+				B6FE15782B43EB010048C5C4 /* Resources */,
 				B6FE159D2B43EB010048C5C4 /* Sign In */,
 				B6FE156D2B43EB010048C5C4 /* SideBar */,
-				B6FE15782B43EB010048C5C4 /* Resources */,
 				B6FE15812B43EB010048C5C4 /* Common */,
 				B6FE158D2B43EB010048C5C4 /* Window */,
 				B6FE15912B43EB010048C5C4 /* Collection */,
@@ -646,6 +645,7 @@
 		B6FE15782B43EB010048C5C4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B6FE15AA2B43EB010048C5C4 /* Home.storyboard */,
 				B6FE15792B43EB010048C5C4 /* R+Home.swift */,
 				B6FE157A2B43EB010048C5C4 /* Home.xcassets */,
 			);
@@ -705,11 +705,11 @@
 		B6FE159D2B43EB010048C5C4 /* Sign In */ = {
 			isa = PBXGroup;
 			children = (
-				B6FE15A22B43EB010048C5C4 /* Components */,
 				B6FE159E2B43EB010048C5C4 /* AxSigninFormPanelModel.swift */,
 				B6FE159F2B43EB010048C5C4 /* AxCreateAccontFormProvider.swift */,
 				B6FE15A12B43EB010048C5C4 /* AxDataValidator.swift */,
 				B6FE15A02B43EB010048C5C4 /* ACSigninFormProvider.swift */,
+				B6FE15A22B43EB010048C5C4 /* Components */,
 			);
 			path = "Sign In";
 			sourceTree = "<group>";

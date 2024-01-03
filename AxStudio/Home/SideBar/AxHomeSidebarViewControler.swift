@@ -17,6 +17,7 @@ final class AxHomeSidebarViewControler: ACSidebarViewController {
     // Document
     private let localDocumentItem = AxHomeSidebarCreateDocumentItem(documentType: .local)
     private let cloudDocumentItem = AxHomeSidebarCreateDocumentItem(documentType: .cloud)
+    private let sandboxDocumentItem = AxHomeSidebarCreateDocumentItem(title: "Sandbox", icon: R.Home.Sidebar.localDocument, color: .systemOrange)
     
     // Debug
     private let restartLocalhostButtonItem = AxHomeSidebarButtonItem(title: "Localhostを追加")
@@ -46,6 +47,7 @@ final class AxHomeSidebarViewControler: ACSidebarViewController {
         self.addItem(ACSidebarTitleItem(title: "Create New", style: .header))
         self.addItem(localDocumentItem)
         self.addItem(cloudDocumentItem)
+        self.addItem(sandboxDocumentItem)
         
         #if DEBUG
         self.addItem(ACSidebarTitleItem(title: "デバッグ", style: .header))
@@ -92,7 +94,8 @@ final class AxHomeSidebarViewControler: ACSidebarViewController {
                 DispatchQueue.main.async {
                     ACToast.show(message: "Document Deleted \(document.id)")
                     NSSound.dragToTrash?.play()
-                    self.presenter.recentDocumentProvider.cloudDocumentItemLoader.setNeedsReload()
+                    
+                    homeViewModel.recentDocumentProvider.cloudDocumentItemLoader.setNeedsReload()
                 }
             }
         }

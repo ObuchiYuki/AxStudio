@@ -16,10 +16,12 @@ import Combine
 final class AxHomeDocumentCollectionSection: ACCompositionalSection {
     let viewModel: AxHomeDocumentCollectionViewModel
     
-    var numberOfItems: Int { viewModel.itemData.count }
+    var numberOfItems: Int { viewModel.homeDocuments.count }
     
-    var reloadPublisher: AnyPublisher<Void, Never> { viewModel.$itemData.map{_ in () }.eraseToAnyPublisher() }
+    var reloadPublisher: AnyPublisher<Void, Never> { viewModel.homeDocumentsPublisher.map{_ in () }.eraseToAnyPublisher() }
+    
     let selectPublisher = PassthroughSubject<Int, Never>()
+    
     private var objectBag = Set<AnyCancellable>()
     
     init(viewModel: AxHomeDocumentCollectionViewModel) {
@@ -46,7 +48,7 @@ final class AxHomeDocumentCollectionSection: ACCompositionalSection {
     
     func makeCell(_ collectionView: NSCollectionView, for row: Int) -> NSCollectionViewItem {
         let item = AxHomeDocumentItem()
-        item.itemView.itemModel = viewModel.itemModel(for: row)
+        item.itemView.itemModel = viewModel.itemModel(row)
         item.selectPublisher.sink{ self.selectPublisher.send(row) }.store(in: &objectBag)
         return item
     }

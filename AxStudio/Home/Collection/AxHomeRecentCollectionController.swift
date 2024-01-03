@@ -10,11 +10,6 @@ import SwiftEx
 import AppKit
 
 final class AxHomeRecentCollectionController: AxHomeDocumentCollectionController {
-    var viewModel: AxHomeDocumentCollectionViewModel {
-        self.chainObject as! AxHomeDocumentCollectionViewModel
-    }
-
-    
     override func chainObjectDidLoad() {
         super.chainObjectDidLoad()
         
@@ -23,7 +18,10 @@ final class AxHomeRecentCollectionController: AxHomeDocumentCollectionController
     }
     
     private func openDocument(_ row: Int) {
-        let data = viewModel.itemData[row]
-        self.viewModel.openItemPublisher.send(data)
+        guard let homeViewModel = self.chainObject as? AxHomeViewModel else { return }
+        let viewModel = homeViewModel.recentCollectionViewModel
+        
+        let document = viewModel.homeDocuments[row]
+        viewModel.openDocument(document)
     }
 }

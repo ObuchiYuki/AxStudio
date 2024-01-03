@@ -28,6 +28,12 @@ final class AxHomeSidebarCreateDocumentItem: ACSidebarItem {
         }
     }
     
+    init(title: String, icon: NSImage, color: NSColor) {
+        self.cell.button.backgroundColor = color
+        self.cell.button.title = title
+        self.cell.button.icon = icon
+    }
+    
     func makeCell(_ tableView: NSTableView, at row: Int) -> NSView { cell }
 }
 

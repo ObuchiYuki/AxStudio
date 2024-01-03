@@ -8,7 +8,7 @@
 #if DEBUG
 /// デバッグ中に頻繁に設定を変更するものをここに集めている
 enum DebugSettings {
-    static let initialHomeWindowPresenter = AxHomeWindowPresenter.makeLocalhost()
+    static let initialHomeViewModel = AxHomeViewModel.makeLocalhost()
     static let showDebugWindowOnLaunch = false
     static let randomIndicatorCellBackgroundColor = false
     static let hideLayoutOnAuto = false
