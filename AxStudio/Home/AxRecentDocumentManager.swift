@@ -35,13 +35,11 @@ final class AxRecentDocumentManager {
 }
 
 final class AxRecentLocalDocumentItemsLoader {
-    var publisher: AnyPublisher<[AxRecentDocumentItem.Local], Never> { subject.eraseToAnyPublisher() }
+    @ObservableProperty var documents = [AxHomeLocalDocument]()
     
     var showTrashedDocuments = false { didSet { self.reloadItems() } }
     
     private var needsReload = false
-    
-    private let subject = CurrentValueSubject<[AxRecentDocumentItem.Local], Never>([])
     
     init() {
         // receive notification
@@ -77,8 +75,22 @@ final class AxRecentLocalDocumentItemsLoader {
                 
         return urls
             .filter{ !$0.fileResource.isHidden }
-            .map{ AxRecentDocumentItem.Local(modificationDate: $0.fileResource.modificationDate ?? Date(), url: $0)  }
+            .map{ url in
+                let title = url.deletingPathExtension().lastPathComponent
+                let modificationDate = 
+                let infomativeText = self.timeIntervalText(since: item.modificationDate)
+                let thumbnail = AxDocumentPreviewManager.shared.localPreview(for: url)
+                return AxHomeLocalDocument(
+                    title: title, infoText: infomativeText, thumbnail: thumbnail, url: url
+                )
+                
+                
+                let modificationDate = $0.fileResource.modificationDate ?? Date()
+                AxRecentDocumentItem.Local(modificationDate: , url: $0)
+            }
     }
+    
+    
 }
 
 final class AxRecentCloudDocumentItemsLoader {

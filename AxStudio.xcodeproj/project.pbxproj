@@ -608,6 +608,7 @@
 				B6FE15182B43EB010048C5C4 /* AxCloudDocumentManager.swift */,
 				B64C6D6A2B455CE90034C555 /* AxSandboxDocumentManager.swift */,
 				B6FE15992B43EB010048C5C4 /* AxRecentDocumentManager.swift */,
+				B6FE15842B43EB010048C5C4 /* AxHomeDocument.swift */,
 				B6FE15952B43EB010048C5C4 /* AxRecentDocumentItem.swift */,
 				B6FE158E2B43EB010048C5C4 /* AxHomeViewModel.swift */,
 				B6FE15772B43EB010048C5C4 /* AxHomeJoinManager.swift */,
@@ -663,7 +664,6 @@
 		B6FE15812B43EB010048C5C4 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				B6FE15842B43EB010048C5C4 /* AxHomeDocument.swift */,
 				B6FE158C2B43EB010048C5C4 /* AxHomeBodyTitleSection.swift */,
 				B6FE15822B43EB010048C5C4 /* Collection */,
 			);

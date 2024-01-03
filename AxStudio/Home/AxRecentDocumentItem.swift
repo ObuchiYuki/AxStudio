@@ -62,15 +62,5 @@ extension AxRecentDocumentItem {
             title: title, infoText: infomativeText, thumbnail: thumbnail, documentID: documentID
         )
     }
-
-    private func timeIntervalText(since date: Date) -> String {
-        let interval = Date().timeIntervalSince(date)
-        let formatter = DateComponentsFormatter()
-        formatter.unitsStyle = .full
-        formatter.maximumUnitCount = 1
-        guard let before = formatter.string(from: interval) else { return "" }
-        return "Edited \(before) before"
-    }
-
 }
 
