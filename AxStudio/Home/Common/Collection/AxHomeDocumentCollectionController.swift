@@ -24,6 +24,8 @@ class AxHomeDocumentCollectionController: ACCompositionalCollectionViewControlle
         self.collectionView.isSelectable = true
         self.addSection(titleSection)
         self.addSection(documentsSection)
+        
+        self.titleSection.title = "Title"
     }
 }
 

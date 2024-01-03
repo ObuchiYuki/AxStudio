@@ -102,7 +102,7 @@ final class AxHomeViewModel {
             }
             .store(in: &objectBag)
         
-        self.signInIfPossible()
+//        self.signInIfPossible()
     }
     
     private func signInIfPossible() {

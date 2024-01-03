@@ -615,6 +615,7 @@
 				B64A181F2B45743F00B53144 /* AxSandboxDocumentWindowManager.swift */,
 				B6FE15842B43EB010048C5C4 /* AxHomeDocument.swift */,
 				B6FE15772B43EB010048C5C4 /* AxHomeJoinManager.swift */,
+				B6FE158F2B43EB010048C5C4 /* AxHomeContentViewController.swift */,
 				B6FE15782B43EB010048C5C4 /* Resources */,
 				B6FE159D2B43EB010048C5C4 /* Sign In */,
 				B6FE156D2B43EB010048C5C4 /* SideBar */,
@@ -687,7 +688,6 @@
 		B6FE158D2B43EB010048C5C4 /* Window */ = {
 			isa = PBXGroup;
 			children = (
-				B6FE158F2B43EB010048C5C4 /* AxHomeContentViewController.swift */,
 				B6FE15902B43EB010048C5C4 /* AxHomeWindowController.swift */,
 			);
 			path = Window;

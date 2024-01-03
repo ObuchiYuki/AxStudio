@@ -16,11 +16,11 @@ import Combine
 final class AxHomeDocumentCollectionSection: ACCompositionalSection {
     let viewModel: AxHomeDocumentCollectionViewModel
     
-    private var documents = [AxHomeDocument]()
+    @ObservableProperty private var documents = [AxHomeDocument]()
     
     var numberOfItems: Int { self.documents.count }
     
-    var reloadPublisher: AnyPublisher<Void, Never> { viewModel.homeDocumentsPublisher.map{_ in () }.eraseToAnyPublisher() }
+    var reloadPublisher: AnyPublisher<Void, Never> { self.$documents.map{_ in () }.eraseToAnyPublisher() }
     
     let selectPublisher = PassthroughSubject<Int, Never>()
     

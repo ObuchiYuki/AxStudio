@@ -38,9 +38,9 @@ final class AxHomeRecentCollectionViewModel: AxHomeDocumentCollectionViewModel {
         self.localDocumentManager = localDocumentManager
         self.sandboxDocumentManager = sandboxDocumentManager
         
-        self.cloudDocumentManager.$documents.combineLatest(localDocumentManager.$documents)
+        self.cloudDocumentManager.$documents.combineLatest(localDocumentManager.$documents, sandboxDocumentManager.$documents)
             .sink{[unowned self] in
-                self.homeDocuments = ($0 + $1).sorted(by: { $0.modificationDate < $1.modificationDate })
+                self.homeDocuments = ($0 + $1 + $2).sorted(by: { $0.modificationDate < $1.modificationDate })
             }
             .store(in: &objectBag)
     }

@@ -37,9 +37,12 @@ final class AxSandboxDocumentWindowManager {
         
         let fileStorage = AxMockFileStorage(directory: document.fileStorageURL)
         let server = AxMockServer(fileStorage: fileStorage, documentID: documentID)
+        server.autoFlush = true
         
-        let contents = try Data(contentsOf: document.contentsURL)
-        try server.loadStateFromData(contents)
+        if FileManager.default.fileExists(atPath: document.contentsURL.path) {
+            let contents = try Data(contentsOf: document.contentsURL)
+            try server.loadStateFromData(contents)
+        }
         
         let session = server.makeClient()
         
@@ -67,6 +70,6 @@ final class AxSandboxDocumentWindowManager {
                 windowController.window?.makeKeyAndOrderFront(self)
                 editingDocument.windowController = windowController
             }
-            .catchOnToast()
+            .catchOnToast("Cannot open sandbox document.")
     }
 }
