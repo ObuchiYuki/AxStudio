@@ -13,24 +13,23 @@ import AxDocument
 import AxModelCore
 
 final class AxRecentDocumentManager {
-    let localDocumentItemLoader = AxRecentLocalDocumentItemsLoader()
+    private let localDocumentItemLoader = AxRecentLocalDocumentItemsLoader()
     
-    let cloudDocumentItemLoader = AxRecentCloudDocumentItemsLoader()
+    private let cloudDocumentItemLoader = AxRecentCloudDocumentItemsLoader()
+    
+    func reload() {
+        self.localDocumentItemLoader.setNeedsReload()
+        self.cloudDocumentItemLoader.setNeedsReload()
+    }
     
     func setAuthAPI(_ authAPI: AxHttpAuthorizedAPIClient?) {
         self.cloudDocumentItemLoader.setAuthAPI(authAPI)
     }
     
-    func publisher() -> AnyPublisher<[AxHomeDocument], Never> {
-        let localDocumentItems = localDocumentItemLoader.publisher.map{ $0.map{ AxRecentDocumentItem(document: .local($0)) } }
-        let cloudDocumentItems = cloudDocumentItemLoader.publisher.map{ $0.map{ AxRecentDocumentItem(document: .cloud($0)) } }
-        
-        let documentItems = localDocumentItems.combineLatest(cloudDocumentItems)
+    func documentsPublisher() -> AnyPublisher<[AxHomeDocument], Never> {
+        self.localDocumentItemLoader.$documents.combineLatest(self.cloudDocumentItemLoader.$documents)
             .map{ ($0 + $1).sorted(by: { $0.modificationDate > $1.modificationDate }) }
-            .map{ $0.map{ $0.convertToHomeDocument() } }
             .eraseToAnyPublisher()
-        
-        return documentItems
     }
 }
 
@@ -66,27 +65,20 @@ final class AxRecentLocalDocumentItemsLoader {
     }
     
     private func reloadItems() {
-        let documentItems = currentRecentDocumentItems()
-        self.subject.send(documentItems)
+        self.documents = self.currentRecentDocumentItems()
     }
     
-    private func currentRecentDocumentItems() -> [AxRecentDocumentItem.Local] {
-        let urls = NSDocumentController.shared.recentDocumentURLs
-                
-        return urls
+    private func currentRecentDocumentItems() -> [AxHomeLocalDocument] {
+        NSDocumentController.shared.recentDocumentURLs
             .filter{ !$0.fileResource.isHidden }
             .map{ url in
                 let title = url.deletingPathExtension().lastPathComponent
-                let modificationDate = 
-                let infomativeText = self.timeIntervalText(since: item.modificationDate)
                 let thumbnail = AxDocumentPreviewManager.shared.localPreview(for: url)
+                let modificationDate = url.fileResource.modificationDate ?? Date()
+                
                 return AxHomeLocalDocument(
-                    title: title, infoText: infomativeText, thumbnail: thumbnail, url: url
+                    title: title, modificationDate: modificationDate, thumbnail: thumbnail, url: url
                 )
-                
-                
-                let modificationDate = $0.fileResource.modificationDate ?? Date()
-                AxRecentDocumentItem.Local(modificationDate: , url: $0)
             }
     }
     
@@ -95,18 +87,20 @@ final class AxRecentLocalDocumentItemsLoader {
 
 final class AxRecentCloudDocumentItemsLoader {
     
-    var publisher: AnyPublisher<[AxRecentDocumentItem.Cloud], Never> { subject.eraseToAnyPublisher() }
+    @ObservableProperty var documents = [AxHomeCloudDocument]()
     
-    private let subject = CurrentValueSubject<[AxRecentDocumentItem.Cloud], Never>([])
     private var authAPI: AxHttpAuthorizedAPIClient? = nil
+
     private let dateFormatter = ISO8601DateFormatter() => {
         $0.formatOptions.insert(.withFractionalSeconds)
     }
+
     private var initialLoaded = false
+
     private var needsReload = false
     
     func setAuthAPI(_ authAPI: AxHttpAuthorizedAPIClient?) {
-        if authAPI == nil { self.subject.send([]) }
+        if authAPI == nil { self.documents = [] }
         
         self.authAPI = authAPI
         self.reloadItems()
@@ -123,18 +117,20 @@ final class AxRecentCloudDocumentItemsLoader {
     
     private func reloadItems() {
         guard let authAPI = self.authAPI else { return }
-        
-        fetchDocumentItems(from: authAPI).sink{ self.subject.send($0) }
+        self.fetchDocumentItems(from: authAPI).sink{ self.documents = $0 }
     }
     
-    private func fetchDocumentItems(from authAPI: AxHttpAuthorizedAPIClient) -> Promise<[AxRecentDocumentItem.Cloud], Never> {
+    private func fetchDocumentItems(from authAPI: AxHttpAuthorizedAPIClient) -> Promise<[AxHomeCloudDocument], Never> {
         authAPI.recentDocuments()
             .map{ $0.map{ self.convertToDocumentItem(from: $0, authAPI: authAPI) } }
             .replaceError(with: [])
     }
     
-    private func convertToDocumentItem(from res: AxDocumentResponce, authAPI: AxHttpAuthorizedAPIClient) -> AxRecentDocumentItem.Cloud {
+    private func convertToDocumentItem(from res: AxDocumentResponce, authAPI: AxHttpAuthorizedAPIClient) -> AxHomeCloudDocument {
         let modificationDate = dateFormatter.date(from: res.lastOpenAt ?? res.updatedAt) ?? Date()
-        return AxRecentDocumentItem.Cloud(modificationDate: modificationDate, authAPI: authAPI, documentData: res)
+        
+        let thumbnail = AxDocumentPreviewManager.shared.cloudPreview(for: res.id)
+        
+        return AxHomeCloudDocument(title: res.name, modificationDate: modificationDate, thumbnail: thumbnail, documentID: res.id)
     }
 }
