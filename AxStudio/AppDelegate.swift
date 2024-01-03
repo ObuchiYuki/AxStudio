@@ -20,6 +20,7 @@ import Neontetra
 import BluePrintKit
 import Lapix
 import FigmaImport
+import AxModel
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -37,6 +38,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         BPColorAssetTable.load
         DKFontAssetTable.load
         ACFontLoader.load
+        AxModelBootStrap.load
         
         AxModelFileManager.registerProxy(AxBuildinMediaFileProxy.default)
         
