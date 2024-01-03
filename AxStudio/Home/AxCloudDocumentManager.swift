@@ -15,9 +15,29 @@ import AppKit
 final class AxHomeCloudDocument: AxHomeDocument {
     let documentID: String
     
-    init(title: String, modificationDate: Date, thumbnail: Promise<NSImage?, Never>?, documentID: String) {
+    unowned let manager: AxCloudDocumentManager
+    
+    override func documentTypeIcon() -> NSImage? { R.Home.Body.cloudDocumentIcon }
+    
+    override func documentDefaultThumbnail() -> NSImage? { R.Home.Body.cloudDocumentDefaultThumbnail }
+    
+    override func rename(to name: String) {
+        self.manager.renameDocument(self, to: name)
+    }
+    
+    override func provideContextMenu(to menu: NSMenu, _ activateRename: @escaping () -> ()) {
+        menu.addItem("Open", action: { self.manager.openDocument(self) })
+        menu.addItem(.separator())
+        menu.addItem("Copy Link", action: { self.manager.copyLink(self) })
+        menu.addItem(.separator())
+        menu.addItem("Rename", action: { activateRename() })
+        menu.addItem("Delete", action: { self.manager.deleteDocument(self) })
+    }
+    
+    init(title: String, modificationDate: Date, thumbnail: Promise<NSImage?, Never>?, documentID: String, manager: AxCloudDocumentManager) {
         self.documentID = documentID
-        super.init(title: title, modificationDate: modificationDate, thumbnail: thumbnail, documentType: .cloud)
+        self.manager = manager
+        super.init(title: title, modificationDate: modificationDate, thumbnail: thumbnail)
     }
 }
 
@@ -97,7 +117,7 @@ final class AxCloudDocumentManager {
     }
 
     
-    func deleteCloudDocument(_ document: AxHomeCloudDocument) {
+    func deleteDocument(_ document: AxHomeCloudDocument) {
         guard let authAPI = self.authAPI else { return NSSound.beep() }
         
         authAPI.deleteDocument(documentID: document.documentID)

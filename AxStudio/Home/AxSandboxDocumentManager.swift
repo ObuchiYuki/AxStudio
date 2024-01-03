@@ -13,12 +13,25 @@ import AxModelCore
 
 final class AxHomeSandboxDocument: AxHomeDocument {
     let documentURL: URL
-    var metadata: Metadata // これを書き換えても AxHomeDocument レベルの書き換えは起こらない
+    let metadata: Metadata
+    
+    unowned let manager: AxSandboxDocumentManager
     
     var metaURL: URL { documentURL.appendingPathComponent(Self.metaFilename) }
     var thumbnailURL: URL { documentURL.appendingPathComponent(Self.thumbnailFilename) }
     var fileStorageURL: URL { documentURL.appendingPathComponent(Self.fileStorageFilename) }
     var contentsURL: URL { documentURL.appendingPathComponent(Self.contentsFilename) }
+    
+    override func documentTypeIcon() -> NSImage? { R.Home.Body.localDocumentIcon }
+    
+    override func documentDefaultThumbnail() -> NSImage? { R.Home.Body.localDocumentDefaultThumbnail }
+    
+    override func provideContextMenu(to menu: NSMenu, _ activateRename: @escaping () -> ()) {
+        menu.addItem("Open", action: { self.manager.openDocument(self) })
+        menu.addItem("Delete", action: { self.manager.deleteDocument(self) })
+        menu.addItem("Rename", action: { activateRename() })
+        menu.addItem("Open in Finder", action: { self.manager.openInFinder(self) })
+    }
     
     static let metaFilename = "meta.json"
     static let thumbnailFilename = "thumbnail.png"
@@ -31,16 +44,12 @@ final class AxHomeSandboxDocument: AxHomeDocument {
         let modificationDate: Date
     }
     
-    init(documentURL: URL, metadata: Metadata) {
+    init(documentURL: URL, metadata: Metadata, manager: AxSandboxDocumentManager) {
         self.documentURL = documentURL
         self.metadata = metadata
+        self.manager = manager
         
-        super.init(
-            title: metadata.title,
-            modificationDate: metadata.modificationDate,
-            thumbnail: nil,
-            documentType: .sandbox
-        )
+        super.init(title: metadata.title, modificationDate: metadata.modificationDate, thumbnail: nil)
     }
 }
 

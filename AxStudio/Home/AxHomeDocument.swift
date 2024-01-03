@@ -14,23 +14,26 @@ import AxDocument
 import AxModelCore
 
 class AxHomeDocument {
-    enum DocumentType { case local, cloud, sandbox }
-    
     @ObservableProperty var title: String
     
     let infoText: String
     
-    let documentType: DocumentType
-    
     let modificationDate: Date
     
     let thumbnail: Promise<NSImage?, Never>?
+    
+    func documentTypeIcon() -> NSImage? { fatalError("Not implemented") }
+    
+    func documentDefaultThumbnail() -> NSImage? { fatalError("Not implemented") }
+    
+    func provideContextMenu(to menu: NSMenu, _ activateRename: @escaping () -> ()) {}
+    
+    func rename(to name: String) { fatalError("Not implemented") }
         
-    init(title: String, modificationDate: Date, thumbnail: Promise<NSImage?, Never>?, documentType: DocumentType) {
+    init(title: String, modificationDate: Date, thumbnail: Promise<NSImage?, Never>?) {
         self.title = title
         self.modificationDate = modificationDate
         self.thumbnail = thumbnail
-        self.documentType = documentType
         
         self.infoText = timeIntervalText(since: modificationDate)
     }

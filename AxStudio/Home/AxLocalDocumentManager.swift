@@ -16,9 +16,22 @@ import LayoutEngine
 final class AxHomeLocalDocument: AxHomeDocument {
     let url: URL
     
-    init(title: String, modificationDate: Date, thumbnail: Promise<NSImage?, Never>?, url: URL) {
+    unowned let manager: AxLocalDocumentManager
+    
+    override func documentTypeIcon() -> NSImage? { R.Home.Body.localDocumentIcon }
+    
+    override func documentDefaultThumbnail() -> NSImage? { R.Home.Body.localDocumentDefaultThumbnail }
+    
+    override func provideContextMenu(to menu: NSMenu, _ activateRename: @escaping () -> ()) {
+        menu.addItem("Open", action: { self.manager.openDocument(self) })
+        menu.addItem("Delete", action: { self.manager.deleteDocument(self) })
+        menu.addItem("Open in Finder", action: { self.manager.openInFinder(self) })
+    }
+    
+    init(title: String, modificationDate: Date, thumbnail: Promise<NSImage?, Never>?, url: URL, manager: AxLocalDocumentManager) {
         self.url = url
-        super.init(title: title, modificationDate: modificationDate, thumbnail: thumbnail, documentType: .local)
+        self.manager = manager
+        super.init(title: title, modificationDate: modificationDate, thumbnail: thumbnail)
     }
 }
 

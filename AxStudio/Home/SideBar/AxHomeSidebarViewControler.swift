@@ -20,7 +20,7 @@ final class AxHomeSidebarViewControler: ACSidebarViewController {
     // Document
     private let localDocumentItem = AxHomeSidebarCreateDocumentItem(documentType: .local)
     private let cloudDocumentItem = AxHomeSidebarCreateDocumentItem(documentType: .cloud)
-    private let sandboxDocumentItem = AxHomeSidebarCreateDocumentItem(title: "Sandbox", icon: R.Home.Sidebar.localDocument, color: .systemOrange)
+    private let sandboxDocumentItem = AxHomeSidebarCreateDocumentItem(documentType: .sandbox)
     
     // Debug
     private let restartLocalhostButtonItem = AxHomeSidebarButtonItem(title: "Localhostを追加")

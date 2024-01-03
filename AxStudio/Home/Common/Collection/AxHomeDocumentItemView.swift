@@ -38,24 +38,16 @@ final class AxHomeDocumentItemView: NSRectangleView {
     private func onItemModelLoaded() {
         guard let itemModel = self.itemModel else { return }
         
-        
         itemModel.document.$title
             .sink{[unowned self] in self.titleLabel.stringValue = $0 }.store(in: &objectBag)
         
         self.infoLabel.stringValue = itemModel.document.infoText
-        
-        switch itemModel.document.documentType {
-        case .cloud: self.documentTypeIconView.image = R.Home.Body.cloudDocumentIcon
-        case .local: self.documentTypeIconView.image = R.Home.Body.localDocumentIcon
-        }
+        self.documentTypeIconView.image = itemModel.document.documentTypeIcon()
         
         if let thumbnail = itemModel.document.thumbnail {
             thumbnail.sink{ if let image = $0 { self.thumnailImageView.image = image } }
         } else {
-            switch itemModel.document.documentType {
-            case .cloud: self.thumnailImageView.image = R.Home.Body.cloudDocumentDefaultThumbnail
-            case .local: self.thumnailImageView.image = R.Home.Body.localDocumentDefaultThumbnail
-            }
+            self.thumnailImageView.image = itemModel.document.documentDefaultThumbnail()
         }
             
         self.menuButton.mouseDownPublisher
@@ -73,22 +65,7 @@ final class AxHomeDocumentItemView: NSRectangleView {
         
         let menu = NSMenu()
         
-        menu.addItem("Open", action: { itemModel.openDocument() })
-        if itemModel.canCopyLink {
-            menu.addItem(.separator())
-            menu.addItem("Copy Link", action: { itemModel.copyLink() })
-        }
-        menu.addItem(.separator())
-        
-        if itemModel.canRename {
-            menu.addItem("Rename", action: { self.renameDocument() })
-        }
-        if itemModel.canDelete {
-            menu.addItem("Delete", action: { self.deleteDocument(itemModel: itemModel) })
-        }
-        if itemModel.canOpenInFinder {
-            menu.addItem("Open in Finder", action: { itemModel.openInFinder() })
-        }
+        itemModel.document.provideContextMenu(to: menu, self.renameDocument)
         
         menu.popUp(positioning: menu.items.first, at: .zero, in: menuButton)
     }
