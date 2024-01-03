@@ -50,8 +50,7 @@ final class AxHomeSidebarPresenter {
     private func createCloudDocument() {
         guard let authAPI = self.authAPI else { return ACToast.show(message: "Can't create document. (No API)") }
         
-        let (root, nodes) = AxDocument.makeInitialObjects()
-        authAPI.createDocument(root: root, nodes: nodes)
+        authAPI.createDocument()
             .peek{
                 self.cloudDocumentManager.openDocument(documentID: $0.id).catchOnToast()
                 self.reloadPublisher.send()
