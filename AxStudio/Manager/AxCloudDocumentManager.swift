@@ -30,7 +30,6 @@ final class AxCloudDocumentManager {
     }
     
     var profile: AxUserProfile? { didSet { reopenDocumentIfNeeded() } }
-    var homeWindowController: AxHomeWindowController?
     
     private let userDefaults: UserDefaults
     private var authAPI: AxHttpAuthorizedAPIClient? { didSet { reopenDocumentIfNeeded() } }

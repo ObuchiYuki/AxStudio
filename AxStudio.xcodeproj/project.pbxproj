@@ -87,28 +87,23 @@
 		B6FE16462B43EB020048C5C4 /* AxHomeSidebarCreateDocumentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15732B43EB010048C5C4 /* AxHomeSidebarCreateDocumentItem.swift */; };
 		B6FE16472B43EB020048C5C4 /* AxHomeSidebarViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15742B43EB010048C5C4 /* AxHomeSidebarViewControler.swift */; };
 		B6FE16482B43EB020048C5C4 /* AxHomeSidebarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15752B43EB010048C5C4 /* AxHomeSidebarButtonItem.swift */; };
-		B6FE16492B43EB020048C5C4 /* AxHomeJoinDocumentPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15772B43EB010048C5C4 /* AxHomeJoinDocumentPresenter.swift */; };
+		B6FE16492B43EB020048C5C4 /* AxHomeJoinManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15772B43EB010048C5C4 /* AxHomeJoinManager.swift */; };
 		B6FE164A2B43EB020048C5C4 /* R+Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15792B43EB010048C5C4 /* R+Home.swift */; };
 		B6FE164B2B43EB020048C5C4 /* Home.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6FE157A2B43EB010048C5C4 /* Home.xcassets */; };
-		B6FE164C2B43EB020048C5C4 /* AxHomeAccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE157D2B43EB010048C5C4 /* AxHomeAccountPresenter.swift */; };
-		B6FE164D2B43EB020048C5C4 /* AxHomeAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE157E2B43EB010048C5C4 /* AxHomeAccountViewModel.swift */; };
+		B6FE164C2B43EB020048C5C4 /* AxHomeAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE157D2B43EB010048C5C4 /* AxHomeAccountViewModel.swift */; };
 		B6FE164E2B43EB020048C5C4 /* AxHomeSidebarAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15802B43EB010048C5C4 /* AxHomeSidebarAccountView.swift */; };
-		B6FE164F2B43EB020048C5C4 /* AxHomeDocumentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15842B43EB010048C5C4 /* AxHomeDocumentData.swift */; };
+		B6FE164F2B43EB020048C5C4 /* AxHomeDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15842B43EB010048C5C4 /* AxHomeDocument.swift */; };
 		B6FE16502B43EB020048C5C4 /* AxHomeCollectionItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15852B43EB010048C5C4 /* AxHomeCollectionItemModel.swift */; };
-		B6FE16512B43EB020048C5C4 /* AxHomeCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15862B43EB010048C5C4 /* AxHomeCollectionViewModel.swift */; };
 		B6FE16522B43EB020048C5C4 /* AxHomeDocumentItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15882B43EB010048C5C4 /* AxHomeDocumentItemView.swift */; };
 		B6FE16532B43EB020048C5C4 /* AxHomeDocumentCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15892B43EB010048C5C4 /* AxHomeDocumentCollectionController.swift */; };
 		B6FE16542B43EB020048C5C4 /* AxHomeDocumentCollectionSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE158A2B43EB010048C5C4 /* AxHomeDocumentCollectionSection.swift */; };
 		B6FE16552B43EB020048C5C4 /* AxHomeBodyTitleSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE158C2B43EB010048C5C4 /* AxHomeBodyTitleSection.swift */; };
-		B6FE16562B43EB020048C5C4 /* AxHomeWindowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE158E2B43EB010048C5C4 /* AxHomeWindowViewModel.swift */; };
+		B6FE16562B43EB020048C5C4 /* AxHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE158E2B43EB010048C5C4 /* AxHomeViewModel.swift */; };
 		B6FE16572B43EB020048C5C4 /* AxHomeContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE158F2B43EB010048C5C4 /* AxHomeContentViewController.swift */; };
 		B6FE16582B43EB020048C5C4 /* AxHomeWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15902B43EB010048C5C4 /* AxHomeWindowController.swift */; };
-		B6FE16592B43EB020048C5C4 /* AxHomeRecentCollectionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15932B43EB010048C5C4 /* AxHomeRecentCollectionPresenter.swift */; };
+		B6FE16592B43EB020048C5C4 /* AxHomeRecentCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15932B43EB010048C5C4 /* AxHomeRecentCollectionViewModel.swift */; };
 		B6FE165A2B43EB020048C5C4 /* AxRecentDocumentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15952B43EB010048C5C4 /* AxRecentDocumentItem.swift */; };
-		B6FE165B2B43EB020048C5C4 /* AxRecentDocumentFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15962B43EB010048C5C4 /* AxRecentDocumentFormatter.swift */; };
-		B6FE165C2B43EB020048C5C4 /* AxRecentLocalDocumentItemsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15972B43EB010048C5C4 /* AxRecentLocalDocumentItemsLoader.swift */; };
-		B6FE165D2B43EB020048C5C4 /* AxRecentCloudDocumentItemsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15982B43EB010048C5C4 /* AxRecentCloudDocumentItemsLoader.swift */; };
-		B6FE165E2B43EB020048C5C4 /* AxRecentDocumentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15992B43EB010048C5C4 /* AxRecentDocumentProvider.swift */; };
+		B6FE165E2B43EB020048C5C4 /* AxRecentDocumentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15992B43EB010048C5C4 /* AxRecentDocumentManager.swift */; };
 		B6FE165F2B43EB020048C5C4 /* AxHomeRecentCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE159B2B43EB010048C5C4 /* AxHomeRecentCollectionController.swift */; };
 		B6FE16602B43EB020048C5C4 /* AxSigninFormPanelModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE159E2B43EB010048C5C4 /* AxSigninFormPanelModel.swift */; };
 		B6FE16612B43EB020048C5C4 /* AxCreateAccontFormProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE159F2B43EB010048C5C4 /* AxCreateAccontFormProvider.swift */; };
@@ -123,7 +118,7 @@
 		B6FE166A2B43EB020048C5C4 /* AxAccountEditFormProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15A92B43EB010048C5C4 /* AxAccountEditFormProvider.swift */; };
 		B6FE166B2B43EB020048C5C4 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6FE15AA2B43EB010048C5C4 /* Home.storyboard */; };
 		B6FE166C2B43EB020048C5C4 /* AxLocalDocument+Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15AD2B43EB010048C5C4 /* AxLocalDocument+Window.swift */; };
-		B6FE166D2B43EB020048C5C4 /* AxToastErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15AE2B43EB010048C5C4 /* AxToastErrorHandler.swift */; };
+		B6FE166D2B43EB020048C5C4 /* AxToastErrorHandle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15AE2B43EB010048C5C4 /* AxToastErrorHandle.swift */; };
 		B6FE166E2B43EB020048C5C4 /* AxHttpAPIClient+Production.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15AF2B43EB010048C5C4 /* AxHttpAPIClient+Production.swift */; };
 		B6FE166F2B43EB020048C5C4 /* AxDebugPasteboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15B22B43EB010048C5C4 /* AxDebugPasteboardCell.swift */; };
 		B6FE16702B43EB020048C5C4 /* AxDebugWSStackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15B42B43EB010048C5C4 /* AxDebugWSStackViewController.swift */; };
@@ -265,28 +260,23 @@
 		B6FE15732B43EB010048C5C4 /* AxHomeSidebarCreateDocumentItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeSidebarCreateDocumentItem.swift; sourceTree = "<group>"; };
 		B6FE15742B43EB010048C5C4 /* AxHomeSidebarViewControler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeSidebarViewControler.swift; sourceTree = "<group>"; };
 		B6FE15752B43EB010048C5C4 /* AxHomeSidebarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeSidebarButtonItem.swift; sourceTree = "<group>"; };
-		B6FE15772B43EB010048C5C4 /* AxHomeJoinDocumentPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeJoinDocumentPresenter.swift; sourceTree = "<group>"; };
+		B6FE15772B43EB010048C5C4 /* AxHomeJoinManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeJoinManager.swift; sourceTree = "<group>"; };
 		B6FE15792B43EB010048C5C4 /* R+Home.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "R+Home.swift"; sourceTree = "<group>"; };
 		B6FE157A2B43EB010048C5C4 /* Home.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Home.xcassets; sourceTree = "<group>"; };
-		B6FE157D2B43EB010048C5C4 /* AxHomeAccountPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeAccountPresenter.swift; sourceTree = "<group>"; };
-		B6FE157E2B43EB010048C5C4 /* AxHomeAccountViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeAccountViewModel.swift; sourceTree = "<group>"; };
+		B6FE157D2B43EB010048C5C4 /* AxHomeAccountViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeAccountViewModel.swift; sourceTree = "<group>"; };
 		B6FE15802B43EB010048C5C4 /* AxHomeSidebarAccountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeSidebarAccountView.swift; sourceTree = "<group>"; };
-		B6FE15842B43EB010048C5C4 /* AxHomeDocumentData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeDocumentData.swift; sourceTree = "<group>"; };
+		B6FE15842B43EB010048C5C4 /* AxHomeDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeDocument.swift; sourceTree = "<group>"; };
 		B6FE15852B43EB010048C5C4 /* AxHomeCollectionItemModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeCollectionItemModel.swift; sourceTree = "<group>"; };
-		B6FE15862B43EB010048C5C4 /* AxHomeCollectionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeCollectionViewModel.swift; sourceTree = "<group>"; };
 		B6FE15882B43EB010048C5C4 /* AxHomeDocumentItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeDocumentItemView.swift; sourceTree = "<group>"; };
 		B6FE15892B43EB010048C5C4 /* AxHomeDocumentCollectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeDocumentCollectionController.swift; sourceTree = "<group>"; };
 		B6FE158A2B43EB010048C5C4 /* AxHomeDocumentCollectionSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeDocumentCollectionSection.swift; sourceTree = "<group>"; };
 		B6FE158C2B43EB010048C5C4 /* AxHomeBodyTitleSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeBodyTitleSection.swift; sourceTree = "<group>"; };
-		B6FE158E2B43EB010048C5C4 /* AxHomeWindowViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeWindowViewModel.swift; sourceTree = "<group>"; };
+		B6FE158E2B43EB010048C5C4 /* AxHomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeViewModel.swift; sourceTree = "<group>"; };
 		B6FE158F2B43EB010048C5C4 /* AxHomeContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeContentViewController.swift; sourceTree = "<group>"; };
 		B6FE15902B43EB010048C5C4 /* AxHomeWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeWindowController.swift; sourceTree = "<group>"; };
-		B6FE15932B43EB010048C5C4 /* AxHomeRecentCollectionPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeRecentCollectionPresenter.swift; sourceTree = "<group>"; };
+		B6FE15932B43EB010048C5C4 /* AxHomeRecentCollectionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeRecentCollectionViewModel.swift; sourceTree = "<group>"; };
 		B6FE15952B43EB010048C5C4 /* AxRecentDocumentItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxRecentDocumentItem.swift; sourceTree = "<group>"; };
-		B6FE15962B43EB010048C5C4 /* AxRecentDocumentFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxRecentDocumentFormatter.swift; sourceTree = "<group>"; };
-		B6FE15972B43EB010048C5C4 /* AxRecentLocalDocumentItemsLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxRecentLocalDocumentItemsLoader.swift; sourceTree = "<group>"; };
-		B6FE15982B43EB010048C5C4 /* AxRecentCloudDocumentItemsLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxRecentCloudDocumentItemsLoader.swift; sourceTree = "<group>"; };
-		B6FE15992B43EB010048C5C4 /* AxRecentDocumentProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxRecentDocumentProvider.swift; sourceTree = "<group>"; };
+		B6FE15992B43EB010048C5C4 /* AxRecentDocumentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxRecentDocumentManager.swift; sourceTree = "<group>"; };
 		B6FE159B2B43EB010048C5C4 /* AxHomeRecentCollectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeRecentCollectionController.swift; sourceTree = "<group>"; };
 		B6FE159E2B43EB010048C5C4 /* AxSigninFormPanelModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxSigninFormPanelModel.swift; sourceTree = "<group>"; };
 		B6FE159F2B43EB010048C5C4 /* AxCreateAccontFormProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxCreateAccontFormProvider.swift; sourceTree = "<group>"; };
@@ -301,7 +291,7 @@
 		B6FE15A92B43EB010048C5C4 /* AxAccountEditFormProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxAccountEditFormProvider.swift; sourceTree = "<group>"; };
 		B6FE15AB2B43EB010048C5C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Home.storyboard; sourceTree = "<group>"; };
 		B6FE15AD2B43EB010048C5C4 /* AxLocalDocument+Window.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AxLocalDocument+Window.swift"; sourceTree = "<group>"; };
-		B6FE15AE2B43EB010048C5C4 /* AxToastErrorHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxToastErrorHandler.swift; sourceTree = "<group>"; };
+		B6FE15AE2B43EB010048C5C4 /* AxToastErrorHandle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxToastErrorHandle.swift; sourceTree = "<group>"; };
 		B6FE15AF2B43EB010048C5C4 /* AxHttpAPIClient+Production.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AxHttpAPIClient+Production.swift"; sourceTree = "<group>"; };
 		B6FE15B22B43EB010048C5C4 /* AxDebugPasteboardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxDebugPasteboardCell.swift; sourceTree = "<group>"; };
 		B6FE15B42B43EB010048C5C4 /* AxDebugWSStackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxDebugWSStackViewController.swift; sourceTree = "<group>"; };
@@ -397,6 +387,7 @@
 			children = (
 				B64C6D652B4535AE0034C555 /* Info.plist */,
 				B6FE15132B43EB010048C5C4 /* _Document.swift */,
+				B6FE15042B43EA5A0048C5C4 /* AppDelegate.swift */,
 				B6FE15FA2B43EB020048C5C4 /* DebugSettings.swift */,
 				B6FE15EC2B43EB010048C5C4 /* App+Window */,
 				B6FE15CA2B43EB010048C5C4 /* Editor */,
@@ -404,8 +395,8 @@
 				B6FE15142B43EB010048C5C4 /* Manager */,
 				B6FE15D82B43EB010048C5C4 /* Navigator */,
 				B6FE151B2B43EB010048C5C4 /* Resource */,
+				B6FE156C2B43EB010048C5C4 /* Home */,
 				B6FE156B2B43EB010048C5C4 /* Window */,
-				B6FE15042B43EA5A0048C5C4 /* AppDelegate.swift */,
 				B6FE150D2B43EA5C0048C5C4 /* AxStudio.entitlements */,
 			);
 			path = AxStudio;
@@ -609,9 +600,6 @@
 		B6FE156B2B43EB010048C5C4 /* Window */ = {
 			isa = PBXGroup;
 			children = (
-				B6FE156C2B43EB010048C5C4 /* Home */,
-				B6FE159C2B43EB010048C5C4 /* Form */,
-				B6FE15AA2B43EB010048C5C4 /* Home.storyboard */,
 				B6FE15AC2B43EB010048C5C4 /* Common */,
 				B6FE15B02B43EB010048C5C4 /* Debug */,
 			);
@@ -621,13 +609,15 @@
 		B6FE156C2B43EB010048C5C4 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				B6FE15AA2B43EB010048C5C4 /* Home.storyboard */,
+				B6FE158E2B43EB010048C5C4 /* AxHomeViewModel.swift */,
+				B6FE15772B43EB010048C5C4 /* AxHomeJoinManager.swift */,
+				B6FE159D2B43EB010048C5C4 /* Sign In */,
 				B6FE156D2B43EB010048C5C4 /* SideBar */,
-				B6FE15762B43EB010048C5C4 /* Join */,
 				B6FE15782B43EB010048C5C4 /* Resources */,
-				B6FE157B2B43EB010048C5C4 /* AccountView */,
 				B6FE15812B43EB010048C5C4 /* Common */,
 				B6FE158D2B43EB010048C5C4 /* Window */,
-				B6FE15912B43EB010048C5C4 /* RecentCollection */,
+				B6FE15912B43EB010048C5C4 /* Collection */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -635,37 +625,22 @@
 		B6FE156D2B43EB010048C5C4 /* SideBar */ = {
 			isa = PBXGroup;
 			children = (
-				B6FE156E2B43EB010048C5C4 /* Model */,
-				B6FE15712B43EB010048C5C4 /* View */,
+				B6FE156F2B43EB010048C5C4 /* AxHomeSidebarViewModel.swift */,
+				B6FE15742B43EB010048C5C4 /* AxHomeSidebarViewControler.swift */,
+				B6FE157B2B43EB010048C5C4 /* AccountView */,
+				B6FE15712B43EB010048C5C4 /* Components */,
 			);
 			path = SideBar;
 			sourceTree = "<group>";
 		};
-		B6FE156E2B43EB010048C5C4 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				B6FE156F2B43EB010048C5C4 /* AxHomeSidebarViewModel.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		B6FE15712B43EB010048C5C4 /* View */ = {
+		B6FE15712B43EB010048C5C4 /* Components */ = {
 			isa = PBXGroup;
 			children = (
 				B6FE15722B43EB010048C5C4 /* AxHomeCreateDocumentButton.swift */,
 				B6FE15732B43EB010048C5C4 /* AxHomeSidebarCreateDocumentItem.swift */,
-				B6FE15742B43EB010048C5C4 /* AxHomeSidebarViewControler.swift */,
 				B6FE15752B43EB010048C5C4 /* AxHomeSidebarButtonItem.swift */,
 			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		B6FE15762B43EB010048C5C4 /* Join */ = {
-			isa = PBXGroup;
-			children = (
-				B6FE15772B43EB010048C5C4 /* AxHomeJoinDocumentPresenter.swift */,
-			);
-			path = Join;
+			path = Components;
 			sourceTree = "<group>";
 		};
 		B6FE15782B43EB010048C5C4 /* Resources */ = {
@@ -680,144 +655,66 @@
 		B6FE157B2B43EB010048C5C4 /* AccountView */ = {
 			isa = PBXGroup;
 			children = (
-				B6FE157C2B43EB010048C5C4 /* Model */,
-				B6FE157F2B43EB010048C5C4 /* View */,
-			);
-			path = AccountView;
-			sourceTree = "<group>";
-		};
-		B6FE157C2B43EB010048C5C4 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				B6FE157D2B43EB010048C5C4 /* AxHomeAccountPresenter.swift */,
-				B6FE157E2B43EB010048C5C4 /* AxHomeAccountViewModel.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		B6FE157F2B43EB010048C5C4 /* View */ = {
-			isa = PBXGroup;
-			children = (
+				B6FE157D2B43EB010048C5C4 /* AxHomeAccountViewModel.swift */,
 				B6FE15802B43EB010048C5C4 /* AxHomeSidebarAccountView.swift */,
 			);
-			path = View;
+			path = AccountView;
 			sourceTree = "<group>";
 		};
 		B6FE15812B43EB010048C5C4 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				B6FE15822B43EB010048C5C4 /* DocumentCollection */,
-				B6FE158B2B43EB010048C5C4 /* View */,
+				B6FE15842B43EB010048C5C4 /* AxHomeDocument.swift */,
+				B6FE158C2B43EB010048C5C4 /* AxHomeBodyTitleSection.swift */,
+				B6FE15822B43EB010048C5C4 /* Collection */,
 			);
 			path = Common;
 			sourceTree = "<group>";
 		};
-		B6FE15822B43EB010048C5C4 /* DocumentCollection */ = {
+		B6FE15822B43EB010048C5C4 /* Collection */ = {
 			isa = PBXGroup;
 			children = (
-				B6FE15832B43EB010048C5C4 /* Model */,
-				B6FE15872B43EB010048C5C4 /* View */,
-			);
-			path = DocumentCollection;
-			sourceTree = "<group>";
-		};
-		B6FE15832B43EB010048C5C4 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				B6FE15842B43EB010048C5C4 /* AxHomeDocumentData.swift */,
 				B6FE15852B43EB010048C5C4 /* AxHomeCollectionItemModel.swift */,
-				B6FE15862B43EB010048C5C4 /* AxHomeCollectionViewModel.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		B6FE15872B43EB010048C5C4 /* View */ = {
-			isa = PBXGroup;
-			children = (
 				B6FE15882B43EB010048C5C4 /* AxHomeDocumentItemView.swift */,
 				B6FE15892B43EB010048C5C4 /* AxHomeDocumentCollectionController.swift */,
 				B6FE158A2B43EB010048C5C4 /* AxHomeDocumentCollectionSection.swift */,
 			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		B6FE158B2B43EB010048C5C4 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				B6FE158C2B43EB010048C5C4 /* AxHomeBodyTitleSection.swift */,
-			);
-			path = View;
+			path = Collection;
 			sourceTree = "<group>";
 		};
 		B6FE158D2B43EB010048C5C4 /* Window */ = {
 			isa = PBXGroup;
 			children = (
-				B6FE158E2B43EB010048C5C4 /* AxHomeWindowViewModel.swift */,
 				B6FE158F2B43EB010048C5C4 /* AxHomeContentViewController.swift */,
 				B6FE15902B43EB010048C5C4 /* AxHomeWindowController.swift */,
 			);
 			path = Window;
 			sourceTree = "<group>";
 		};
-		B6FE15912B43EB010048C5C4 /* RecentCollection */ = {
+		B6FE15912B43EB010048C5C4 /* Collection */ = {
 			isa = PBXGroup;
 			children = (
-				B6FE15922B43EB010048C5C4 /* Model */,
-				B6FE159A2B43EB010048C5C4 /* View */,
-			);
-			path = RecentCollection;
-			sourceTree = "<group>";
-		};
-		B6FE15922B43EB010048C5C4 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				B6FE15932B43EB010048C5C4 /* AxHomeRecentCollectionPresenter.swift */,
-				B6FE15942B43EB010048C5C4 /* Provider */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		B6FE15942B43EB010048C5C4 /* Provider */ = {
-			isa = PBXGroup;
-			children = (
+				B6FE15932B43EB010048C5C4 /* AxHomeRecentCollectionViewModel.swift */,
 				B6FE15952B43EB010048C5C4 /* AxRecentDocumentItem.swift */,
-				B6FE15962B43EB010048C5C4 /* AxRecentDocumentFormatter.swift */,
-				B6FE15972B43EB010048C5C4 /* AxRecentLocalDocumentItemsLoader.swift */,
-				B6FE15982B43EB010048C5C4 /* AxRecentCloudDocumentItemsLoader.swift */,
-				B6FE15992B43EB010048C5C4 /* AxRecentDocumentProvider.swift */,
-			);
-			path = Provider;
-			sourceTree = "<group>";
-		};
-		B6FE159A2B43EB010048C5C4 /* View */ = {
-			isa = PBXGroup;
-			children = (
+				B6FE15992B43EB010048C5C4 /* AxRecentDocumentManager.swift */,
 				B6FE159B2B43EB010048C5C4 /* AxHomeRecentCollectionController.swift */,
 			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		B6FE159C2B43EB010048C5C4 /* Form */ = {
-			isa = PBXGroup;
-			children = (
-				B6FE159D2B43EB010048C5C4 /* Sign In */,
-				B6FE15A12B43EB010048C5C4 /* AxDataValidator.swift */,
-				B6FE15A22B43EB010048C5C4 /* Account Profile */,
-			);
-			path = Form;
+			path = Collection;
 			sourceTree = "<group>";
 		};
 		B6FE159D2B43EB010048C5C4 /* Sign In */ = {
 			isa = PBXGroup;
 			children = (
+				B6FE15A22B43EB010048C5C4 /* Components */,
 				B6FE159E2B43EB010048C5C4 /* AxSigninFormPanelModel.swift */,
 				B6FE159F2B43EB010048C5C4 /* AxCreateAccontFormProvider.swift */,
+				B6FE15A12B43EB010048C5C4 /* AxDataValidator.swift */,
 				B6FE15A02B43EB010048C5C4 /* ACSigninFormProvider.swift */,
 			);
 			path = "Sign In";
 			sourceTree = "<group>";
 		};
-		B6FE15A22B43EB010048C5C4 /* Account Profile */ = {
+		B6FE15A22B43EB010048C5C4 /* Components */ = {
 			isa = PBXGroup;
 			children = (
 				B6FE15A32B43EB010048C5C4 /* AxAccountEditPasswordProvider.swift */,
@@ -828,14 +725,14 @@
 				B6FE15A82B43EB010048C5C4 /* AxAccountImageView.swift */,
 				B6FE15A92B43EB010048C5C4 /* AxAccountEditFormProvider.swift */,
 			);
-			path = "Account Profile";
+			path = Components;
 			sourceTree = "<group>";
 		};
 		B6FE15AC2B43EB010048C5C4 /* Common */ = {
 			isa = PBXGroup;
 			children = (
 				B6FE15AD2B43EB010048C5C4 /* AxLocalDocument+Window.swift */,
-				B6FE15AE2B43EB010048C5C4 /* AxToastErrorHandler.swift */,
+				B6FE15AE2B43EB010048C5C4 /* AxToastErrorHandle.swift */,
 				B6FE15AF2B43EB010048C5C4 /* AxHttpAPIClient+Production.swift */,
 			);
 			path = Common;
@@ -1173,13 +1070,11 @@
 				B6FE16412B43EB020048C5C4 /* +AxNodePreview.swift in Sources */,
 				B6FE16A12B43EB020048C5C4 /* AxLayerLayoutInfo.swift in Sources */,
 				B6FE16162B43EB020048C5C4 /* +AxStyleSolidFillCell.swift in Sources */,
-				B6FE165B2B43EB020048C5C4 /* AxRecentDocumentFormatter.swift in Sources */,
 				B6FE16742B43EB020048C5C4 /* +AxDebugWSConfigCell.swift in Sources */,
 				B6FE160F2B43EB020048C5C4 /* +AxButtonCell.swift in Sources */,
 				B6FE16072B43EB020048C5C4 /* +AxMasterLayoutCell.swift in Sources */,
 				B6FE167A2B43EB020048C5C4 /* +AxDebugDCInfoCell.swift in Sources */,
 				B6FE16852B43EB020048C5C4 /* +AxWorkbenchHeader.swift in Sources */,
-				B6FE165C2B43EB020048C5C4 /* AxRecentLocalDocumentItemsLoader.swift in Sources */,
 				B6FE16902B43EB020048C5C4 /* AxStandartAssetStore.swift in Sources */,
 				B6FE162F2B43EB020048C5C4 /* +AxDebugLayoutCell.swift in Sources */,
 				B6FE16182B43EB020048C5C4 /* +AxStyleBorderCell.swift in Sources */,
@@ -1195,7 +1090,7 @@
 				B6FE16962B43EB020048C5C4 /* +AxAssetView.swift in Sources */,
 				B6FE163C2B43EB020048C5C4 /* +AxComponentActionList.swift in Sources */,
 				B6FE160C2B43EB020048C5C4 /* +AxTableLinkCell.swift in Sources */,
-				B6FE16492B43EB020048C5C4 /* AxHomeJoinDocumentPresenter.swift in Sources */,
+				B6FE16492B43EB020048C5C4 /* AxHomeJoinManager.swift in Sources */,
 				B6FE166F2B43EB020048C5C4 /* AxDebugPasteboardCell.swift in Sources */,
 				B6FE16882B43EB020048C5C4 /* +AxEditorView.swift in Sources */,
 				B6FE15FC2B43EB020048C5C4 /* AxDocumentPreviewManager.swift in Sources */,
@@ -1204,7 +1099,6 @@
 				B6FE163D2B43EB020048C5C4 /* +ACComponentActionHeader.swift in Sources */,
 				B6FE169B2B43EB020048C5C4 /* AxAppMenuResponder.swift in Sources */,
 				B6FE169D2B43EB020048C5C4 /* +AxInsertLayerItemViewModel.swift in Sources */,
-				B6FE16512B43EB020048C5C4 /* AxHomeCollectionViewModel.swift in Sources */,
 				B6FE16472B43EB020048C5C4 /* AxHomeSidebarViewControler.swift in Sources */,
 				B6FE16302B43EB020048C5C4 /* +AxIndicator.swift in Sources */,
 				B6FE166C2B43EB020048C5C4 /* AxLocalDocument+Window.swift in Sources */,
@@ -1214,12 +1108,12 @@
 				B6FE16972B43EB020048C5C4 /* +AxFontAssetCollection.swift in Sources */,
 				B6FE164E2B43EB020048C5C4 /* AxHomeSidebarAccountView.swift in Sources */,
 				B6FE16662B43EB020048C5C4 /* AxAccountFormModel.swift in Sources */,
-				B6FE16592B43EB020048C5C4 /* AxHomeRecentCollectionPresenter.swift in Sources */,
+				B6FE16592B43EB020048C5C4 /* AxHomeRecentCollectionViewModel.swift in Sources */,
 				B6FE16692B43EB020048C5C4 /* AxAccountImageView.swift in Sources */,
 				B6FE161A2B43EB020048C5C4 /* +AxIconCell.swift in Sources */,
 				B6FE16142B43EB020048C5C4 /* +AxBooleanCell.swift in Sources */,
 				B6FE163A2B43EB020048C5C4 /* +AxSequenceNodeCell.swift in Sources */,
-				B6FE165E2B43EB020048C5C4 /* AxRecentDocumentProvider.swift in Sources */,
+				B6FE165E2B43EB020048C5C4 /* AxRecentDocumentManager.swift in Sources */,
 				B6FE16022B43EB020048C5C4 /* R.swift in Sources */,
 				B6FE164A2B43EB020048C5C4 /* R+Home.swift in Sources */,
 				B6FE16052B43EB020048C5C4 /* AxBuildinMediaFileProxy.swift in Sources */,
@@ -1249,8 +1143,8 @@
 				B6FE169F2B43EB020048C5C4 /* +AxLayerMenu.swift in Sources */,
 				B6FE16622B43EB020048C5C4 /* ACSigninFormProvider.swift in Sources */,
 				B6FE169E2B43EB020048C5C4 /* AxExportViewModel.swift in Sources */,
-				B6FE166D2B43EB020048C5C4 /* AxToastErrorHandler.swift in Sources */,
-				B6FE164C2B43EB020048C5C4 /* AxHomeAccountPresenter.swift in Sources */,
+				B6FE166D2B43EB020048C5C4 /* AxToastErrorHandle.swift in Sources */,
+				B6FE164C2B43EB020048C5C4 /* AxHomeAccountViewModel.swift in Sources */,
 				B6FE168A2B43EB020048C5C4 /* +AxBluePrintView.swift in Sources */,
 				B6FE16502B43EB020048C5C4 /* AxHomeCollectionItemModel.swift in Sources */,
 				B6FE162B2B43EB020048C5C4 /* +AxAppIndicator.swift in Sources */,
@@ -1261,7 +1155,6 @@
 				B6FE16582B43EB020048C5C4 /* AxHomeWindowController.swift in Sources */,
 				B6FE16462B43EB020048C5C4 /* AxHomeSidebarCreateDocumentItem.swift in Sources */,
 				B6FE161C2B43EB020048C5C4 /* +AxImageCell.swift in Sources */,
-				B6FE165D2B43EB020048C5C4 /* AxRecentCloudDocumentItemsLoader.swift in Sources */,
 				B6FE16782B43EB020048C5C4 /* AxDebugWSViewController.swift in Sources */,
 				B6FE16602B43EB020048C5C4 /* AxSigninFormPanelModel.swift in Sources */,
 				B6FE16762B43EB020048C5C4 /* +AxDebugWSConnectionCell.swift in Sources */,
@@ -1269,10 +1162,9 @@
 				B6FE165A2B43EB020048C5C4 /* AxRecentDocumentItem.swift in Sources */,
 				B6FE16242B43EB020048C5C4 /* AxLocalColorItemGroup.swift in Sources */,
 				B6FE160B2B43EB020048C5C4 /* +AxListCell.swift in Sources */,
-				B6FE16562B43EB020048C5C4 /* AxHomeWindowViewModel.swift in Sources */,
+				B6FE16562B43EB020048C5C4 /* AxHomeViewModel.swift in Sources */,
 				B6FE16822B43EB020048C5C4 /* AxBluePrintNodeLibraryBuilder.swift in Sources */,
 				B6FE16732B43EB020048C5C4 /* +AxDebugWSLogHeader.swift in Sources */,
-				B6FE164D2B43EB020048C5C4 /* AxHomeAccountViewModel.swift in Sources */,
 				B6FE15FF2B43EB020048C5C4 /* AxCloudDocumentManager.swift in Sources */,
 				B6FE16872B43EB020048C5C4 /* +AxTableHeaderView.swift in Sources */,
 				B6FE16812B43EB020048C5C4 /* +AxCanvasView.swift in Sources */,
@@ -1284,7 +1176,7 @@
 				B6FE16542B43EB020048C5C4 /* AxHomeDocumentCollectionSection.swift in Sources */,
 				B6FE16152B43EB020048C5C4 /* +AxStyleShadowCell.swift in Sources */,
 				B6FE161B2B43EB020048C5C4 /* +AxGroupCell.swift in Sources */,
-				B6FE164F2B43EB020048C5C4 /* AxHomeDocumentData.swift in Sources */,
+				B6FE164F2B43EB020048C5C4 /* AxHomeDocument.swift in Sources */,
 				B6FE15FE2B43EB020048C5C4 /* AxDocumentController.swift in Sources */,
 				B6FE16752B43EB020048C5C4 /* +AxDebugWSLoggerTextCell.swift in Sources */,
 				B6FE16982B43EB020048C5C4 /* AxLayersViewController.swift in Sources */,
