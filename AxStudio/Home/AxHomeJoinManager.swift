@@ -23,15 +23,13 @@ final class AxHomeJoinManager {
     private let cloudDocumentManager: AxCloudDocumentManager
     private let secureLibrary: AxSecureSigninInfoLibrary
     private let reachability: Reachability
-    private let recentDocumentProvider: AxRecentDocumentManager
     
     private var signinBag = Set<AnyCancellable>()
     
-    init(api: AxHttpAPIClient, cloudDocumentManager: AxCloudDocumentManager, secureLibrary: AxSecureSigninInfoLibrary, recentDocumentProvider: AxRecentDocumentManager, reachability: Reachability) {
+    init(api: AxHttpAPIClient, cloudDocumentManager: AxCloudDocumentManager, secureLibrary: AxSecureSigninInfoLibrary, reachability: Reachability) {
         self.api = api
         self.cloudDocumentManager = cloudDocumentManager
         self.secureLibrary = secureLibrary
-        self.recentDocumentProvider = recentDocumentProvider
         self.reachability = reachability
     }
     
@@ -43,10 +41,8 @@ final class AxHomeJoinManager {
         
         if let authAPI = self.authAPI {
             authAPI.joinDocument(token: token)
-                .flatMap{ self.cloudDocumentManager.openDocument(documentID: $0.documentID) }
-                .catchOnToast("Can't Join Document")
-                .wait(on: DispatchQueue.main, for: 0.1)
-                .sink{ self.recentDocumentProvider.reload() }
+                .peek{ self.cloudDocumentManager.openDocument(documentID: $0.documentID) }
+                .catchOnToast()
         }else{
             self.signinBag.removeAll()
             let model = AxSigninFormPanelModel(api: api, secureLibrary: secureLibrary, reachability: reachability)

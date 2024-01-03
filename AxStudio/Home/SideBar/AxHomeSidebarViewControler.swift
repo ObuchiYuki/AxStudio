@@ -69,54 +69,10 @@ final class AxHomeSidebarViewControler: ACSidebarViewController {
             .sink{[unowned self] in self.cloudDocumentItem.cell.button.isEnabled = $0 }.store(in: &objectBag)
         
         self.cloudDocumentItem.cell.button.actionPublisher
-            .sink{[unowned self] in self.createCloudDocument() }.store(in: &objectBag)
+            .sink{[unowned self] in self.homeViewModel.cloudDocumentManager.createDocument() }.store(in: &objectBag)
         self.localDocumentItem.cell.button.actionPublisher
-            .sink{[unowned self] in self.createLocalDocument() }.store(in: &objectBag)
-        self.sandboxDocumentItem.cell.button.actionPublisher
-            .sink{[unowned self] in self.createSandboxDocument() }.store(in: &objectBag)
+            .sink{[unowned self] in self.homeViewModel.localDocumentManager.createDocument() }.store(in: &objectBag)
+//        self.sandboxDocumentItem.cell.button.actionPublisher
+//            .sink{[unowned self] in self.createSandboxDocument() }.store(in: &objectBag)
     }
-    
-    private func createSandboxDocument() {
-        
-    }
-    
-    private func createCloudDocument() {
-        guard let authAPI = self.homeViewModel.authAPI else { return ACToast.show(message: "Can't create document. (No API)") }
-        
-        authAPI.createDocument()
-            .peek{
-                self.homeViewModel.cloudDocumentManager.openDocument(documentID: $0.id).catchOnToast()
-                self.homeViewModel.recentDocumentManager.reload()
-            }
-            .catchOnToast("Can't create document.")
-    }
-    
-    private func createLocalDocument() {
-        do {
-            try NSDocumentController.shared.openUntitledDocumentAndDisplay(true)
-        }catch{
-            ACToast.show(message: "Can't create document. (Local)")
-        }
-    }
-    
-    private func removeAllDocuments() async throws {
-        let alert = NSAlert()
-        alert.messageText = "全Documentを削除します。"
-        alert.addButton(withTitle: "Cancel")
-        alert.addButton(withTitle: "OK")
-        let res = alert.runModal()
-        guard res == .alertSecondButtonReturn, let authAPI = homeViewModel.authAPI else { return }
-    
-        authAPI.recentDocuments()
-            .flatMap{
-                $0.map{ authAPI.deleteDocument(documentID: $0.id) }.combineAll()
-            }
-            .peek{ _ in
-                ACToast.show(message: "Documents Deleted.")
-                NSSound.dragToTrash?.play()
-                self.homeViewModel.recentDocumentManager.reload()
-            }
-            .catchOnToast()
-    }
-
 }

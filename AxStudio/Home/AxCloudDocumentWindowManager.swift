@@ -133,6 +133,7 @@ final class AxCloudDocumentWindowManager {
     private func openUnclosedDocuments() {
         for documentID in editingDocumentIDs {
             self.openDocument(documentID: documentID)
+                .catchOnToast()
         }
     }
     

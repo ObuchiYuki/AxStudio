@@ -5,10 +5,24 @@
 //  Created by yuki on 2024/01/03.
 //
 
-import Foundation
+import AxModelCore
+import AppKit
+import AxComponents
+import AxDocument
+import SwiftEx
+import AppKit
+import LayoutEngine
 
+final class AxHomeLocalDocument: AxHomeDocument {
+    let url: URL
+    
+    init(title: String, modificationDate: Date, thumbnail: Promise<NSImage?, Never>?, url: URL) {
+        self.url = url
+        super.init(title: title, modificationDate: modificationDate, thumbnail: thumbnail, documentType: .local)
+    }
+}
 
-final class AxRecentLocalDocumentManager {
+final class AxLocalDocumentManager {
     @ObservableProperty var documents = [AxHomeLocalDocument]()
     
     var showTrashedDocuments = false { didSet { self.reloadItems() } }
@@ -30,6 +44,14 @@ final class AxRecentLocalDocumentManager {
         self.setNeedsReload()
     }
     
+    func createDocument() {
+        do {
+            try NSDocumentController.shared.openUntitledDocumentAndDisplay(true)
+        }catch{
+            ACToast.show(message: "Can't create document. (Local)")
+        }
+    }
+    
     func setNeedsReload() {
         if self.needsReload { return }; self.needsReload = true
         
@@ -39,6 +61,35 @@ final class AxRecentLocalDocumentManager {
         }
     }
     
+    func openDocument(_ document: AxHomeLocalDocument) {
+        NSDocumentController.shared.openDocument(withContentsOf: document.url, display: true) {_, _, error in
+            if let error = error {
+                ACToast.showError(message: "Can't open Local document", error: error)
+            }
+            
+            self.setNeedsReload()
+        }
+    }
+    
+    func deleteDocument(_ document: AxHomeLocalDocument) {
+        if let currentDocument = NSDocumentController.shared.document(for: document.url) {
+            currentDocument.close()
+        }
+        
+        NSWorkspace.shared.recycle([document.url]) { table, err in
+            guard err == nil else { return ACToast.show(message: "Document could not be deleted.") }
+            ACToast.show(message: "Document deleted")
+            NSSound.dragToTrash?.play()
+        }
+        
+        self.setNeedsReload()
+    }
+    
+    func openInFinder(_ document: AxHomeDocument) {
+        guard let data = document as? AxHomeLocalDocument else { return }
+        NSWorkspace.shared.selectFile(data.url.path, inFileViewerRootedAtPath: data.url.path)
+    }
+
     private func reloadItems() {
         self.documents = self.currentRecentDocumentItems()
     }

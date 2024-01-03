@@ -35,7 +35,8 @@ final class AxHomeViewModel {
     
     let joinManager: AxHomeJoinManager
     let cloudDocumentManager: AxCloudDocumentManager
-    let recentDocumentManager: AxRecentDocumentManager
+    let cloudDocumentWindowManager: AxCloudDocumentWindowManager
+    let localDocumentManager: AxLocalDocumentManager
     
     private var objectBag = Set<AnyCancellable>()
 
@@ -43,26 +44,24 @@ final class AxHomeViewModel {
         api: AxHttpAPIClient,
         secureLibrary: AxSecureSigninInfoLibrary,
         reachability: Reachability,
-        cloudDocumentManager: AxCloudDocumentManager,
-        recentDocumentProvider: AxRecentDocumentManager,
         requireInternetConnection: Bool
     ) {
         self.api = api
         self.requireInternetConnection = requireInternetConnection
         self.secureLibrary = secureLibrary
         self.reachability = reachability
-        self.cloudDocumentManager = cloudDocumentManager
-        self.recentDocumentManager = recentDocumentProvider
+        self.cloudDocumentWindowManager = AxCloudDocumentWindowManager(userDefaults: .standard)
+        self.cloudDocumentManager = AxCloudDocumentManager(windowManager: self.cloudDocumentWindowManager)
+        self.localDocumentManager = AxLocalDocumentManager()
         
         self.recentCollectionViewModel = AxHomeRecentCollectionViewModel(
-            cloudDocumentManager: cloudDocumentManager, recentDocumentProvider: recentDocumentProvider
+            cloudDocumentManager: cloudDocumentManager, localDocumentManager: localDocumentManager
         )
         self.accountViewModel = AxHomeAccountViewModel(
             api: api, secureLibrary: secureLibrary, reachability: reachability
         )
         self.joinManager = AxHomeJoinManager(
-            api: api, cloudDocumentManager: cloudDocumentManager, secureLibrary: secureLibrary,
-            recentDocumentProvider: recentDocumentProvider, reachability: reachability
+            api: api, cloudDocumentManager: cloudDocumentManager, secureLibrary: secureLibrary, reachability: reachability
         )
         
         self.makeBindings()
@@ -75,7 +74,7 @@ final class AxHomeViewModel {
         self.accountViewModel.logoutPublisher
             .sink{ self.authAPI = nil }.store(in: &objectBag)
         self.accountViewModel.profilePublisher
-            .sink{ self.cloudDocumentManager.profile = $0 }.store(in: &objectBag)
+            .sink{ self.cloudDocumentWindowManager.profile = $0 }.store(in: &objectBag)
         self.joinManager.authAPIPublisher
             .sink{ self.authAPI = $0 }.store(in: &objectBag)
     }
@@ -114,10 +113,7 @@ final class AxHomeViewModel {
 
 
     private func onUpdateAuthAPI(_ authAPI: AxHttpAuthorizedAPIClient?) {
-        self.cloudDocumentManager.setAuthAPI(authAPI)
-        self.recentDocumentManager.setAuthAPI(authAPI)
-        
-        self.recentCollectionViewModel.authAPI = self.authAPI
+        self.cloudDocumentManager.authAPI = authAPI
         self.accountViewModel.authAPI = authAPI
         self.joinManager.authAPI = authAPI
     }
@@ -128,15 +124,11 @@ extension AxHomeViewModel {
         let keychain = Keychain(service: serviceKey)
         let secureLibrary = AxSecureSigninInfoLibrary(keychain: keychain)
         let reachability = try! Reachability()
-        let cloudDocumentManager = AxCloudDocumentManager(userDefaults: .standard)
-        let recentDocumentProvider = AxRecentDocumentManager()
         
         return AxHomeViewModel(
             api: api, 
             secureLibrary: secureLibrary,
             reachability: reachability,
-            cloudDocumentManager: cloudDocumentManager, 
-            recentDocumentProvider: recentDocumentProvider,
             requireInternetConnection: requireInternetConnection
         )
     }

@@ -14,7 +14,7 @@ import AxDocument
 import AxModelCore
 
 class AxHomeDocument {
-    enum DocumentType { case local, cloud }
+    enum DocumentType { case local, cloud, sandbox }
     
     @ObservableProperty var title: String
     
@@ -33,24 +33,6 @@ class AxHomeDocument {
         self.documentType = documentType
         
         self.infoText = timeIntervalText(since: modificationDate)
-    }
-}
-
-final class AxHomeLocalDocument: AxHomeDocument {
-    let url: URL
-    
-    init(title: String, modificationDate: Date, thumbnail: Promise<NSImage?, Never>?, url: URL) {
-        self.url = url
-        super.init(title: title, modificationDate: modificationDate, thumbnail: thumbnail, documentType: .local)
-    }
-}
-
-final class AxHomeCloudDocument: AxHomeDocument {
-    let documentID: String
-    
-    init(title: String, modificationDate: Date, thumbnail: Promise<NSImage?, Never>?, documentID: String) {
-        self.documentID = documentID
-        super.init(title: title, modificationDate: modificationDate, thumbnail: thumbnail, documentType: .cloud)
     }
 }
 

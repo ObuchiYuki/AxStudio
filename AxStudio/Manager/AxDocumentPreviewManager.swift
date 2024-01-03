@@ -34,8 +34,8 @@ final class AxDocumentPreviewManager {
     }
     
     private func observeCloudDocuments() {
-        NotificationCenter.default.addObserver(forName: AxCloudDocumentManager.closeNotification, object: nil, queue: nil) { notice in
-            guard let object = notice.object as? AxCloudDocumentManager.NotificationObject else { return }
+        NotificationCenter.default.addObserver(forName: AxCloudDocumentWindowManager.closeNotification, object: nil, queue: nil) { notice in
+            guard let object = notice.object as? AxCloudDocumentWindowManager.NotificationObject else { return }
             guard let window = object.windowController.window, let image = self.takeScreenShot(of: window) else { return }
             let documentID = object.documentID
             

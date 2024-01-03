@@ -11,7 +11,15 @@ import AxComponents
 import AxDocument
 import SwiftEx
 import AppKit
-import LayoutEngine
+
+final class AxHomeCloudDocument: AxHomeDocument {
+    let documentID: String
+    
+    init(title: String, modificationDate: Date, thumbnail: Promise<NSImage?, Never>?, documentID: String) {
+        self.documentID = documentID
+        super.init(title: title, modificationDate: modificationDate, thumbnail: thumbnail, documentType: .cloud)
+    }
+}
 
 final class AxCloudDocumentManager {
     @ObservableProperty var documents = [AxHomeCloudDocument]()
@@ -37,6 +45,17 @@ final class AxCloudDocumentManager {
     init(windowManager: AxCloudDocumentWindowManager) {
         self.windowManager = windowManager
     }
+    
+    @discardableResult func createDocument() -> Promise<Void, Never> {
+        guard let authAPI = self.authAPI else {
+            ACToast.show(message: "Can't create document. (No API)")
+            return .resolve()
+        }
+        
+        return authAPI.createDocument()
+            .peek{ self.openDocument(documentID: $0.id).catchOnToast() }
+            .catchOnToast("Can't create document.")
+    }
 
     func copyLink(_ document: AxHomeCloudDocument) {
         guard let authAPI = self.authAPI else { return NSSound.beep() }
@@ -59,12 +78,36 @@ final class AxCloudDocumentManager {
     }
     
     
-    func openDocument(documentID: String)  {
+    func openDocument(_ document: AxHomeCloudDocument) {
+        _ = self.openDocument(documentID: document.documentID)
+    }
+    
+    @discardableResult func openDocument(documentID: String) -> Promise<Void, Never> {
         self.windowManager.openDocument(documentID: documentID)
             .peek { self.setNeedsReload() }
             .catchOnToast()
     }
     
+    @discardableResult func removeAllDocuments() -> Promise<Void, Never> {
+        guard let authAPI = self.authAPI else { NSSound.beep(); return .resolve() }
+        
+        return authAPI.recentDocuments()
+            .flatMap{ $0.map{ authAPI.deleteDocument(documentID: $0.id) }.combineAll() }
+            .catchOnToast()
+    }
+
+    
+    func deleteCloudDocument(_ document: AxHomeCloudDocument) {
+        guard let authAPI = self.authAPI else { return NSSound.beep() }
+        
+        authAPI.deleteDocument(documentID: document.documentID)
+            .peek{
+                ACToast.show(message: "Document Deleted")
+                NSSound.dragToTrash?.play()
+                self.setNeedsReload()
+            }
+            .catchOnToast("Document could not be deleted.")
+    }
     
     private func setNeedsReload() {
         if needsReload { return }; needsReload = true
