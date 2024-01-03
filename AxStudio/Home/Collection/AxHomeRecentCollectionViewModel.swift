@@ -44,10 +44,6 @@ final class AxHomeRecentCollectionViewModel: AxHomeDocumentCollectionViewModel {
             }
             .store(in: &objectBag)
     }
-
-    func itemModel(_ row: Int) -> AxHomeCollectionItemModel {
-        AxHomeCollectionItemModel(document: self.homeDocuments[row], viewModel: self)
-    }
 }
 
 extension NSSound {

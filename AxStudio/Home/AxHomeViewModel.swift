@@ -68,7 +68,7 @@ final class AxHomeViewModel {
         self.sandboxDocumentManager = AxSandboxDocumentManager(rootDirectory: sandboxDocumentDirectory, windowManager: self.sandboxDocumentWindowManager)
         
         self.recentCollectionViewModel = AxHomeRecentCollectionViewModel(
-            cloudDocumentManager: cloudDocumentManager, localDocumentManager: localDocumentManager
+            cloudDocumentManager: cloudDocumentManager, localDocumentManager: localDocumentManager, sandboxDocumentManager: sandboxDocumentManager
         )
         self.accountViewModel = AxHomeAccountViewModel(
             api: api, secureLibrary: secureLibrary, reachability: reachability
