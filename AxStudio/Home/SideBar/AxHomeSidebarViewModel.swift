@@ -43,22 +43,4 @@ final class AxHomeSidebarViewModel {
         }
     }
     
-    func createCloudDocument() {
-        guard let authAPI = self.authAPI else { return ACToast.show(message: "Can't create document. (No API)") }
-        
-        authAPI.createDocument()
-            .peek{
-                self.cloudDocumentManager.openDocument(documentID: $0.id).catchOnToast()
-                self.reloadPublisher.send()
-            }
-            .catchOnToast("Can't create document.")
-    }
-    
-    func createLocalDocument() {
-        do {
-            try NSDocumentController.shared.openUntitledDocumentAndDisplay(true)
-        }catch{
-            ACToast.show(message: "Can't create document. (Local)")
-        }
-    }
 }

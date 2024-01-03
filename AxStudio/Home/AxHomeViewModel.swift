@@ -22,6 +22,8 @@ final class AxHomeViewModel {
     let accountViewModel: AxHomeAccountViewModel
     let joinManager: AxHomeJoinManager
     
+    @ObservableProperty var isConnected = false
+    
     private(set) var autoSigninPromise = Promise<Void, Never>.resolve()
     
     let requireInternetConnection: Bool
@@ -86,7 +88,7 @@ final class AxHomeViewModel {
         self.reachability.publisher
             .sink{[self] in
                 let isConnected = $0.connection != .unavailable || !requireInternetConnection
-                self.sidebarViewModel.isConnected = isConnected
+                self.isConnected = isConnected
                 self.accountViewModel.isConnected = isConnected
                 self.joinManager.isConnected = isConnected
             }

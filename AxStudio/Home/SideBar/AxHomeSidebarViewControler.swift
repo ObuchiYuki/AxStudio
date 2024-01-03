@@ -14,6 +14,9 @@ import AxComponents
 import AxDocument
 
 final class AxHomeSidebarViewControler: ACSidebarViewController {
+    
+    @ObservableProperty private var canCreateCloudDocument = false
+    
     // Document
     private let localDocumentItem = AxHomeSidebarCreateDocumentItem(documentType: .local)
     private let cloudDocumentItem = AxHomeSidebarCreateDocumentItem(documentType: .cloud)
@@ -27,6 +30,8 @@ final class AxHomeSidebarViewControler: ACSidebarViewController {
     
     // Account
     private let accountViewController = AxModelSidebarAccountViewController()
+    
+    private var homeViewModel: AxHomeViewModel { self.chainObject as! AxHomeViewModel }
     
     override func viewDidLoad() {
         self.addChild(self.accountViewController)
@@ -57,70 +62,54 @@ final class AxHomeSidebarViewControler: ACSidebarViewController {
         self.addItem(openURLButtonItem)
         #endif
     }
-    
-    
-    override func chainObjectDidLoad() {
-        guard let homeViewModel = self.chainObject as? AxHomeViewModel else { return NSSound.beep() }
-        let viewModel = homeViewModel.sidebarViewModel
         
-        viewModel.$canCreateCloudDocument
+    override func chainObjectDidLoad() {
+        self.$canCreateCloudDocument
             .sink{[unowned self] in self.cloudDocumentItem.cell.button.isEnabled = $0 }.store(in: &objectBag)
         
         self.cloudDocumentItem.cell.button.actionPublisher
-            .sink{[unowned viewModel] in viewModel.createCloudDocument() }.store(in: &objectBag)
+            .sink{[unowned self] in self.createCloudDocument() }.store(in: &objectBag)
         self.localDocumentItem.cell.button.actionPublisher
-            .sink{[unowned viewModel] in viewModel.createLocalDocument() }.store(in: &objectBag)
-        
-//        func openLocalhost() {
-//            enum __ { static var c = 0 }; __.c += 1
-//            AxHomeWindowController.make(presenter: .make(api: .localhost(), serviceKey: "com.axstudio.l\(__.c)", requireInternetConnection: self.requireInternetConnection)).showWindow(nil)
-//        }
-//        func openAWS() {
-//            enum __ { static var c = 0 }; __.c += 1
-//            AxHomeWindowController.make(presenter: .make(api: .production, serviceKey: "com.axstudio.p\(__.c)", requireInternetConnection: self.presenter.requireInternetConnection)).showWindow(nil)
-//        }
-        
-        func removeAllDocuments() async throws {
-            let alert = NSAlert()
-            alert.messageText = "全Documentを削除します。"
-            alert.addButton(withTitle: "Cancel")
-            alert.addButton(withTitle: "OK")
-            let res = alert.runModal()
-            guard res == .alertSecondButtonReturn, let authAPI = viewModel.authAPI else { return }
-        
-            let documents = try await authAPI.recentDocuments().value
-            for document in documents {
-                try await authAPI.deleteDocument(documentID: document.id).value
-                
-                DispatchQueue.main.async {
-                    ACToast.show(message: "Document Deleted \(document.id)")
-                    NSSound.dragToTrash?.play()
-                    
-                    homeViewModel.recentDocumentProvider.cloudDocumentItemLoader.setNeedsReload()
-                }
-            }
-        }
-        
-//        self.restartLocalhostButtonItem.actionPublisher.sink{ openLocalhost() }.store(in: &objectBag)
-
-//        self.restartAwsButtonItem.actionPublisher.sink{ openAWS() }.store(in: &objectBag)
-        
-        self.removeAllDocumentsButtonItem.actionPublisher.sink{ Promise{ try await removeAllDocuments() }.catchOnToast() }.store(in: &objectBag)
-        
-        self.openURLButtonItem.actionPublisher
-            .sink{
-                guard let string = NSPasteboard.general.string(forType: .string), var components = URLComponents(string: string) else { return NSSound.beep() }
-                
-                if string.contains("/share/join?token=") {
-                    components.scheme = "axstudio"
-                }
-                
-                guard let url = components.url else { return NSSound.beep() }
-                
-                ACToast.show(message: "Open URL '\(url)'")
-                
-                NSApp.delegate?.application?(NSApp, open: [url])
-            }
-            .store(in: &objectBag)
+            .sink{[unowned self] in self.createLocalDocument() }.store(in: &objectBag)
     }
+    
+    private func createCloudDocument() {
+        guard let authAPI = self.homeViewModel.authAPI else { return ACToast.show(message: "Can't create document. (No API)") }
+        
+        authAPI.createDocument()
+            .peek{
+                self.homeViewModel.cloudDocumentManager.openDocument(documentID: $0.id).catchOnToast()
+                self.homeViewModel.recentDocumentProvider.cloudDocumentItemLoader.setNeedsReload()
+            }
+            .catchOnToast("Can't create document.")
+    }
+    
+    private func createLocalDocument() {
+        do {
+            try NSDocumentController.shared.openUntitledDocumentAndDisplay(true)
+        }catch{
+            ACToast.show(message: "Can't create document. (Local)")
+        }
+    }
+    
+    private func removeAllDocuments() async throws {
+        let alert = NSAlert()
+        alert.messageText = "全Documentを削除します。"
+        alert.addButton(withTitle: "Cancel")
+        alert.addButton(withTitle: "OK")
+        let res = alert.runModal()
+        guard res == .alertSecondButtonReturn, let authAPI = homeViewModel.authAPI else { return }
+    
+        authAPI.recentDocuments()
+            .flatMap{
+                $0.map{ authAPI.deleteDocument(documentID: $0.id) }.combineAll()
+            }
+            .peek{ _ in
+                ACToast.show(message: "Documents Deleted.")
+                NSSound.dragToTrash?.play()
+                self.homeViewModel.recentDocumentProvider.cloudDocumentItemLoader.setNeedsReload()
+            }
+            .catchOnToast()
+    }
+
 }
