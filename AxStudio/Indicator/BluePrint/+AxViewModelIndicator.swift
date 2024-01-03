@@ -33,7 +33,7 @@ final class AxViewModelIndicatorViewController: ACStackViewController_ {
         let actions = document.$selectedLayers.map{ $0.singleOrNil()?.viewModelLayer?.viewModel.$actions }.involveSwitchToLatest()
         let cactions = document.$selectedLayers.map{ $0.singleOrNil()?.componentLayer?.$componentActions }.involveSwitchToLatest()
         
-        let reload = document.$selectedLayers.touch(parentChange, document.$selectedState, document.$selectedAction).touch(states, actions, cactions)
+        let reload = document.$selectedLayers.touch(parentChange.combineLatest(document.$selectedState, document.$selectedAction, states, actions, cactions))
             .grouping(by: document.executeSession)
         
         reload

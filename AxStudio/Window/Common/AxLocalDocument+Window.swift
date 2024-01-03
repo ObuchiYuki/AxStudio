@@ -20,7 +20,7 @@ extension AxLocalDocument {
         let windowController = AxAppWindowController.instantiate()
         document.addWindowController(windowController)
         
-        let session = AxModelSession.publish(client: document, errorHandle: AxToastErrorHandle())
+        let session = AxModelSession(client: document, errorHandle: AxToastErrorHandle())
         
         AxDocument.connect(to: session)
             .peek{ document in

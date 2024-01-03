@@ -36,13 +36,18 @@ final class AxAppWindowController: NSWindowController {
     @IBAction func preview(_ sender: ACToolbarButton) { previewViewModel.previewProject(sender) }
     
     override func keyDown(with event: NSEvent) {
-        switch event.hotKey.key {
-        case .upArrow:  axDocument.execute(AxArrowCommand(key: .up, shift: event.modifierFlags.contains(.shift)))
-        case .downArrow: axDocument.execute(AxArrowCommand(key: .down, shift: event.modifierFlags.contains(.shift)))
-        case .rightArrow: axDocument.execute(AxArrowCommand(key: .right, shift: event.modifierFlags.contains(.shift)))
-        case .leftArrow: axDocument.execute(AxArrowCommand(key: .left, shift: event.modifierFlags.contains(.shift)))
+        switch event.hotKey{
+        case .undo: axDocument.session.undoManager.undo()
+        case .redo: axDocument.session.undoManager.redo()
         default:
-            super.keyDown(with: event)
+            switch event.hotKey.key {
+            case .upArrow:  axDocument.execute(AxArrowCommand(key: .up, shift: event.modifierFlags.contains(.shift)))
+            case .downArrow: axDocument.execute(AxArrowCommand(key: .down, shift: event.modifierFlags.contains(.shift)))
+            case .rightArrow: axDocument.execute(AxArrowCommand(key: .right, shift: event.modifierFlags.contains(.shift)))
+            case .leftArrow: axDocument.execute(AxArrowCommand(key: .left, shift: event.modifierFlags.contains(.shift)))
+            default:
+                super.keyDown(with: event)
+            }
         }
     }
     
@@ -73,7 +78,7 @@ final class AxAppWindowController: NSWindowController {
             .receive(on: DispatchQueue.main)
             .sink{ self.showProgress($0) }.store(in: &objectBag)
         
-        #error("🚨🚨🚨🚨UNDOManagerを何とかする方法がある。🚨🚨🚨")
+        #warning("🚨🚨🚨🚨UNDOManagerを何とかする方法がある。🚨🚨🚨🚨")
 //        self.axDocument.session.undoManager.undoManager = self.window?.undoManager
         
         self.zoomViewModel.loadDocument(axDocument)

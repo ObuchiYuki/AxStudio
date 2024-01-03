@@ -10,7 +10,7 @@ import STDComponents
 import AxModelCore
 import BluePrintKit
 
-#warning("現在は全て無効化した")
+#warning("🚨🚨🚨🚨別Documentの生成などが必要🚨🚨🚨🚨")
 //extension STDButton {
 //    public static func text() -> STDButton {
 //        let button = STDButton()

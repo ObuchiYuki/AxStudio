@@ -14,6 +14,7 @@ import AxDocument
 import SwiftEx
 import AppKit
 import EmeralyRender
+import Combine
 
 final class AxNodePreviewCellController: AxNodeViewController {
     private let cell = AxNodePreviewCell()

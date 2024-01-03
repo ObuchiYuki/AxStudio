@@ -12,9 +12,15 @@ enum AxBluePrintNodeLibraryBuilder {
     static let statementLibrary: ACNodePickerLibrary = {
         let library = ACNodePickerLibrary()
         
-        library.addCategoryItem("JSON Path", message: "Access to json value.", .network, make: .node(BPJSONPathNode()))
-        library.addCategoryItem("Network", message: "Send an API request.", .network, make: .node(BPNetworkNode()))
-        library.addCategoryItem("Network (Advanced)", message: "Send an API request.", .network, make: .node(BPAdvancedNetworkNode()))
+        library.addCategoryItem("JSON Path", message: "Access to json value.", .network, make: .node{
+            try BPJSONPathNode.make(on: $0)
+        })
+        library.addCategoryItem("Network", message: "Send an API request.", .network, make: .node{
+            try BPNetworkNode.make(on: $0)
+        })
+        library.addCategoryItem("Network (Advanced)", message: "Send an API request.", .network, make: .node{
+            BPAdvancedNetworkNode.make(on: $0)
+        })
         
         library.addCategoryItem("If", message: "", .flow, make: .node(BPIfNode()))
         library.addCategoryItem("Repeat Count", message: "", .flow, make: .node(BPRepeatNode()))

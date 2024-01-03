@@ -16,7 +16,7 @@ final class AxDebugDCInfoCellController: NSViewController {
     override func chainObjectDidLoad() {
         guard let client = debugModel.document.session.client as? AxHttpDocumentClient else { return }
 
-        self.cell.sessionIDLabel.stringValue = debugModel.document.session.sessionID.description
+        self.cell.sessionIDLabel.stringValue = debugModel.document.session.documentID.debugDescription
         self.cell.documentIDLabel.stringValue = client.documentID
     }
 }
