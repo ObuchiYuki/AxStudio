@@ -39,7 +39,6 @@
 		B6FE16142B43EB020048C5C4 /* +AxBooleanCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15332B43EB010048C5C4 /* +AxBooleanCell.swift */; };
 		B6FE16152B43EB020048C5C4 /* +AxStyleShadowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15342B43EB010048C5C4 /* +AxStyleShadowCell.swift */; };
 		B6FE16162B43EB020048C5C4 /* +AxStyleSolidFillCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15352B43EB010048C5C4 /* +AxStyleSolidFillCell.swift */; };
-		B6FE16172B43EB020048C5C4 /* +AxAccentColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15362B43EB010048C5C4 /* +AxAccentColorCell.swift */; };
 		B6FE16182B43EB020048C5C4 /* +AxStyleBorderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15372B43EB010048C5C4 /* +AxStyleBorderCell.swift */; };
 		B6FE16192B43EB020048C5C4 /* +AxFontAssetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15392B43EB010048C5C4 /* +AxFontAssetCell.swift */; };
 		B6FE161A2B43EB020048C5C4 /* +AxIconCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE153A2B43EB010048C5C4 /* +AxIconCell.swift */; };
@@ -83,8 +82,7 @@
 		B6FE16402B43EB020048C5C4 /* AxNodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15682B43EB010048C5C4 /* AxNodeViewController.swift */; };
 		B6FE16412B43EB020048C5C4 /* +AxNodePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15692B43EB010048C5C4 /* +AxNodePreview.swift */; };
 		B6FE16422B43EB020048C5C4 /* +AxNodeInputList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE156A2B43EB010048C5C4 /* +AxNodeInputList.swift */; };
-		B6FE16432B43EB020048C5C4 /* AxHomeSidebarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE156F2B43EB010048C5C4 /* AxHomeSidebarPresenter.swift */; };
-		B6FE16442B43EB020048C5C4 /* AxHomeSidebarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15702B43EB010048C5C4 /* AxHomeSidebarViewModel.swift */; };
+		B6FE16432B43EB020048C5C4 /* AxHomeSidebarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE156F2B43EB010048C5C4 /* AxHomeSidebarViewModel.swift */; };
 		B6FE16452B43EB020048C5C4 /* AxHomeCreateDocumentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15722B43EB010048C5C4 /* AxHomeCreateDocumentButton.swift */; };
 		B6FE16462B43EB020048C5C4 /* AxHomeSidebarCreateDocumentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15732B43EB010048C5C4 /* AxHomeSidebarCreateDocumentItem.swift */; };
 		B6FE16472B43EB020048C5C4 /* AxHomeSidebarViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15742B43EB010048C5C4 /* AxHomeSidebarViewControler.swift */; };
@@ -102,7 +100,7 @@
 		B6FE16532B43EB020048C5C4 /* AxHomeDocumentCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15892B43EB010048C5C4 /* AxHomeDocumentCollectionController.swift */; };
 		B6FE16542B43EB020048C5C4 /* AxHomeDocumentCollectionSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE158A2B43EB010048C5C4 /* AxHomeDocumentCollectionSection.swift */; };
 		B6FE16552B43EB020048C5C4 /* AxHomeBodyTitleSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE158C2B43EB010048C5C4 /* AxHomeBodyTitleSection.swift */; };
-		B6FE16562B43EB020048C5C4 /* AxHomeWindowPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE158E2B43EB010048C5C4 /* AxHomeWindowPresenter.swift */; };
+		B6FE16562B43EB020048C5C4 /* AxHomeWindowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE158E2B43EB010048C5C4 /* AxHomeWindowViewModel.swift */; };
 		B6FE16572B43EB020048C5C4 /* AxHomeContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE158F2B43EB010048C5C4 /* AxHomeContentViewController.swift */; };
 		B6FE16582B43EB020048C5C4 /* AxHomeWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15902B43EB010048C5C4 /* AxHomeWindowController.swift */; };
 		B6FE16592B43EB020048C5C4 /* AxHomeRecentCollectionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE15932B43EB010048C5C4 /* AxHomeRecentCollectionPresenter.swift */; };
@@ -187,6 +185,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B64C6D652B4535AE0034C555 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		B6FE15012B43EA5A0048C5C4 /* AxStudio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AxStudio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6FE15042B43EA5A0048C5C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B6FE150D2B43EA5C0048C5C4 /* AxStudio.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AxStudio.entitlements; sourceTree = "<group>"; };
@@ -218,7 +217,6 @@
 		B6FE15332B43EB010048C5C4 /* +AxBooleanCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "+AxBooleanCell.swift"; sourceTree = "<group>"; };
 		B6FE15342B43EB010048C5C4 /* +AxStyleShadowCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "+AxStyleShadowCell.swift"; sourceTree = "<group>"; };
 		B6FE15352B43EB010048C5C4 /* +AxStyleSolidFillCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "+AxStyleSolidFillCell.swift"; sourceTree = "<group>"; };
-		B6FE15362B43EB010048C5C4 /* +AxAccentColorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "+AxAccentColorCell.swift"; sourceTree = "<group>"; };
 		B6FE15372B43EB010048C5C4 /* +AxStyleBorderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "+AxStyleBorderCell.swift"; sourceTree = "<group>"; };
 		B6FE15392B43EB010048C5C4 /* +AxFontAssetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "+AxFontAssetCell.swift"; sourceTree = "<group>"; };
 		B6FE153A2B43EB010048C5C4 /* +AxIconCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "+AxIconCell.swift"; sourceTree = "<group>"; };
@@ -262,8 +260,7 @@
 		B6FE15682B43EB010048C5C4 /* AxNodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxNodeViewController.swift; sourceTree = "<group>"; };
 		B6FE15692B43EB010048C5C4 /* +AxNodePreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "+AxNodePreview.swift"; sourceTree = "<group>"; };
 		B6FE156A2B43EB010048C5C4 /* +AxNodeInputList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "+AxNodeInputList.swift"; sourceTree = "<group>"; };
-		B6FE156F2B43EB010048C5C4 /* AxHomeSidebarPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeSidebarPresenter.swift; sourceTree = "<group>"; };
-		B6FE15702B43EB010048C5C4 /* AxHomeSidebarViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeSidebarViewModel.swift; sourceTree = "<group>"; };
+		B6FE156F2B43EB010048C5C4 /* AxHomeSidebarViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeSidebarViewModel.swift; sourceTree = "<group>"; };
 		B6FE15722B43EB010048C5C4 /* AxHomeCreateDocumentButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeCreateDocumentButton.swift; sourceTree = "<group>"; };
 		B6FE15732B43EB010048C5C4 /* AxHomeSidebarCreateDocumentItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeSidebarCreateDocumentItem.swift; sourceTree = "<group>"; };
 		B6FE15742B43EB010048C5C4 /* AxHomeSidebarViewControler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeSidebarViewControler.swift; sourceTree = "<group>"; };
@@ -281,7 +278,7 @@
 		B6FE15892B43EB010048C5C4 /* AxHomeDocumentCollectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeDocumentCollectionController.swift; sourceTree = "<group>"; };
 		B6FE158A2B43EB010048C5C4 /* AxHomeDocumentCollectionSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeDocumentCollectionSection.swift; sourceTree = "<group>"; };
 		B6FE158C2B43EB010048C5C4 /* AxHomeBodyTitleSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeBodyTitleSection.swift; sourceTree = "<group>"; };
-		B6FE158E2B43EB010048C5C4 /* AxHomeWindowPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeWindowPresenter.swift; sourceTree = "<group>"; };
+		B6FE158E2B43EB010048C5C4 /* AxHomeWindowViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeWindowViewModel.swift; sourceTree = "<group>"; };
 		B6FE158F2B43EB010048C5C4 /* AxHomeContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeContentViewController.swift; sourceTree = "<group>"; };
 		B6FE15902B43EB010048C5C4 /* AxHomeWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeWindowController.swift; sourceTree = "<group>"; };
 		B6FE15932B43EB010048C5C4 /* AxHomeRecentCollectionPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxHomeRecentCollectionPresenter.swift; sourceTree = "<group>"; };
@@ -398,10 +395,10 @@
 		B6FE15032B43EA5A0048C5C4 /* AxStudio */ = {
 			isa = PBXGroup;
 			children = (
+				B64C6D652B4535AE0034C555 /* Info.plist */,
 				B6FE15132B43EB010048C5C4 /* _Document.swift */,
 				B6FE15FA2B43EB020048C5C4 /* DebugSettings.swift */,
 				B6FE15EC2B43EB010048C5C4 /* App+Window */,
-				B6FE15F92B43EB010048C5C4 /* Base.lproj */,
 				B6FE15CA2B43EB010048C5C4 /* Editor */,
 				B6FE15202B43EB010048C5C4 /* Indicator */,
 				B6FE15142B43EB010048C5C4 /* Manager */,
@@ -499,7 +496,6 @@
 				B6FE15332B43EB010048C5C4 /* +AxBooleanCell.swift */,
 				B6FE15342B43EB010048C5C4 /* +AxStyleShadowCell.swift */,
 				B6FE15352B43EB010048C5C4 /* +AxStyleSolidFillCell.swift */,
-				B6FE15362B43EB010048C5C4 /* +AxAccentColorCell.swift */,
 				B6FE15372B43EB010048C5C4 /* +AxStyleBorderCell.swift */,
 			);
 			path = Style;
@@ -648,8 +644,7 @@
 		B6FE156E2B43EB010048C5C4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				B6FE156F2B43EB010048C5C4 /* AxHomeSidebarPresenter.swift */,
-				B6FE15702B43EB010048C5C4 /* AxHomeSidebarViewModel.swift */,
+				B6FE156F2B43EB010048C5C4 /* AxHomeSidebarViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -757,7 +752,7 @@
 		B6FE158D2B43EB010048C5C4 /* Window */ = {
 			isa = PBXGroup;
 			children = (
-				B6FE158E2B43EB010048C5C4 /* AxHomeWindowPresenter.swift */,
+				B6FE158E2B43EB010048C5C4 /* AxHomeWindowViewModel.swift */,
 				B6FE158F2B43EB010048C5C4 /* AxHomeContentViewController.swift */,
 				B6FE15902B43EB010048C5C4 /* AxHomeWindowController.swift */,
 			);
@@ -1048,13 +1043,6 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		B6FE15F92B43EB010048C5C4 /* Base.lproj */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Base.lproj;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1154,7 +1142,6 @@
 				B6FE16612B43EB020048C5C4 /* AxCreateAccontFormProvider.swift in Sources */,
 				B6FE16362B43EB020048C5C4 /* +AxActionCell.swift in Sources */,
 				B6FE16122B43EB020048C5C4 /* +AxStyleFillCell.swift in Sources */,
-				B6FE16172B43EB020048C5C4 /* +AxAccentColorCell.swift in Sources */,
 				B6FE16132B43EB020048C5C4 /* +AxOpacityCell.swift in Sources */,
 				B6FE167F2B43EB020048C5C4 /* AxAppDebugWindow.swift in Sources */,
 				B6FE166A2B43EB020048C5C4 /* AxAccountEditFormProvider.swift in Sources */,
@@ -1178,7 +1165,7 @@
 				B6FE16A02B43EB020048C5C4 /* AxAppWindowController.swift in Sources */,
 				B6FE16452B43EB020048C5C4 /* AxHomeCreateDocumentButton.swift in Sources */,
 				B6FE162D2B43EB020048C5C4 /* +AxDeviceCell.swift in Sources */,
-				B6FE16432B43EB020048C5C4 /* AxHomeSidebarPresenter.swift in Sources */,
+				B6FE16432B43EB020048C5C4 /* AxHomeSidebarViewModel.swift in Sources */,
 				B6FE16322B43EB020048C5C4 /* +ACStateHeader.swift in Sources */,
 				B6FE15FB2B43EB020048C5C4 /* _Document.swift in Sources */,
 				B6FE16332B43EB020048C5C4 /* +AxStateInfoCell.swift in Sources */,
@@ -1242,7 +1229,6 @@
 				B6FE161E2B43EB020048C5C4 /* +AxStackSpacerCell.swift in Sources */,
 				B6FE16382B43EB020048C5C4 /* +AxURLParamCell.swift in Sources */,
 				B6FE16632B43EB020048C5C4 /* AxDataValidator.swift in Sources */,
-				B6FE16442B43EB020048C5C4 /* AxHomeSidebarViewModel.swift in Sources */,
 				B6FE15052B43EA5A0048C5C4 /* AppDelegate.swift in Sources */,
 				B6FE168E2B43EB020048C5C4 /* +AxAssetHeaderView.swift in Sources */,
 				B6FE16342B43EB020048C5C4 /* +AxStateListCell.swift in Sources */,
@@ -1283,7 +1269,7 @@
 				B6FE165A2B43EB020048C5C4 /* AxRecentDocumentItem.swift in Sources */,
 				B6FE16242B43EB020048C5C4 /* AxLocalColorItemGroup.swift in Sources */,
 				B6FE160B2B43EB020048C5C4 /* +AxListCell.swift in Sources */,
-				B6FE16562B43EB020048C5C4 /* AxHomeWindowPresenter.swift in Sources */,
+				B6FE16562B43EB020048C5C4 /* AxHomeWindowViewModel.swift in Sources */,
 				B6FE16822B43EB020048C5C4 /* AxBluePrintNodeLibraryBuilder.swift in Sources */,
 				B6FE16732B43EB020048C5C4 /* +AxDebugWSLogHeader.swift in Sources */,
 				B6FE164D2B43EB020048C5C4 /* AxHomeAccountViewModel.swift in Sources */,
@@ -1456,8 +1442,9 @@
 				DEVELOPMENT_TEAM = T5HMUWWK5R;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AxStudio/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSMainStoryboardFile = Home;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1467,6 +1454,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yuki.AxStudio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_ENFORCE_EXCLUSIVE_ACCESS = off;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -1483,8 +1471,9 @@
 				DEVELOPMENT_TEAM = T5HMUWWK5R;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AxStudio/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSMainStoryboardFile = Home;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1494,6 +1483,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yuki.AxStudio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_ENFORCE_EXCLUSIVE_ACCESS = off;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

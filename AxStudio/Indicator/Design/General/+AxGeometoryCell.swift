@@ -21,9 +21,9 @@ final class AxGeometryCellController: NSViewController {
 
     override func chainObjectDidLoad() {
         // MARK: - Input -
-        let commandSession = self.document.session.applySession
+        let fragmentSession = self.document.session.fragmentSession
         let frame = document.$selectedLayers
-            .map { $0.map { $0.framep }.combineLatest.grouping(by: commandSession) }.switchToLatest()
+            .map { $0.map { $0.framep }.combineLatest.grouping(by: fragmentSession) }.switchToLatest()
         let origin = frame.map { $0.map { $0.origin } }
         let size = frame.map { $0.map { $0.size } }
         let rotation = document.$selectedLayers.dynamicProperty(\.$rotation, document: document).removeDuplicates()
@@ -51,19 +51,19 @@ final class AxGeometryCellController: NSViewController {
         
         // MARK: - Output -
         self.cell.xTextField.phasePublisher
-            .sink{[unowned self] in document.execute(AxMoveCommand(move: $0, axis: .x)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxMoveCommand.fromPhase(.x, $0)) }.store(in: &objectBag)
         self.cell.yTextField.phasePublisher
-            .sink{[unowned self] in document.execute(AxMoveCommand(move: $0, axis: .y)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxMoveCommand.fromPhase(.y, $0)) }.store(in: &objectBag)
         self.cell.widthTextField.phasePublisher
-            .sink{[unowned self] in document.execute(AxResizeCommand($0, axis: .x)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxResizeCommand.fromPhase(.x, $0)) }.store(in: &objectBag)
         self.cell.heightTextField.phasePublisher
-            .sink{[unowned self] in document.execute(AxResizeCommand($0, axis: .y)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxResizeCommand.fromPhase(.y, $0)) }.store(in: &objectBag)
         self.cell.aspectLockButton.togglePublisher
             .sink{[unowned self] in execute(AxAspectLockCommand(lock: $0)) }.store(in: &objectBag)
         self.cell.alignToolBar.itemPublisher
             .sink{[unowned self] in execute(AxAlignmentCommand($0)) }.store(in: &objectBag)
         self.cell.rotationField.phasePublisher
-            .sink{[unowned self] in document.execute(AxRotateLayerCommand($0)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxRotateLayerCommand.fromPhase($0)) }.store(in: &objectBag)
         self.cell.rotationTip.commandPublisher
             .sink{[unowned self] in document.execute(AxDynamicLayerPropertyCommand($0, "rotation", \DKLayer.rotation)) }.store(in: &objectBag)
     }

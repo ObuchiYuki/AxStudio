@@ -32,7 +32,7 @@ final class AxDesignDebugCellController: NSViewController {
         cell.debugWindowButton.actionPublisher
             .sink{[unowned self] in self.windowController.showWindow(nil) }.store(in: &objectBag)
         
-        cell.sessionIDField.stringValue = document.session.sessionID
+        cell.sessionIDField.stringValue = document.session.documentID?.stringRepresentation ?? ""
         
         cell.restoreButton.actionPublisher
             .sink{[unowned self] in document.execute(AxRestoreModelCommand()) }.store(in: &objectBag)
@@ -69,8 +69,8 @@ final class AxDesignDebugCellController: NSViewController {
     
     private func raiseBreakpoint() {
         let layer = document.selectedLayers.first
-        let parent = layer?.parent?.value
-        CoreUtil.breakpoint()
+        let parent = layer?.parent?.get(document.session)
+        DebugEx.__breakpoint()
         print(layer as Any, parent as Any)
     }
     

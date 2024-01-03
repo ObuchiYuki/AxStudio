@@ -54,7 +54,7 @@ class AxStyleFillCellController: NSViewController {
         cell.colorWell.typePublisher
             .sink{[unowned self] in execute(AxFillTypeCommand($0)) }.store(in: &objectBag)
         cell.colorWell.colorPublisher
-            .sink{[unowned self] in document.execute(AxFillColorCommand($0)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxFillColorCommand.fromPhase($0)) }.store(in: &objectBag)
         cell.colorWell.gradientCommandPublisher
             .sink{[unowned self] in document.execute(AxFillGradientCommand($0)) }.store(in: &objectBag)
         
@@ -74,7 +74,10 @@ class AxStyleFillCellController: NSViewController {
             .sink{[unowned self] in execute(AxIsShowingFillPickerCommand($0)) }.store(in: &objectBag)
         
         cell.hexField.valuePublisher
-            .sink{[unowned self] in document.execute(AxFillColorCommand(.pulse(DKColor(rgb: $0, alpha: 1)))) }.store(in: &objectBag)
+            .sink{[unowned self] in
+                let color = DKColor(red: $0.red, green: $0.green, blue: $0.blue, alpha: 1)
+                document.session.broadcast(AxFillColorCommand.once(with: color))
+            }.store(in: &objectBag)
         cell.hexField.statePublisher
             .sink{[unowned self] in document.execute(AxFillLinkToColorStateCommand($0)) }.store(in: &objectBag)
         cell.hexField.constantPublisher

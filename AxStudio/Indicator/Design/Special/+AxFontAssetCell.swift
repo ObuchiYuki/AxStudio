@@ -21,7 +21,9 @@ final class AxFontAssetCellController: NSViewController {
     override func chainObjectDidLoad() {
         // MARK: - Input -
         let layers = document.selectedUnmasteredLayersp.compactMap{ $0.compactAllSatisfy{ $0 as? DKFontProviderLayerType } }
-        let likingAsset = layers.switchToLatest{ $0.map{ $0.fontProvider.$linkingAsset.map{ $0?.value } }.combineLatest }
+        let likingAsset = layers.switchToLatest{[session = self.document.session] in
+            $0.map{ $0.fontProvider.$linkingAsset.map{ $0?.get(session) } }.combineLatest
+        }
             .map{ $0.mixture(nil, { $0 === $1 }) }
         let currentStorage = layers.switchToLatest{ $0.map{ $0.fontProvider.$storage }.combineLatest }
             .map{ $0.mixture(.font(.systemDefault)) }
@@ -32,7 +34,7 @@ final class AxFontAssetCellController: NSViewController {
         likingAsset
             .sink{[unowned self] in cell.fontAssetWell.linkingAsset = $0 }.store(in: &objectBag)
         currentStorage
-            .sink{[unowned self] in cell.fontAssetWell.selectedFont = $0.map{ $0.font } }.store(in: &objectBag)
+            .sink{[unowned self] in cell.fontAssetWell.selectedFont = $0.map{ $0.font(document.session) } }.store(in: &objectBag)
         isModified
             .sink{[unowned self] in cell.fontAssetWell.isModified = $0; cell.updateButton.isEnabled = $0 }.store(in: &objectBag)
         likingAsset.map{ asset -> Bool in if case let .identical(asset) = asset { return asset != nil } else { return true } }

@@ -41,15 +41,15 @@ final class AxSliderCellController: NSViewController {
             .sink{[unowned self] in document.execute(AxLinkToStateCommand($0, \STDSlider.value)) }.store(in: &objectBag)
         
         cell.valueField.phasePublisher
-            .sink{[unowned self] in document.execute(AxSliderValueCommand($0)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxSliderValueCommand.fromPhase($0)) }.store(in: &objectBag)
         cell.valueField.statePublisher
             .sink{[unowned self] in document.execute(AxLinkToStateCommand($0, \STDSlider.value)) }.store(in: &objectBag)
         cell.valueTip.commandPublisher
             .sink{[unowned self] in document.execute(AxDynamicLayerPropertyCommand($0, "value", \STDSlider.value)) }.store(in: &objectBag)
         cell.minValueField.phasePublisher
-            .sink{[unowned self] in document.execute(AxSliderMinValueCommand($0)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxSliderMinValueCommand.fromPhase($0)) }.store(in: &objectBag)
         cell.maxValueField.phasePublisher
-            .sink{[unowned self] in document.execute(AxSliderMaxValueCommand($0)) }.store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxSliderMaxValueCommand.fromPhase($0)) }.store(in: &objectBag)
     }
     
     private func outputSliderValue(_ value: Phase<CGFloat>) {
@@ -60,7 +60,7 @@ final class AxSliderCellController: NSViewController {
                 
         let nvalue = value.map{ $0 * (max - min) + min }
         
-        document.execute(AxSliderValueCommand(nvalue.map{ .to($0) }))
+        document.session.broadcast(AxSliderValueCommand.fromPhase(nvalue.map{ .to($0) }))
     }
     private func inputSliderValue(_ state: ACDynamicState<BPFloat?>, minValue: Mixture<CGFloat>, maxValue: Mixture<CGFloat>) -> ACDynamicState<BPFloat?> {
         let minmax = minValue.combine(maxValue)

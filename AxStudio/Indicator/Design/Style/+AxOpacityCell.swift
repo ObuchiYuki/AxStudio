@@ -34,11 +34,11 @@ class AxOpacityCellController: NSViewController {
             .sink{[unowned self] in cell.opacityTip.setDynamicState($0) }.store(in: &objectBag)
         // MARK: - Output -
         cell.opacitySlider.valuePublisher
-            .sink{[unowned self] in document.execute(AxOpacityCommand($0.map{ .to($0) })) } .store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxOpacityCommand.fromPhase($0.map{ .to($0) })) } .store(in: &objectBag)
         cell.opacitySlider.statePublisher
             .sink{[unowned self] in document.execute(AxLinkToStateCommand($0, \DKLayer.opacity)) }.store(in: &objectBag)
         cell.opacityField.phasePublisher
-            .sink{[unowned self] in document.execute(AxOpacityCommand($0.map{ $0.map{ $0 / 100 } })) } .store(in: &objectBag)
+            .sink{[unowned self] in document.session.broadcast(AxOpacityCommand.fromPhase($0.map{ $0.map{ $0 / 100 } })) } .store(in: &objectBag)
         cell.opacityField.statePublisher
             .sink{[unowned self] in document.execute(AxLinkToStateCommand($0, \DKLayer.opacity)) }.store(in: &objectBag)
         cell.opacityTip.commandPublisher

@@ -15,8 +15,7 @@ import AxDocument
 
 final class AxHomeSidebarViewControler: ACSidebarViewController {
         
-    private var presenter: AxHomeWindowPresenter { chainObject as! AxHomeWindowPresenter }
-    private var viewModel: AxHomeSidebarViewModel { presenter.sidebarPresenter.viewModel }
+    private var viewModel = AxHomeSidebarViewModel(cloudDocumentManager: <#T##AxCloudDocumentManager#>)
     
     private let localDocumentItem = AxHomeSidebarCreateDocumentItem(documentType: .local)
     private let cloudDocumentItem = AxHomeSidebarCreateDocumentItem(documentType: .cloud)
@@ -67,7 +66,7 @@ final class AxHomeSidebarViewControler: ACSidebarViewController {
         
         func openLocalhost() {
             enum __ { static var c = 0 }; __.c += 1
-            AxHomeWindowController.make(presenter: .make(api: .localhost(), serviceKey: "com.axstudio.l\(__.c)", requireInternetConnection: self.presenter.requireInternetConnection)).showWindow(nil)
+            AxHomeWindowController.make(presenter: .make(api: .localhost(), serviceKey: "com.axstudio.l\(__.c)", requireInternetConnection: self.requireInternetConnection)).showWindow(nil)
         }
         func openAWS() {
             enum __ { static var c = 0 }; __.c += 1

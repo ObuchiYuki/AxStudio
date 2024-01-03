@@ -1,28 +1,64 @@
 //
-//  AxHomeSidebarViewModel.swift
+//  AxHomeSidebarPresenter.swift
 //  AxStudio
 //
-//  Created by yuki on 2021/09/13.
+//  Created by yuki on 2021/09/19.
 //
 
-import AppKit
+import AxDocument
 import SwiftEx
 import AppKit
+import AppKit
+import AxComponents
 import Combine
-import AxDocument
 
 final class AxHomeSidebarViewModel {
     
     @ObservableProperty var canCreateCloudDocument = false
+
+    @ObservableProperty var isConnected: Bool = true { didSet { if isConnected != oldValue { updateViewModel() }  } }
     
-    let createCloudDocumentPublisher = PassthroughSubject<Void, Never>()
-    let createLocalDocumentPublisher = PassthroughSubject<Void, Never>()
-        
-    func createCloudDocument() {
-        createCloudDocumentPublisher.send()
+    var authAPI: AxHttpAuthorizedAPIClient? { didSet { updateViewModel() } }
+
+    let reloadPublisher = PassthroughSubject<Void, Never>()
+    
+    private let cloudDocumentManager: AxCloudDocumentManager
+    
+    private var objectBag = Set<AnyCancellable>()
+    
+    init(cloudDocumentManager: AxCloudDocumentManager) {
+        self.cloudDocumentManager = cloudDocumentManager
+        self.updateViewModel()
     }
+    
+    private func updateViewModel() {
+        if !isConnected {
+            self.canCreateCloudDocument = false
+            return
+        }
+        if self.authAPI != nil {
+            self.canCreateCloudDocument = true
+        }else{
+            self.canCreateCloudDocument = false
+        }
+    }
+    
+    func createCloudDocument() {
+        guard let authAPI = self.authAPI else { return ACToast.show(message: "Can't create document. (No API)") }
+        
+        authAPI.createDocument()
+            .peek{
+                self.cloudDocumentManager.openDocument(documentID: $0.id).catchOnToast()
+                self.reloadPublisher.send()
+            }
+            .catchOnToast("Can't create document.")
+    }
+    
     func createLocalDocument() {
-        createLocalDocumentPublisher.send()
+        do {
+            try NSDocumentController.shared.openUntitledDocumentAndDisplay(true)
+        }catch{
+            ACToast.show(message: "Can't create document. (Local)")
+        }
     }
 }
-

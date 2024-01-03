@@ -15,10 +15,10 @@ import AxComponents
 import AxDocument
 import KeychainAccess
 
-final class AxHomeWindowPresenter {
+final class AxHomeWindowViewModel {
 
     let recentCollectionPresenter: AxHomeRecentCollectionPresenter
-    let sidebarPresenter: AxHomeSidebarPresenter
+    let sidebarViewModel: AxHomeSidebarViewModel
     let accountViewPresneter: AxHomeAccountPresenter
     let joinDocumentPresneter: AxHomeJoinDocumentPresenter
     
@@ -48,7 +48,7 @@ final class AxHomeWindowPresenter {
         self.recentDocumentProvider = recentDocumentProvider
         
         self.recentCollectionPresenter = AxHomeRecentCollectionPresenter(cloudDocumentManager: cloudDocumentManager, recentDocumentProvider: recentDocumentProvider)
-        self.sidebarPresenter = AxHomeSidebarPresenter(cloudDocumentManager: cloudDocumentManager)
+        self.sidebarViewModel = AxHomeSidebarViewModel(cloudDocumentManager: cloudDocumentManager)
         self.accountViewPresneter = AxHomeAccountPresenter(api: api, secureLibrary: secureLibrary, reachability: reachability)
         self.joinDocumentPresneter = AxHomeJoinDocumentPresenter(api: api, cloudDocumentManager: cloudDocumentManager, secureLibrary: secureLibrary, recentDocumentProvider: recentDocumentProvider, reachability: reachability)
         
@@ -64,7 +64,7 @@ final class AxHomeWindowPresenter {
         self.accountViewPresneter.profilePublisher
             .sink{ self.cloudDocumentManager.profile = $0 }.store(in: &objectBag)
         
-        self.sidebarPresenter.reloadPublisher
+        self.sidebarViewModel.reloadPublisher
             .sink{ self.recentDocumentProvider.cloudDocumentItemLoader.setNeedsReload() }.store(in: &objectBag)
         self.joinDocumentPresneter.authAPIPublisher
             .sink{ self.authAPI = $0 }.store(in: &objectBag)
@@ -74,7 +74,7 @@ final class AxHomeWindowPresenter {
         self.reachability.publisher
             .sink{[self] in
                 let isConnected = $0.connection != .unavailable || !requireInternetConnection
-                self.sidebarPresenter.isConnected = isConnected
+                self.sidebarViewModel.isConnected = isConnected
                 self.accountViewPresneter.isConnected = isConnected
                 self.joinDocumentPresneter.isConnected = isConnected
             }
@@ -108,13 +108,13 @@ final class AxHomeWindowPresenter {
         self.recentDocumentProvider.setAuthAPI(authAPI)
         
         self.recentCollectionPresenter.authAPI = self.authAPI
-        self.sidebarPresenter.authAPI = authAPI
+        self.sidebarViewModel.authAPI = authAPI
         self.accountViewPresneter.authAPI = authAPI
         self.joinDocumentPresneter.authAPI = authAPI
     }
 }
 
-extension AxHomeWindowPresenter {
+extension AxHomeWindowViewModel {
     static func make(api: AxHttpAPIClient, serviceKey: String, requireInternetConnection: Bool) -> AxHomeWindowPresenter {
         let keychain = Keychain(service: serviceKey)
         let secureLibrary = AxSecureSigninInfoLibrary(keychain: keychain)

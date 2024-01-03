@@ -35,9 +35,9 @@ protocol AxColorAssetItem {
 }
 
 extension AxColorAssetItem {
-    var colorp: AnyPublisher<BPColor, Never> { .empty() }
-    var gradientp: AnyPublisher<BPGradient, Never> { .empty() }
-    var gradientStopIndexp: AnyPublisher<Int, Never> { .empty() } 
+    var colorp: AnyPublisher<BPColor, Never> { Empty().eraseToAnyPublisher() }
+    var gradientp: AnyPublisher<BPGradient, Never> { Empty().eraseToAnyPublisher() }
+    var gradientStopIndexp: AnyPublisher<Int, Never> { Empty().eraseToAnyPublisher() } 
     
     func onUpdateName(_ name: String) {}
     func onUpdateColor(_ color: Phase<BPColor>) {}
@@ -174,7 +174,7 @@ extension AxColorAssetListViewController: NSCollectionViewDelegate, NSCollection
     func collectionView(_ collectionView: NSCollectionView, pasteboardWriterForItemAt indexPath: IndexPath) -> NSPasteboardWriting? {
         let asset = self.assets[indexPath.item]
         let item = collectionView.item(at: indexPath) as? AxAssetColorItem
-        item?.cell.colorWell.cancelMouseEvent()
+        item?.cell.colorWell._cancelMouseEvent()
         
         return asset.pasteboardWriter()
     }

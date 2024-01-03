@@ -50,22 +50,22 @@ final class AxCreateAccontFormProvider: ACFormProvider {
         self.model.$infomativeText
             .sink{[unowned self] in self.infomativeView.infomativeText = $0 }.store(in: &objectBag)
         
-        self.validator.nameErrorPublisher(for: nameInputForm.submitPublisher)
+        self.validator.nameErrorPublisher(for: nameInputForm.submitPublisher.eraseToAnyPublisher())
             .sink{[unowned self] in self.nameInputForm.errorText = $0 }.store(in: &objectBag)
         self.nameInputForm.textPublisher
             .sink{[unowned self] in self.validator.name = $0 }.store(in: &objectBag)
         
-        self.validator.emailErrorPublisher(for: emailInputForm.submitPublisher)
+        self.validator.emailErrorPublisher(for: emailInputForm.submitPublisher.eraseToAnyPublisher())
             .sink{[unowned self] in self.emailInputForm.errorText = $0 }.store(in: &objectBag)
         self.emailInputForm.textPublisher
             .sink{[unowned self] in self.validator.email = $0 }.store(in: &objectBag)
         
-        self.validator.passwordErrorPublisher(for: passwordInputForm.submitPublisher)
+        self.validator.passwordErrorPublisher(for: passwordInputForm.submitPublisher.eraseToAnyPublisher())
             .sink{[unowned self] in self.passwordInputForm.errorText = $0 }.store(in: &objectBag)
         self.passwordInputForm.textPublisher
             .sink{[unowned self] in self.validator.password = $0 }.store(in: &objectBag)
         
-        self.validator.confirmPasswordErrorPublisher(for: passwordConfirmInputForm.submitPublisher)
+        self.validator.confirmPasswordErrorPublisher(for: passwordConfirmInputForm.submitPublisher.eraseToAnyPublisher())
             .sink{[unowned self] in self.passwordConfirmInputForm.errorText = $0 }.store(in: &objectBag)
         self.passwordConfirmInputForm.textPublisher
             .sink{[unowned self] in self.validator.confirmPassword = $0 }.store(in: &objectBag)
