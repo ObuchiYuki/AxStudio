@@ -79,18 +79,18 @@ final class AxCloudDocumentManager {
     
     private func _openDocument(documentID: String) -> Promise<Void, Error> {
         guard let authAPI = self.authAPI, let profile = self.profile else {
-            return Promise(failure: "Not logined")
+            return .reject("Not logined")
         }
         
         // if already opened
         if let documentController = self.documentControllers[documentID] {
             documentController.window?.makeKeyAndOrderFront(nil)
-            return Promise(output: ())
+            return .resolve()
         }
         
         // make windowController
         let client = authAPI.connectToRoom(documentID: documentID)
-        let session = AxModelSession.publish(client: client, errorHandler: AxToastErrorHandler())
+        let session = AxModelSession(client: client, errorHandle: AxToastErrorHandle())
         let documentInfo = authAPI.getDocumentInfo(documentID: documentID)
         
         let progressProvider = ACProgressWindowProvider()
@@ -100,7 +100,7 @@ final class AxCloudDocumentManager {
         progressPanel.show()
                  
         // connect to server
-        let promise = AxDocument.connect(session: session).combine(documentInfo)
+        let promise = AxDocument.connect(to: session).combine(documentInfo)
             .peek{ document, info in
                 let clientInfo = AxDocument.CloudClientInfo(userProfile: profile)
                 document.clientType = .cloud(clientInfo)
