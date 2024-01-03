@@ -11,7 +11,7 @@ import AxComponents
 import AppKit
 import AxModelCore
 
-final class AxSandboxDocument: AxHomeDocument {
+final class AxHomeSandboxDocument: AxHomeDocument {
     let documentURL: URL
     var metadata: Metadata // これを書き換えても AxHomeDocument レベルの書き換えは起こらない
     
@@ -45,7 +45,7 @@ final class AxSandboxDocument: AxHomeDocument {
 }
 
 final class AxSandboxDocumentManager {
-    @ObservableProperty var documents: [AxSandboxDocument] = []
+    @ObservableProperty var documents: [AxHomeSandboxDocument] = []
     
     private let rootDirectory: URL
     
@@ -58,7 +58,7 @@ final class AxSandboxDocumentManager {
         self.reloadDocuments()
     }
     
-    func openDocument(_ document: AxSandboxDocument) {
+    func openDocument(_ document: AxHomeSandboxDocument) {
         do {
             try self.windowManager.openDocument(document)
         } catch {
@@ -66,7 +66,7 @@ final class AxSandboxDocumentManager {
         }
     }
     
-    func deleteDocument(_ document: AxSandboxDocument) {
+    func deleteDocument(_ document: AxHomeSandboxDocument) {
         do {
             try FileManager.default.removeItem(at: document.documentURL)
             self.reloadDocuments()
@@ -75,7 +75,7 @@ final class AxSandboxDocumentManager {
         }
     }
     
-    func renameDocument(_ document: AxSandboxDocument, to name: String) {
+    func renameDocument(_ document: AxHomeSandboxDocument, to name: String) {
         document.title = name
         
         do {
@@ -93,16 +93,16 @@ final class AxSandboxDocumentManager {
             try FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
             
             
-            let meta = AxSandboxDocument.Metadata(
+            let meta = AxHomeSandboxDocument.Metadata(
                 documentID: documentID,
                 title: "Untitled",
                 modificationDate: Date()
             )
             let data = try JSONEncoder().encode(meta)
-            try data.write(to: url.appendingPathComponent(AxSandboxDocument.metaFilename))
+            try data.write(to: url.appendingPathComponent(AxHomeSandboxDocument.metaFilename))
             
             try FileManager.default.createDirectory(
-                at: url.appendingPathComponent(AxSandboxDocument.fileStorageFilename),
+                at: url.appendingPathComponent(AxHomeSandboxDocument.fileStorageFilename),
                 withIntermediateDirectories: true,
                 attributes: nil
             )
@@ -113,14 +113,14 @@ final class AxSandboxDocumentManager {
         }
     }
     
-    func openInFinder(_ document: AxSandboxDocument) {
+    func openInFinder(_ document: AxHomeSandboxDocument) {
         NSWorkspace.shared.selectFile(document.documentURL.path, inFileViewerRootedAtPath: document.documentURL.path)
     }
     
     func reloadDocuments() {
         let contents = (try? FileManager.default.contentsOfDirectory(at: rootDirectory, includingPropertiesForKeys: nil)) ?? []
         
-        var documents = [AxSandboxDocument]()
+        var documents = [AxHomeSandboxDocument]()
         for contentURL in contents {
             do {
                 let document = try self.loadDocument(at: contentURL)
@@ -132,10 +132,10 @@ final class AxSandboxDocumentManager {
         self.documents = documents
     }
     
-    private func loadDocument(at url: URL) throws -> AxSandboxDocument {
-        let metaURL = url.appendingPathComponent(AxSandboxDocument.metaFilename)
-        let meta = try JSONDecoder().decode(AxSandboxDocument.Metadata.self, from: Data(contentsOf: metaURL))
+    private func loadDocument(at url: URL) throws -> AxHomeSandboxDocument {
+        let metaURL = url.appendingPathComponent(AxHomeSandboxDocument.metaFilename)
+        let meta = try JSONDecoder().decode(AxHomeSandboxDocument.Metadata.self, from: Data(contentsOf: metaURL))
         
-        return AxSandboxDocument(documentURL: url, metadata: meta)
+        return AxHomeSandboxDocument(documentURL: url, metadata: meta)
     }
 }

@@ -10,18 +10,52 @@ import SwiftEx
 import AxComponents
 import AppKit
 import AxDocument
+import AxModelCore
 import AxModelCoreMockClient
 
 final class AxSandboxDocumentWindowManager {
-    func openDocument(_ document: AxSandboxDocument) throws {
+    
+    final class EditingDocument {
+        let document: AxHomeSandboxDocument
+        let server: AxMockServer<AxMockFileStorage>
+        let session: AxModelSession
+        let timer: Timer
+        var windowController: AxAppWindowController?
+        
+        init(document: AxHomeSandboxDocument, server: AxMockServer<AxMockFileStorage>, session: AxModelSession, timer: Timer) {
+            self.document = document
+            self.server = server
+            self.session = session
+            self.timer = timer
+        }
+    }
+    
+    var editingDocuments = [EditingDocument]()
+    
+    func openDocument(_ document: AxHomeSandboxDocument) throws {
         let documentID = document.metadata.documentID
         
         let fileStorage = AxMockFileStorage(directory: document.fileStorageURL)
         let server = AxMockServer(fileStorage: fileStorage, documentID: documentID)
+        
         let contents = try Data(contentsOf: document.contentsURL)
-
         try server.loadStateFromData(contents)
+        
         let session = server.makeClient()
+        
+        let timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { timer in
+            if server.updatedAfterLastEncode {
+                do {
+                    let data = server.encodeStateToData()
+                    try data.write(to: document.contentsURL)
+                } catch {
+                    ACToast.show(message: "Failed to save document.")
+                }
+            }
+        }
+        
+        let editingDocument = EditingDocument(document: document, server: server, session: session, timer: timer)
+        self.editingDocuments.append(editingDocument)
         
         AxDocument.connect(to: session)
             .peek{ axDocument in
@@ -31,6 +65,7 @@ final class AxSandboxDocumentWindowManager {
                 windowController.chainObject = axDocument
                 windowController.window?.title = document.title
                 windowController.window?.makeKeyAndOrderFront(self)
+                editingDocument.windowController = windowController
             }
             .catchOnToast()
     }

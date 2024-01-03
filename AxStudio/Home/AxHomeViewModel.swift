@@ -15,6 +15,8 @@ import AxComponents
 import AxDocument
 import KeychainAccess
 
+private let sandboxDocumentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("SandboxDocuments")
+
 final class AxHomeViewModel {
 
     let recentCollectionViewModel: AxHomeRecentCollectionViewModel
@@ -34,9 +36,14 @@ final class AxHomeViewModel {
     let reachability: Reachability
     
     let joinManager: AxHomeJoinManager
+    
     let cloudDocumentManager: AxCloudDocumentManager
     let cloudDocumentWindowManager: AxCloudDocumentWindowManager
+    
     let localDocumentManager: AxLocalDocumentManager
+    
+    let sandboxDocumentManager: AxSandboxDocumentManager
+    let sandboxDocumentWindowManager: AxSandboxDocumentWindowManager
     
     private var objectBag = Set<AnyCancellable>()
 
@@ -47,12 +54,18 @@ final class AxHomeViewModel {
         requireInternetConnection: Bool
     ) {
         self.api = api
-        self.requireInternetConnection = requireInternetConnection
         self.secureLibrary = secureLibrary
         self.reachability = reachability
+        
+        self.requireInternetConnection = requireInternetConnection
+        
         self.cloudDocumentWindowManager = AxCloudDocumentWindowManager(userDefaults: .standard)
         self.cloudDocumentManager = AxCloudDocumentManager(windowManager: self.cloudDocumentWindowManager)
+        
         self.localDocumentManager = AxLocalDocumentManager()
+        
+        self.sandboxDocumentWindowManager = AxSandboxDocumentWindowManager()
+        self.sandboxDocumentManager = AxSandboxDocumentManager(rootDirectory: sandboxDocumentDirectory, windowManager: self.sandboxDocumentWindowManager)
         
         self.recentCollectionViewModel = AxHomeRecentCollectionViewModel(
             cloudDocumentManager: cloudDocumentManager, localDocumentManager: localDocumentManager

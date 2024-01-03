@@ -25,11 +25,18 @@ final class AxHomeRecentCollectionViewModel: AxHomeDocumentCollectionViewModel {
     
     private let localDocumentManager: AxLocalDocumentManager
     
+    private let sandboxDocumentManager: AxSandboxDocumentManager
+    
     private var objectBag = Set<AnyCancellable>()
     
-    init(cloudDocumentManager: AxCloudDocumentManager, localDocumentManager: AxLocalDocumentManager) {
+    init(
+        cloudDocumentManager: AxCloudDocumentManager,
+        localDocumentManager: AxLocalDocumentManager,
+        sandboxDocumentManager: AxSandboxDocumentManager
+    ) {
         self.cloudDocumentManager = cloudDocumentManager
         self.localDocumentManager = localDocumentManager
+        self.sandboxDocumentManager = sandboxDocumentManager
         
         self.cloudDocumentManager.$documents.combineLatest(localDocumentManager.$documents)
             .sink{[unowned self] in
@@ -42,10 +49,12 @@ final class AxHomeRecentCollectionViewModel: AxHomeDocumentCollectionViewModel {
         AxHomeCollectionItemModel(document: self.homeDocuments[row], viewModel: self)
     }
     
+    /// ここら辺はどこかで別の場所に
     func openDocument(_ document: AxHomeDocument) {
         switch document {
         case let document as AxHomeLocalDocument: self.localDocumentManager.openDocument(document)
         case let document as AxHomeCloudDocument: self.cloudDocumentManager.openDocument(document)
+        case let document as AxHomeSandboxDocument: self.sandboxDocumentManager.openDocument(document)
         default: assertionFailure()
         }
     }
@@ -54,6 +63,7 @@ final class AxHomeRecentCollectionViewModel: AxHomeDocumentCollectionViewModel {
         switch document {
         case let document as AxHomeLocalDocument: self.localDocumentManager.deleteDocument(document)
         case let document as AxHomeCloudDocument: self.cloudDocumentManager.deleteCloudDocument(document)
+        case let document as AxHomeSandboxDocument: self.sandboxDocumentManager.deleteDocument(document)
         default: assertionFailure()
         }
     }
@@ -70,6 +80,7 @@ final class AxHomeRecentCollectionViewModel: AxHomeDocumentCollectionViewModel {
         switch document {
         case let document as AxHomeLocalDocument: NSSound.beep()
         case let document as AxHomeCloudDocument: self.cloudDocumentManager.renameDocument(document, to: name)
+        case let document as AxHomeSandboxDocument: self.sandboxDocumentManager.renameDocument(document, to: name)
         default: assertionFailure()
         }
     }
@@ -78,6 +89,7 @@ final class AxHomeRecentCollectionViewModel: AxHomeDocumentCollectionViewModel {
         switch document {
         case let document as AxHomeLocalDocument: self.localDocumentManager.openInFinder(document)
         case let document as AxHomeCloudDocument: NSSound.beep()
+        case let document as AxHomeSandboxDocument: self.sandboxDocumentManager.openInFinder(document)
         default: assertionFailure()
         }
     }

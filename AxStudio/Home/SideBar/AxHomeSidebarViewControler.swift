@@ -72,7 +72,7 @@ final class AxHomeSidebarViewControler: ACSidebarViewController {
             .sink{[unowned self] in self.homeViewModel.cloudDocumentManager.createDocument() }.store(in: &objectBag)
         self.localDocumentItem.cell.button.actionPublisher
             .sink{[unowned self] in self.homeViewModel.localDocumentManager.createDocument() }.store(in: &objectBag)
-//        self.sandboxDocumentItem.cell.button.actionPublisher
-//            .sink{[unowned self] in self.createSandboxDocument() }.store(in: &objectBag)
+        self.sandboxDocumentItem.cell.button.actionPublisher
+            .sink{[unowned self] in self.homeViewModel.sandboxDocumentManager.createDocument() }.store(in: &objectBag)
     }
 }
