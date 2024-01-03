@@ -46,7 +46,7 @@ final class AxHomeJoinManager {
                 .flatMap{ self.cloudDocumentManager.openDocument(documentID: $0.documentID) }
                 .catchOnToast("Can't Join Document")
                 .wait(on: DispatchQueue.main, for: 0.1)
-                .sink{ self.recentDocumentProvider.cloudDocumentItemLoader.setNeedsReload() }
+                .sink{ self.recentDocumentProvider.reload() }
         }else{
             self.signinBag.removeAll()
             let model = AxSigninFormPanelModel(api: api, secureLibrary: secureLibrary, reachability: reachability)

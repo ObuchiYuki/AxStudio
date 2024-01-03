@@ -86,7 +86,7 @@ final class AxHomeSidebarViewControler: ACSidebarViewController {
         authAPI.createDocument()
             .peek{
                 self.homeViewModel.cloudDocumentManager.openDocument(documentID: $0.id).catchOnToast()
-                self.homeViewModel.recentDocumentProvider.cloudDocumentItemLoader.setNeedsReload()
+                self.homeViewModel.recentDocumentManager.reload()
             }
             .catchOnToast("Can't create document.")
     }
@@ -114,7 +114,7 @@ final class AxHomeSidebarViewControler: ACSidebarViewController {
             .peek{ _ in
                 ACToast.show(message: "Documents Deleted.")
                 NSSound.dragToTrash?.play()
-                self.homeViewModel.recentDocumentProvider.cloudDocumentItemLoader.setNeedsReload()
+                self.homeViewModel.recentDocumentManager.reload()
             }
             .catchOnToast()
     }

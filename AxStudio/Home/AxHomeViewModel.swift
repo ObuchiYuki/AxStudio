@@ -18,8 +18,8 @@ import KeychainAccess
 final class AxHomeViewModel {
 
     let recentCollectionViewModel: AxHomeRecentCollectionViewModel
+    
     let accountViewModel: AxHomeAccountViewModel
-    let joinManager: AxHomeJoinManager
     
     @ObservableProperty var isConnected = false
     
@@ -28,11 +28,14 @@ final class AxHomeViewModel {
     private(set) var autoSigninPromise = Promise<Void, Never>.resolve()
     
     let requireInternetConnection: Bool
+    
     let api: AxHttpAPIClient
     let secureLibrary: AxSecureSigninInfoLibrary
     let reachability: Reachability
+    
+    let joinManager: AxHomeJoinManager
     let cloudDocumentManager: AxCloudDocumentManager
-    let recentDocumentProvider: AxRecentDocumentManager
+    let recentDocumentManager: AxRecentDocumentManager
     
     private var objectBag = Set<AnyCancellable>()
 
@@ -49,7 +52,7 @@ final class AxHomeViewModel {
         self.secureLibrary = secureLibrary
         self.reachability = reachability
         self.cloudDocumentManager = cloudDocumentManager
-        self.recentDocumentProvider = recentDocumentProvider
+        self.recentDocumentManager = recentDocumentProvider
         
         self.recentCollectionViewModel = AxHomeRecentCollectionViewModel(
             cloudDocumentManager: cloudDocumentManager, recentDocumentProvider: recentDocumentProvider
@@ -112,7 +115,7 @@ final class AxHomeViewModel {
 
     private func onUpdateAuthAPI(_ authAPI: AxHttpAuthorizedAPIClient?) {
         self.cloudDocumentManager.setAuthAPI(authAPI)
-        self.recentDocumentProvider.setAuthAPI(authAPI)
+        self.recentDocumentManager.setAuthAPI(authAPI)
         
         self.recentCollectionViewModel.authAPI = self.authAPI
         self.accountViewModel.authAPI = authAPI

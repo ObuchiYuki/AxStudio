@@ -33,7 +33,7 @@ final class AxHomeRecentCollectionViewModel: AxHomeDocumentCollectionViewModel {
         self.cloudDocumentManager = cloudDocumentManager
         self.recentDocumentProvider = recentDocumentProvider
         
-        self.recentDocumentProvider.publisher()
+        self.recentDocumentProvider.documentsPublisher()
             .sink{ self.homeDocuments = $0 }.store(in: &objectBag)
     }
     
@@ -71,7 +71,7 @@ final class AxHomeRecentCollectionViewModel: AxHomeDocumentCollectionViewModel {
     private func openCloudDocument(_ document: AxHomeCloudDocument) {
         self.cloudDocumentManager.openDocument(documentID: document.documentID).catchOnToast("Can't open cloud document.")
         
-        self.recentDocumentProvider.cloudDocumentItemLoader.setNeedsReload()
+        self.recentDocumentProvider.reload()
     }
     
     private func openLocalDocument(_ document: AxHomeLocalDocument) {
@@ -80,17 +80,6 @@ final class AxHomeRecentCollectionViewModel: AxHomeDocumentCollectionViewModel {
         }
     }
     
-    private func deleteCloudDocument(_ document: AxHomeCloudDocument) {
-        guard let authAPI = self.authAPI else { return }
-        
-        authAPI.deleteDocument(documentID: document.documentID)
-            .peek{
-                ACToast.show(message: "Document Deleted")
-                self.recentDocumentProvider.cloudDocumentItemLoader.setNeedsReload()
-                NSSound.dragToTrash?.play()
-            }
-            .catchOnToast("Document could not be deleted.")
-    }
     private func deleteLocalDocument(_ document: AxHomeLocalDocument) {
         if let currentDocument = NSDocumentController.shared.document(for: document.url) {
             currentDocument.close()
@@ -101,7 +90,7 @@ final class AxHomeRecentCollectionViewModel: AxHomeDocumentCollectionViewModel {
             ACToast.show(message: "Document deleted")
             NSSound.dragToTrash?.play()
         }
-        self.recentDocumentProvider.localDocumentItemLoader.setNeedsReload()
+        self.recentDocumentProvider.reload()
     }
     
     
@@ -109,9 +98,7 @@ final class AxHomeRecentCollectionViewModel: AxHomeDocumentCollectionViewModel {
         guard let authAPI = self.authAPI, let data = document as? AxHomeCloudDocument else { return }
 
         authAPI.updateDocument(documentID: data.documentID, name: name)
-            .peek{_ in
-                self.recentDocumentProvider.cloudDocumentItemLoader.setNeedsReload()
-            }
+            .peek{_ in self.recentDocumentProvider.reload() }
             .catchOnToast()
     }
     
@@ -130,3 +117,4 @@ extension AxDocument {
         get { localStorage["__accountName"] as? String } set { localStorage["__accountName"] = newValue }
     }
 }
+

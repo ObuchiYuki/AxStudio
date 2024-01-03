@@ -38,10 +38,11 @@ final class AxHomeDocumentItemView: NSRectangleView {
     private func onItemModelLoaded() {
         guard let itemModel = self.itemModel else { return }
         
+        
         itemModel.document.$title
             .sink{[unowned self] in self.titleLabel.stringValue = $0 }.store(in: &objectBag)
-        itemModel.document.$infoText
-            .sink{[unowned self] in self.infoLabel.stringValue = $0 }.store(in: &objectBag)
+        
+        self.infoLabel.stringValue = itemModel.document.infoText
         
         switch itemModel.document.documentType {
         case .cloud: self.documentTypeIconView.image = R.Home.Body.cloudDocumentIcon
@@ -50,7 +51,7 @@ final class AxHomeDocumentItemView: NSRectangleView {
         
         if let thumbnail = itemModel.document.thumbnail {
             thumbnail.sink{ if let image = $0 { self.thumnailImageView.image = image } }
-        }else{
+        } else {
             switch itemModel.document.documentType {
             case .cloud: self.thumnailImageView.image = R.Home.Body.cloudDocumentDefaultThumbnail
             case .local: self.thumnailImageView.image = R.Home.Body.localDocumentDefaultThumbnail

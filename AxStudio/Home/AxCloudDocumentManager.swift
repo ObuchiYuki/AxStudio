@@ -13,156 +13,82 @@ import SwiftEx
 import AppKit
 import LayoutEngine
 
-private let kOpenDocumentsKey = "openCloudDocuments"
-
 final class AxCloudDocumentManager {
+    @ObservableProperty var documents = [AxHomeCloudDocument]()
     
-    static let closeNotification = Notification.Name("AxCloudDocumentManager.closeNotification")
-    
-    struct NotificationObject {
-        let documentID: String
-        let windowController: AxAppWindowController
-    }
-    
-    private var documentIDs: [String] {
-        get { userDefaults.array(forKey: kOpenDocumentsKey) as? [String] ?? [] }
-        set { userDefaults.set(newValue, forKey: kOpenDocumentsKey) }
-    }
-    
-    var profile: AxUserProfile? { didSet { reopenDocumentIfNeeded() } }
-    
-    private let userDefaults: UserDefaults
-    private var authAPI: AxHttpAuthorizedAPIClient? { didSet { reopenDocumentIfNeeded() } }
-    private var documentControllers = [String: AxAppWindowController]()
-    private var progressPanels = [String: (ACFormPanel, Promise<Void, Error>)]()
-    
-    init(userDefaults: UserDefaults) {
-        self.userDefaults = userDefaults
-        
-        // register
-        NotificationCenter.default.addObserver(forName: NSWindow.willCloseNotification, object: nil, queue: nil) { notice in
-            guard let window = notice.object as? NSWindow else { return }
-            guard let (documentID, wc) = self.documentControllers.first(where: { $0.value.window === window }) else { return }
-            
-            self.unregisterDocumentController(documentID)
-            
-            let object = NotificationObject(documentID: documentID, windowController: wc)
-            NotificationCenter.default.post(name: AxCloudDocumentManager.closeNotification, object: object)
+    var authAPI: AxHttpAuthorizedAPIClient? {
+        didSet {
+            self.documents = []
+            self.windowManager.setAuthAPI(authAPI)
+            self.setNeedsReload()
         }
     }
     
-    private func reopenDocumentIfNeeded() {
-        guard self.authAPI != nil, self.profile != nil else { return }
-        self.openUnclosedDocuments(documentIDs: documentIDs)
+    private let windowManager: AxCloudDocumentWindowManager
+    
+    private let dateFormatter = ISO8601DateFormatter() => {
+        $0.formatOptions.insert(.withFractionalSeconds)
     }
+
+    private var initialLoaded = false
+
+    private var needsReload = false
+    
+    init(windowManager: AxCloudDocumentWindowManager) {
+        self.windowManager = windowManager
+    }
+
+    func copyLink(_ document: AxHomeCloudDocument) {
+        guard let authAPI = self.authAPI else { return NSSound.beep() }
         
-    func setAuthAPI(_ authAPI: AxHttpAuthorizedAPIClient?) {
-        self.authAPI = authAPI
-        if authAPI == nil {
-            for (documentID, controller) in self.documentControllers {
-                controller.close()
-                self.unregisterDocumentController(documentID)
+        authAPI.shareLink(documentID: document.documentID)
+            .peek{ res in
+                NSPasteboard.general.prepareForNewContents(with: [])
+                NSPasteboard.general.setString(res.invitationURL.absoluteString, forType: .string)
+                ACToast.show(message: "Link Copied!")
             }
+            .catchOnToast("Can't copy link.")
+    }
+    
+    func renameDocument(_ document: AxHomeCloudDocument, to name: String) {
+        guard let authAPI = self.authAPI else { return NSSound.beep() }
+        
+        authAPI.updateDocument(documentID: document.documentID, name: name)
+            .peek{_ in self.setNeedsReload() }
+            .catchOnToast()
+    }
+    
+    
+    func openDocument(documentID: String)  {
+        self.windowManager.openDocument(documentID: documentID)
+            .peek { self.setNeedsReload() }
+            .catchOnToast()
+    }
+    
+    
+    private func setNeedsReload() {
+        if needsReload { return }; needsReload = true
+        
+        func reloadItems() {
+            guard let authAPI = self.authAPI else { return }
+            self.fetchDocumentItems(from: authAPI).sink{ self.documents = $0 }
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.needsReload = false
+            reloadItems()
         }
     }
     
-    func openDocument(documentID: String) -> Promise<Void, Error> {
-        if let (panel, promise) = self.progressPanels[documentID] {
-            panel.makeKey()
-            panel.makeMain()
-            return promise
-        }
-        
-        return _openDocument(documentID: documentID)
-    }
-    
-    private func _openDocument(documentID: String) -> Promise<Void, Error> {
-        guard let authAPI = self.authAPI, let profile = self.profile else {
-            return .reject("Not logined")
-        }
-        
-        // if already opened
-        if let documentController = self.documentControllers[documentID] {
-            documentController.window?.makeKeyAndOrderFront(nil)
-            return .resolve()
-        }
-        
-        // make windowController
-        let client = authAPI.connectToRoom(documentID: documentID)
-        let session = AxModelSession(client: client, errorHandle: AxToastErrorHandle())
-        let documentInfo = authAPI.getDocumentInfo(documentID: documentID)
-        
-        let progressProvider = ACProgressWindowProvider()
-        progressProvider.progressView.startAnimation()
-        let progressPanel = ACFormPanel(initialProvider: progressProvider)
-        progressPanel.hideCloseButton()
-        progressPanel.show()
-                 
-        // connect to server
-        let promise = AxDocument.connect(to: session).combine(documentInfo)
-            .peek{ document, info in
-                let clientInfo = AxDocument.CloudClientInfo(userProfile: profile)
-                document.clientType = .cloud(clientInfo)
-                
-                let windowController = AxAppWindowController.instantiate()
-                windowController.chainObject = document
-                windowController.window?.title = info.name
-                self.registerDocumentController(documentID, windowController: windowController)
-                
-                self.showWindow(windowController)
-            }
-            .finally {
-                progressPanel.window.close()
-                self.progressPanels[documentID] = nil
-            }
-            .eraseToVoid()
-            .peekError{
-                #if DEBUG
-                ACToast.debugLog(message: $0)
-                #endif
-            }
-        
-        self.progressPanels[documentID] = (progressPanel, promise)
-        return promise
-    }
-    
-    private func showWindow(_ windowController: NSWindowController) {
-        guard let window = windowController.window else { return __warn_ifDebug_beep_otherwise() }
-        // そのうちTabbingやりたい
-        window.makeKeyAndOrderFront(nil)
-    }
-    
-    private func openUnclosedDocuments(documentIDs: [String]) {
-        self.documentIDs = []
-        for documentID in documentIDs {
-            self.openDocument(documentID: documentID)
-                .catch{ error in
-                    #if DEBUG
-                    print("Reopen failed:", error)
-                    #endif
+    private func fetchDocumentItems(from authAPI: AxHttpAuthorizedAPIClient) -> Promise<[AxHomeCloudDocument], Never> {
+        authAPI.recentDocuments()
+            .map{
+                $0.map{ res in
+                    let modificationDate = dateFormatter.date(from: res.lastOpenAt ?? res.updatedAt) ?? Date()
+                    let thumbnail = AxDocumentPreviewManager.shared.cloudPreview(for: res.id)
+                    return AxHomeCloudDocument(title: res.name, modificationDate: modificationDate, thumbnail: thumbnail, documentID: res.id)
                 }
-        }
-    }
-    
-
-    private func unregisterDocumentController(_ documentID: String) {
-        self.documentControllers[documentID] = nil
-        self.documentIDs.removeAll(where: { $0 == documentID })
-    }
-    
-    private func registerDocumentController(_ documentID: String, windowController: AxAppWindowController) {
-        self.documentControllers[documentID] = windowController
-        self.documentIDs.append(documentID)
-    }
-}
-
-private struct ACProgressWindowProvider: ACFormProvider {
-    
-    let titleView = ACFormTitleView(title: "Loading Document...")
-    let progressView = ACFormProgressBarView()
-    
-    func provideForm(into panel: ACFormPanel) {
-        panel.addFormView(titleView)
-        panel.addFormView(progressView)
+            }
+            .replaceError(with: [])
     }
 }
