@@ -58,6 +58,7 @@ final class AxHomeSidebarViewControler: ACSidebarViewController {
         #endif
     }
     
+    
     override func chainObjectDidLoad() {
         guard let homeViewModel = self.chainObject as? AxHomeViewModel else { return NSSound.beep() }
         let viewModel = homeViewModel.sidebarViewModel
