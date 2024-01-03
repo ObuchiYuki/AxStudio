@@ -144,106 +144,109 @@ final class AxDesignIndicatorViewController: ACStackViewController_ {
         self.selector.register([geometoryCell]) { layers in
             true
         }
+        
         self.selector.registerFoldable(
             layoutHeaderCell, [
                 .group([sizeCell], shouldShowSizeIndicator),
                 .group([positionCell], shouldShowPositionIndicator)
             ], shouldShowLayoutIndicator
         )
-        self.selector.registerFoldable(masterLayoutHeaderCell, [masterLayoutCell]) { layers in
-            layers.count == 1 && layers.first is DKMasterLayer
-        }        
-        self.selector.registerFoldable(screenHeaderCell, [deviceCell]) { layers in
-            layers.allSatisfy{ $0 is DKScreen }
-        }
-        self.selector.registerFoldable(imageHeaderCell, [imageCell]) { layers in
-            layers.unmasterNonEmptyAllSatisfy{ $0 is DKImageLayer }
-        }
-        self.selector.registerFoldable(cornerRadiusHeaderCell, [cornerRadiusCell]) { layers in
-            layers.unmasterNonEmptyAllSatisfy{ $0 is DKCornerRadiusLayerType }
-        }
-        self.selector.registerFoldable(iconHeaderCell, [iconCell]) { layers in
-            layers.unmasterNonEmptyAllSatisfy{ $0 is DKIconLayer }
-        }
-        self.selector.registerFoldable(switchHeaderCell, [switchCell]) { layers in
-            layers.unmasterNonEmptyAllSatisfy{ $0 is STDSwitch }
-        }
-        self.selector.registerFoldable(textInputHeaderCell, [textInputFontCell, .separator(padding: .rightPin), textInputCell]) { layers in
-            layers.unmasterNonEmptyAllSatisfy{ $0 is STDTextInput }
-        }
-        self.selector.registerFoldable(sliderHeaderCell, [sliderCell]) { layers in
-            layers.unmasterNonEmptyAllSatisfy{ $0 is STDSlider }
-        }
-        self.selector.registerFoldable(buttonHeaderCell, [buttonCell]) { layers in
-            layers.nonEmptyAllSatisfy{ $0 is STDButton }
-        }
-        self.selector.registerFoldable(segmentHeaderCell, [
-            .group([segmentCell]),
-            .group([.separator(padding: .rightPin), segmentListHeaderCell, segmentListCell]) { $0.count == 1 }
-        ]) { layers in
-            layers.nonEmptyAllSatisfy{ $0 is STDSegmentedControl }
-        }
-        self.selector.registerFoldable(tableHeaderCell, [tableCell]) { layers in
-            layers.count == 1 && layers.first?.entity() is DKTableLinkLayer
-        }
-        self.selector.registerFoldable(listHeaderCell, [listCell]) { layers in
-            layers.count == 1 && layers.first?.entity() is STDList
-        }
-        self.selector.registerFoldable(ellipseHeaderCell, [ellipseCell]) { layers in
-            layers.unmasterNonEmptyAllSatisfy{ $0 is DKEllipse }
-        }
-        self.selector.registerFoldable(textHeaderCell, [textAssetCell, .separator(padding: .rightPin), textCell]) { layers in
-            layers.unmasterNonEmptyAllSatisfy{ $0 is DKTextLayer }
-        }
-        self.selector.registerFoldable(stackHeaderCell, [stackCell]) { layers in
-            layers.unmasterNonEmptyAllSatisfy{ $0 is DKStackLayer }
-        }
-        self.selector.registerFoldable(stackSpacerHeaderCell, [stackSpacerCell]) { layers in
-            layers.unmasterNonEmptyAllSatisfy{ $0 is DKStackSpacer }
-        }
-        self.selector.registerFoldable(groupHeaderCell, [groupCell]) { layers in
-            layers.unmasterNonEmptyAllSatisfy{ $0 is DKGroup }
-        }
-        self.selector.registerFoldable(instanceHeaderCell, [instanceCell]) { layers in
-            layers.count == 1 && layers.unmasterNonEmptyAllSatisfy{ $0 is DKInstanceLayer }
-        }
-
-        func shouldShowShadow(_ layers: [DKLayer]) -> Bool {
-            layers.allSatisfy{ !($0 is DKScreen) } && layers.unmasterNonEmptyAllSatisfy{ $0 is DKStyleShadowLayerType }
-        }
-        func shoulwShowTint(_ layers: [DKLayer]) -> Bool {
-            layers.allSatisfy{ !($0 is DKFontProviderLayerType) } && layers.unmasterNonEmptyAllSatisfy{ $0 is DKStyleSolidFillLayerType }
-        }
-        self.selector.registerFoldable(styleHeaderCell, [
-            .group([opacityCell]) { layers in true },
-            .group([fillHeaderCell, fillCell]) { layers in layers.unmasterNonEmptyAllSatisfy{ $0 is DKStyleFillLayerType } },
-            .group([borderHeaderCell, borderCell]) { layers in layers.unmasterNonEmptyAllSatisfy{ $0 is DKStyleBorderLayerType } },
-            .group([shadowHeaderCell, shadowCell], shouldShowShadow),
-            .group([solidFillHeaderCell, solidFillCell], shoulwShowTint),
-        ]) { layers in true }
         
-        self.selector.registerFoldable(statesHeaderCell, [
-            .group([stateListCell]) { layers in !(layers.first?.states?.isEmpty ?? true) },
-            .group([.separator(padding: .inset), stateInfoCell]) { _ in self.document.selectedState != nil },
-        ]) { layers in
-            layers.count == 1 && layers.contains(where: { $0.viewModelLayer != nil || $0.componentLayer != nil })
-        }
-        self.selector.registerFoldable(componentActionHeaderCell, [
-            .group([componentActionListCell]) { layers in !(layers.first?.componentLayer?.componentActions.isEmpty ?? true) }
-        ]) { layers in
-            layers.count == 1 && layers.contains(where: { $0.componentLayer != nil })
-        }
-        self.selector.registerFoldable(actionHeaderCell, [
-            .group([actionListCell]) { layers in !(layers.first?.viewModelLayer?.viewModel.actions.isEmpty ?? true) }
-        ]) { layers in
-            layers.count == 1 && layers.contains(where: { $0.viewModelLayer != nil })
-        }
-        
-        #if DEBUG
-        self.selector.registerFoldable(debugHeaderCell, [debugCell, debugLayoutCell]) {_ in
-            DebugSettings.showDebugCell
-        }
-        #endif
+//        self.selector.registerFoldable(masterLayoutHeaderCell, [masterLayoutCell]) { layers in
+//            layers.count == 1 && layers.first is DKMasterLayer
+//        }        
+//
+//        self.selector.registerFoldable(screenHeaderCell, [deviceCell]) { layers in
+//            layers.allSatisfy{ $0 is DKScreen }
+//        }
+//        self.selector.registerFoldable(imageHeaderCell, [imageCell]) { layers in
+//            layers.unmasterNonEmptyAllSatisfy{ $0 is DKImageLayer }
+//        }
+//        self.selector.registerFoldable(cornerRadiusHeaderCell, [cornerRadiusCell]) { layers in
+//            layers.unmasterNonEmptyAllSatisfy{ $0 is DKCornerRadiusLayerType }
+//        }
+//        self.selector.registerFoldable(iconHeaderCell, [iconCell]) { layers in
+//            layers.unmasterNonEmptyAllSatisfy{ $0 is DKIconLayer }
+//        }
+//        self.selector.registerFoldable(switchHeaderCell, [switchCell]) { layers in
+//            layers.unmasterNonEmptyAllSatisfy{ $0 is STDSwitch }
+//        }
+//        self.selector.registerFoldable(textInputHeaderCell, [textInputFontCell, .separator(padding: .rightPin), textInputCell]) { layers in
+//            layers.unmasterNonEmptyAllSatisfy{ $0 is STDTextInput }
+//        }
+//        self.selector.registerFoldable(sliderHeaderCell, [sliderCell]) { layers in
+//            layers.unmasterNonEmptyAllSatisfy{ $0 is STDSlider }
+//        }
+//        self.selector.registerFoldable(buttonHeaderCell, [buttonCell]) { layers in
+//            layers.nonEmptyAllSatisfy{ $0 is STDButton }
+//        }
+//        self.selector.registerFoldable(segmentHeaderCell, [
+//            .group([segmentCell]),
+//            .group([.separator(padding: .rightPin), segmentListHeaderCell, segmentListCell]) { $0.count == 1 }
+//        ]) { layers in
+//            layers.nonEmptyAllSatisfy{ $0 is STDSegmentedControl }
+//        }
+//        self.selector.registerFoldable(tableHeaderCell, [tableCell]) { layers in
+//            layers.count == 1 && layers.first?.entity() is DKTableLinkLayer
+//        }
+//        self.selector.registerFoldable(listHeaderCell, [listCell]) { layers in
+//            layers.count == 1 && layers.first?.entity() is STDList
+//        }
+//        self.selector.registerFoldable(ellipseHeaderCell, [ellipseCell]) { layers in
+//            layers.unmasterNonEmptyAllSatisfy{ $0 is DKEllipse }
+//        }
+//        self.selector.registerFoldable(textHeaderCell, [textAssetCell, .separator(padding: .rightPin), textCell]) { layers in
+//            layers.unmasterNonEmptyAllSatisfy{ $0 is DKTextLayer }
+//        }
+//        self.selector.registerFoldable(stackHeaderCell, [stackCell]) { layers in
+//            layers.unmasterNonEmptyAllSatisfy{ $0 is DKStackLayer }
+//        }
+//        self.selector.registerFoldable(stackSpacerHeaderCell, [stackSpacerCell]) { layers in
+//            layers.unmasterNonEmptyAllSatisfy{ $0 is DKStackSpacer }
+//        }
+//        self.selector.registerFoldable(groupHeaderCell, [groupCell]) { layers in
+//            layers.unmasterNonEmptyAllSatisfy{ $0 is DKGroup }
+//        }
+//        self.selector.registerFoldable(instanceHeaderCell, [instanceCell]) { layers in
+//            layers.count == 1 && layers.unmasterNonEmptyAllSatisfy{ $0 is DKInstanceLayer }
+//        }
+//
+//        func shouldShowShadow(_ layers: [DKLayer]) -> Bool {
+//            layers.allSatisfy{ !($0 is DKScreen) } && layers.unmasterNonEmptyAllSatisfy{ $0 is DKStyleShadowLayerType }
+//        }
+//        func shoulwShowTint(_ layers: [DKLayer]) -> Bool {
+//            layers.allSatisfy{ !($0 is DKFontProviderLayerType) } && layers.unmasterNonEmptyAllSatisfy{ $0 is DKStyleSolidFillLayerType }
+//        }
+//        self.selector.registerFoldable(styleHeaderCell, [
+//            .group([opacityCell]) { layers in true },
+//            .group([fillHeaderCell, fillCell]) { layers in layers.unmasterNonEmptyAllSatisfy{ $0 is DKStyleFillLayerType } },
+//            .group([borderHeaderCell, borderCell]) { layers in layers.unmasterNonEmptyAllSatisfy{ $0 is DKStyleBorderLayerType } },
+//            .group([shadowHeaderCell, shadowCell], shouldShowShadow),
+//            .group([solidFillHeaderCell, solidFillCell], shoulwShowTint),
+//        ]) { layers in true }
+//        
+//        self.selector.registerFoldable(statesHeaderCell, [
+//            .group([stateListCell]) { layers in !(layers.first?.states?.isEmpty ?? true) },
+//            .group([.separator(padding: .inset), stateInfoCell]) { _ in self.document.selectedState != nil },
+//        ]) { layers in
+//            layers.count == 1 && layers.contains(where: { $0.viewModelLayer != nil || $0.componentLayer != nil })
+//        }
+//        self.selector.registerFoldable(componentActionHeaderCell, [
+//            .group([componentActionListCell]) { layers in !(layers.first?.componentLayer?.componentActions.isEmpty ?? true) }
+//        ]) { layers in
+//            layers.count == 1 && layers.contains(where: { $0.componentLayer != nil })
+//        }
+//        self.selector.registerFoldable(actionHeaderCell, [
+//            .group([actionListCell]) { layers in !(layers.first?.viewModelLayer?.viewModel.actions.isEmpty ?? true) }
+//        ]) { layers in
+//            layers.count == 1 && layers.contains(where: { $0.viewModelLayer != nil })
+//        }
+//        
+//        #if DEBUG
+//        self.selector.registerFoldable(debugHeaderCell, [debugCell, debugLayoutCell]) {_ in
+//            DebugSettings.showDebugCell
+//        }
+//        #endif
         
         self.selector.reloadData(with: document.selectedLayers)
 

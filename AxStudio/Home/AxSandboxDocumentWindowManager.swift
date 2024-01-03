@@ -39,10 +39,10 @@ final class AxSandboxDocumentWindowManager {
         let server = AxMockServer(fileStorage: fileStorage, documentID: documentID)
         server.autoFlush = true
         
-        if FileManager.default.fileExists(atPath: document.contentsURL.path) {
-            let contents = try Data(contentsOf: document.contentsURL)
-            try server.loadStateFromData(contents)
-        }
+//        if FileManager.default.fileExists(atPath: document.contentsURL.path) {
+//            let contents = try Data(contentsOf: document.contentsURL)
+//            try server.loadStateFromData(contents)
+//        }
         
         let session = server.makeClient()
         
