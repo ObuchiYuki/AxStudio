@@ -37,19 +37,19 @@ final class AxSandboxDocumentWindowManager {
         
         let fileStorage = AxMockFileStorage(directory: document.fileStorageURL)
         let server = AxMockServer(fileStorage: fileStorage, documentID: documentID)
-        server.autoFlush = true
-        
         if FileManager.default.fileExists(atPath: document.contentsURL.path) {
             let contents = try Data(contentsOf: document.contentsURL)
             try server.loadStateFromData(contents)
         }
-        
+        server.autoFlush = true
         let session = server.makeClient()
         
         let timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { timer in
             if server.updatedAfterLastEncode {
                 do {
                     let data = server.encodeStateToData()
+                    let nodes = try [AxModelObjectID: AxMockNodeData].decodeFromBytes(data)
+                    print(nodes)
                     try data.write(to: document.contentsURL)
                 } catch {
                     ACToast.show(message: "Failed to save document.")
