@@ -12,6 +12,7 @@ import AppKit
 import AxDocument
 @testable import AxModelCore
 import AxModelCoreMockClient
+import STDComponents
 
 final class AxSandboxDocumentWindowManager {
     
@@ -67,6 +68,18 @@ final class AxSandboxDocumentWindowManager {
                 windowController.window?.title = document.title
                 windowController.window?.makeKeyAndOrderFront(self)
                 editingDocument.windowController = windowController
+                
+                #warning("現在の実装では、この処理が必要（fragmentSession依存になったため）どこかで消す")
+                let page = axDocument.rootNode.appPage
+                page.layoutSubtreeImmediately(session.layoutContext)
+                page.scan{ layer in
+                    if let button = layer as? STDButton {
+                        button.stackLayer.scan{ layer in
+                            layer.layoutSubtreeImmediately(session.layoutContext)
+                        }
+                    }
+                    layer.layoutSubtreeImmediately(session.layoutContext)
+                }
             }
             .catchOnToast("Cannot open sandbox document.")
     }
