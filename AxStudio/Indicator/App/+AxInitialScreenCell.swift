@@ -31,7 +31,7 @@ final class AxInitialScreenCellController: NSViewController {
             .sink{[unowned self] in cell.layerWell.wellState = .identical($0?.get(document.session)) }
             .store(in: &objectBag)
         self.cell.layerWell.layerPublisher.compactMap{ $0 as? DKScreen }
-            .sink(on: document) {[unowned self] in document.rootNode.appFile.initialScreen = AxModelWeakRef($0) }
+            .sink(on: document) {[unowned self] in document.rootNode.appFile.initialScreen = AxModelRef($0) }
             .store(in: &objectBag)
     }
 }
