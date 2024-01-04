@@ -10,7 +10,7 @@ import SwiftEx
 import AxComponents
 import AppKit
 import AxDocument
-import AxModelCore
+@testable import AxModelCore
 import AxModelCoreMockClient
 
 final class AxSandboxDocumentWindowManager {
@@ -32,7 +32,7 @@ final class AxSandboxDocumentWindowManager {
     
     var editingDocuments = [EditingDocument]()
     
-    func openDocument(_ document: AxHomeSandboxDocument) throws {
+    func openDocument(_ document: AxHomeSandboxDocument) throws {        
         let documentID = document.metadata.documentID
         
         let fileStorage = AxMockFileStorage(directory: document.fileStorageURL)

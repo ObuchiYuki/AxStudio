@@ -135,6 +135,8 @@ final class AxSandboxDocumentManager {
         
         var documents = [AxHomeSandboxDocument]()
         for contentURL in contents {
+            guard AxModelDocumentID(stringRepresentation: contentURL.lastPathComponent) != nil else { continue }
+            
             do {
                 let document = try self.loadDocument(at: contentURL)
                 documents.append(document)
