@@ -37,10 +37,16 @@ final class AxAppWindowController: NSWindowController {
     
     override func keyDown(with event: NSEvent) {
         switch event.hotKey{
-        case .undo: axDocument.session.undoManager.undo()
-        case .redo: axDocument.session.undoManager.redo()
-        case .paste:
-            print("paste")
+        case .undo:
+            guard axDocument.session.undoManager.canUndo else {
+                return NSSound.beep()
+            }
+            axDocument.session.undoManager.undo()
+        case .redo:
+            guard axDocument.session.undoManager.canRedo else {
+                return NSSound.beep()
+            }
+            axDocument.session.undoManager.redo()
         default:
             switch event.hotKey.key {
             case .upArrow:  axDocument.execute(AxArrowCommand(key: .up, shift: event.modifierFlags.contains(.shift)))
