@@ -44,7 +44,7 @@ final class AxSandboxDocumentWindowManager {
         server.autoFlush = true
         let session = server.makeClient()
         
-        let timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { timer in
+        let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             if server.updatedAfterLastEncode {
                 do {
                     let data = server.encodeStateToData()
