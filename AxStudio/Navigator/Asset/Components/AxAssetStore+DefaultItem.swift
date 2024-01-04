@@ -12,24 +12,26 @@ import BluePrintKit
 
 extension STDButton {
     enum Default {
-        public static let text = try! STDButton.make(on: .freestanding) => { (button: STDButton) in
-            button.name = "Button"
-            
-            let titleLayer = try! DKTextLayer.make(on: .freestanding) => { (titleLayer: DKTextLayer) in
-                titleLayer.name = "Text"
-                titleLayer.constraints.widthType = .auto
-                titleLayer.constraints.heightType = .auto
-                titleLayer.style.fill.color = .constant(AxModelRef(.accentColorConstantID))
-                titleLayer.string = .static("Button")
+        public static let text = AxModelSession.freestanding.execute{
+            try! STDButton.make(on: .freestanding) => { (button: STDButton) in
+                button.name = "Button"
+                
+                let titleLayer = try! DKTextLayer.make(on: .freestanding) => { (titleLayer: DKTextLayer) in
+                    titleLayer.name = "Text"
+                    titleLayer.constraints.widthType = .auto
+                    titleLayer.constraints.heightType = .auto
+                    titleLayer.style.fill.color = .constant(AxModelRef(.accentColorConstantID))
+                    titleLayer.string = .static("Button")
+                }
+                button.stackLayer.prebuildAddSublayer(titleLayer)
+                
+                button.stackLayer.alignment = .mid
+                button.stackLayer.distribution = .mid
+                button.stackLayer.orientation = .horizontal
+                button.stackLayer.constraints.widthType = .auto
+                button.stackLayer.constraints.heightType = .auto
             }
-            button.stackLayer.prebuildAddSublayer(titleLayer)
-            
-            button.stackLayer.alignment = .mid
-            button.stackLayer.distribution = .mid
-            button.stackLayer.orientation = .horizontal
-            button.stackLayer.constraints.widthType = .auto
-            button.stackLayer.constraints.heightType = .auto
-        }
+        }        
     }
 //    
 //    public static func solid() -> STDButton {
