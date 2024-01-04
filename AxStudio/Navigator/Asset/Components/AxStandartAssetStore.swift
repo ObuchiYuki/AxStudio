@@ -33,7 +33,9 @@ final class AxStandardAssetStore {
 //        AxModelSession.prebuild = AxModelSession.prebuild(with: document.session)
 //        store.register(DKIconLayer(), with: [20, 20])
 //        store.register(STDSlider(), with: [80, 30])
-//        store.register(STDButton.text(), with: [100, 32])
+        
+        store.register(STDButton.Default.text, with: [100, 32])
+        
 //        store.register(STDButton.solid(), with: [100, 32])
 //        store.register(STDButton.bordered(), with: [100, 32])
 //        store.register(STDButton.gradient(), with: [100, 32])

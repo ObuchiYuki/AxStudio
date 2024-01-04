@@ -10,28 +10,28 @@ import STDComponents
 import AxModelCore
 import BluePrintKit
 
-#warning("🚨🚨🚨🚨別Documentの生成などが必要🚨🚨🚨🚨")
-//extension STDButton {
-//    public static func text() -> STDButton {
-//        let button = STDButton()
-//        button.name = "Button"
-//        
-//        let titleLayer = DKTextLayer()
-//        titleLayer.name = "Text"
-//        titleLayer.constraints.widthType = .auto
-//        titleLayer.constraints.heightType = .auto
-//        titleLayer.style.fill.color = .constant(AxModelRef(.accentColorConstantID, session: .prebuild))
-//        titleLayer.string = .static("Button")
-//        button.stackLayer.prebuildAddSublayer(titleLayer)
-//        
-//        button.stackLayer.alignment = .mid
-//        button.stackLayer.distribution = .mid
-//        button.stackLayer.orientation = .horizontal
-//        button.stackLayer.constraints.widthType = .auto
-//        button.stackLayer.constraints.heightType = .auto
-//        
-//        return button
-//    }
+extension STDButton {
+    enum Default {
+        public static let text = try! STDButton.make(on: .freestanding) => { (button: STDButton) in
+            button.name = "Button"
+            
+            let titleLayer = try! DKTextLayer.make(on: .freestanding) => { (titleLayer: DKTextLayer) in
+                titleLayer.name = "Text"
+                titleLayer.constraints.widthType = .auto
+                titleLayer.constraints.heightType = .auto
+                titleLayer.style.fill.color = .constant(AxModelRef(.accentColorConstantID))
+                titleLayer.string = .static("Button")
+            }
+            button.stackLayer.prebuildAddSublayer(titleLayer)
+            
+            button.stackLayer.alignment = .mid
+            button.stackLayer.distribution = .mid
+            button.stackLayer.orientation = .horizontal
+            button.stackLayer.constraints.widthType = .auto
+            button.stackLayer.constraints.heightType = .auto
+        }
+    }
+//    
 //    public static func solid() -> STDButton {
 //        let button = STDButton()
 //        button.name = "Solid Button"
@@ -167,8 +167,8 @@ import BluePrintKit
 //        
 //        return button
 //    }
-//}
-//
+}
+
 //extension DKStackLayer {
 //    
 //    static func listStack() -> DKStackLayer {
