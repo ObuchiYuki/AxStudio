@@ -20,7 +20,7 @@ extension STDButton {
                     titleLayer.name = "Text"
                     titleLayer.constraints.widthType = .auto
                     titleLayer.constraints.heightType = .auto
-                    titleLayer.style.fill.color = .constant(AxModelRef(.accentColorConstantID))
+                    titleLayer.style.fill.color = .static(.defaultAccent) //.constant(AxModelRef(.accentColorConstantID))
                     titleLayer.string = .static("Button")
                 }
                 button.stackLayer.prebuildAddSublayer(titleLayer)
@@ -31,7 +31,7 @@ extension STDButton {
                 button.stackLayer.constraints.widthType = .auto
                 button.stackLayer.constraints.heightType = .auto
             }
-        }        
+        }
     }
 //    
 //    public static func solid() -> STDButton {

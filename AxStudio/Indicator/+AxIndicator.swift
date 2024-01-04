@@ -12,6 +12,7 @@ import AppKit
 import AxDocument
 import AxComponents
 import BluePrintKit
+import AxModelCore
 
 final class AxIndicatorViewController: NSViewController {
     private let designIndicator = AxDesignIndicatorViewController()
