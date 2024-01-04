@@ -39,6 +39,8 @@ final class AxAppWindowController: NSWindowController {
         switch event.hotKey{
         case .undo: axDocument.session.undoManager.undo()
         case .redo: axDocument.session.undoManager.redo()
+        case .paste:
+            print("paste")
         default:
             switch event.hotKey.key {
             case .upArrow:  axDocument.execute(AxArrowCommand(key: .up, shift: event.modifierFlags.contains(.shift)))

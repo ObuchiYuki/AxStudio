@@ -48,8 +48,6 @@ final class AxSandboxDocumentWindowManager {
             if server.updatedAfterLastEncode {
                 do {
                     let data = server.encodeStateToData()
-                    let nodes = try [AxModelObjectID: AxMockNodeData].decodeFromBytes(data)
-                    print(nodes)
                     try data.write(to: document.contentsURL)
                 } catch {
                     ACToast.show(message: "Failed to save document.")
