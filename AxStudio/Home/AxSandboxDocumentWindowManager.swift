@@ -74,7 +74,6 @@ final class AxSandboxDocumentWindowManager {
                 page.layoutSubtreeImmediately(session.layoutContext)
                 page.scan{ layer in
                     if let button = layer as? STDButton {
-                        print(button)
                         button.stackLayer.scan{ layer in
                             layer.layoutSubtreeImmediately(session.layoutContext)
                         }
