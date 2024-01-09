@@ -38,7 +38,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         BPColorAssetTable.load
         DKFontAssetTable.load
         ACFontLoader.load
-        AxDocumentBootStrap.load
         
         AxModelFileManager.registerProxy(AxBuildinMediaFileProxy.default)
         
