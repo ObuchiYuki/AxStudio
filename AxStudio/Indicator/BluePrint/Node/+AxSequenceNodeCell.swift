@@ -37,9 +37,7 @@ final class AxSequenceNodeCellController: AxNodeViewController {
         if node.sockets.count < count {
             let delta = count - node.sockets.count
             let newSockets = try (0..<delta).map{_ in
-                try BPOutputSocketData.make(on: document.session) => {
-                    $0.node = AxModelRef(node)
-                }
+                try BPOutputSocketData.make(on: document.session)
             }
             node.sockets.append(contentsOf: newSockets)
         } else if node.sockets.count > count {

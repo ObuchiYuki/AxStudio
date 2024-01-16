@@ -117,11 +117,12 @@ final class AxDesignIndicatorViewController: ACStackViewController_ {
         let cactions = document.$selectedLayers.map{ $0.singleOrNil()?.componentLayer?.$componentActions }.involveSwitchToLatest()
         
         let reload = document.$selectedLayers.touch(parentChange.combineLatest(document.$selectedState, document.$selectedAction, states, actions, cactions))
-            .grouping(by: document.executeSession)
+            .debounce(by: document.executeDebouncer)
         
         reload
             .sink{[unowned self] in self.selector.reloadData(with: $0) }.store(in: &objectBag)
-        reload.grouping(by: document.selectionSession)
+        reload
+            .debounce(by: document.selectionDebouncer)
             .sink{[unowned self] _ in self.view.window?.recalculateKeyViewLoop() }.store(in: &objectBag)
     }
     

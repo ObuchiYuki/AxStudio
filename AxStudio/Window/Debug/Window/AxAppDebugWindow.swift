@@ -34,7 +34,7 @@ final class AxDebugWindowController: NSWindowController {
 }
 
 extension NSWindow.StyleMask: ExtendOptionSet {
-    public static var labels: [(NSWindow.StyleMask, String)] = [
+    public static var options: [(NSWindow.StyleMask, String)] = [
         (.borderless, "borderless"),
         (.titled, "titled"),
         (.closable, "closable"),

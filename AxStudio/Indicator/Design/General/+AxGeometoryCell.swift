@@ -21,9 +21,9 @@ final class AxGeometryCellController: NSViewController {
 
     override func chainObjectDidLoad() {
         // MARK: - Input -
-        let fragmentSession = self.document.session.fragmentSession
+        let applyDebouncer = self.document.session.applyDebouncer
         let frame = document.$selectedLayers
-            .map { $0.map { $0.framep }.combineLatest.grouping(by: fragmentSession) }.switchToLatest()
+            .map { $0.map { $0.framep }.combineLatest.debounce(by: applyDebouncer) }.switchToLatest()
         let origin = frame.map { $0.map { $0.origin } }
         let size = frame.map { $0.map { $0.size } }
         let rotation = document.$selectedLayers.dynamicProperty(\.$rotation, document: document).removeDuplicates()

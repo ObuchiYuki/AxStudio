@@ -35,7 +35,7 @@ final class AxURLParamatorHeaderController: ACStackViewFoldHeaderController {
         document.execute {[self] in
             let currentSet = Set(node.urlParamators.map{ $0.key })
             let paramKey = Identifier.make(with: .numberPostfix("key", separtor: ""), notContainsIn: currentSet)
-            let param = try BPURLParamator.make(node: node, key: paramKey, on: document.session)
+            let param = try BPURLParamator.make(key: paramKey, on: document.session)
             node.urlParamators.append(param)
         }
     }
@@ -63,7 +63,7 @@ final class AxRequestHeadersHeaderController: ACStackViewFoldHeaderController {
             let currentSet = Set(node.headers.map{ $0.key })
             let paramKey = Identifier.make(with: .numberPostfix("key", separtor: ""), notContainsIn: currentSet)
             
-            let header = try BPRequestHeader.make(node: node, key: paramKey, on: document.session)
+            let header = try BPRequestHeader.make(key: paramKey, on: document.session)
             node.headers.append(header)
         }
     }

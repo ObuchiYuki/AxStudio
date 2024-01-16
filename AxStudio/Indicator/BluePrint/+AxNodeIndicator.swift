@@ -51,15 +51,17 @@ final class AxNodeIndicatorViewController: ACStackViewController_ {
         let parentChange = document.$selectedLayers.switchToLatest{ $0.map{ $0.$parent }.combineLatest }
         let states = document.$selectedLayers.map{ $0.singleOrNil()?.statesp }.involveSwitchToLatest()
         let reload = document.$selectedLayers.touch(parentChange.combineLatest(document.$selectedState)).touch(states)
-            .grouping(by: document.executeSession)
+            .debounce(by: document.executeDebouncer)
         reload
             .sink{[unowned self] in self.layerSelector.reloadData(with: $0) }.store(in: &objectBag)
-        reload.grouping(by: document.selectionSession)
+        reload
+            .debounce(by: document.selectionDebouncer)
             .sink{[unowned self] _ in self.view.window?.recalculateKeyViewLoop() }.store(in: &objectBag)
         
         let nodes = document.currentNodeContainerp.compactMap{ $0 }.switchToLatest{ $0.$selectedNodes }
         nodes.sink{[unowned self] in self.nodeSelector.reloadData(with: $0) }.store(in: &objectBag)
-        nodes.grouping(by: document.selectionSession)
+        nodes
+            .debounce(by: document.selectionDebouncer)
             .sink{[unowned self] _ in self.view.window?.recalculateKeyViewLoop() }.store(in: &objectBag)
     }
     
